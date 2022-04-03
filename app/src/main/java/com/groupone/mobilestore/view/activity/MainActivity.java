@@ -2,14 +2,11 @@ package com.groupone.mobilestore.view.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.groupone.mobilestore.OnMainCallBack;
 import com.groupone.mobilestore.R;
-import com.groupone.mobilestore.view.adapters.MyViewPagerAdapter;
 import com.groupone.mobilestore.view.fragment.BaseFragment;
 import com.groupone.mobilestore.view.fragment.HomeFragment;
 import com.groupone.mobilestore.view.fragment.PagerFragment;
@@ -58,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements OnMainCallBack {
             if(isBack){
                 trans.addToBackStack(null);
             }
+            trans.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
             trans.replace(R.id.layout_main, frg, tag).commit();
         } catch (Exception e){
             e.printStackTrace();
@@ -67,5 +65,11 @@ public class MainActivity extends AppCompatActivity implements OnMainCallBack {
     @Override
     public void backToPrev() {
         onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

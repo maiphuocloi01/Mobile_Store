@@ -14,6 +14,7 @@ import androidx.viewbinding.ViewBinding;
 
 import com.groupone.mobilestore.OnAPICallBack;
 import com.groupone.mobilestore.OnMainCallBack;
+import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.viewmodel.BaseViewModel;
 
 public abstract class BaseFragment<B extends ViewBinding, V extends BaseViewModel> extends Fragment
@@ -41,6 +42,7 @@ public abstract class BaseFragment<B extends ViewBinding, V extends BaseViewMode
         initViews();
         return binding.getRoot();
     }
+
 
     public final void setCallBack(OnMainCallBack callBack) {
         this.callBack = callBack;
