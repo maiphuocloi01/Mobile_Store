@@ -87,4 +87,5 @@ public class PagerFragment extends BaseFragment<FragmentPagerBinding, CommonView
     protected FragmentPagerBinding initViewBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
         return FragmentPagerBinding.inflate(inflater, container, false);
     }
+
 }

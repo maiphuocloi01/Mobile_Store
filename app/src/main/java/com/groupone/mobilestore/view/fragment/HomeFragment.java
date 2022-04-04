@@ -14,6 +14,8 @@ import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
 public class HomeFragment extends BaseFragment<FragmentHomeBinding, CommonViewModel> {
 
+    public static final String TAG = HomeFragment.class.getName();
+
     @Override
     protected Class<CommonViewModel> getClassVM() {
         return CommonViewModel.class;

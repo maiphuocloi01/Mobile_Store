@@ -11,6 +11,8 @@ import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
 public class CartFragment extends BaseFragment<FragmentCartBinding, CommonViewModel>{
 
+    public static final String TAG = CartFragment.class.getName();
+
     @Override
     protected Class<CommonViewModel> getClassVM() {
         return CommonViewModel.class;

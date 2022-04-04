@@ -10,6 +10,8 @@ import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
 public class BillFragment extends BaseFragment<FragmentBillBinding, CommonViewModel> {
 
+    public static final String TAG = BillFragment.class.getName();
+
     @Override
     protected Class<CommonViewModel> getClassVM() {
         return CommonViewModel.class;

@@ -10,6 +10,8 @@ import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
 public class ProfileFragment extends BaseFragment<FragmentProfileBinding, CommonViewModel> {
 
+    public static final String TAG = ProfileFragment.class.getName();
+
     @Override
     protected Class<CommonViewModel> getClassVM() {
         return CommonViewModel.class;
