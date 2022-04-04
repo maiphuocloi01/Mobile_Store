@@ -23,16 +23,13 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, CommonViewMo
 
     @Override
     protected void initViews() {
-        binding.btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, "Hello", Toast.LENGTH_SHORT).show();
-                //callBack.showFragment(LoginFragment.TAG, null, true);
-                //callBack.backToPrev();
-                PagerFragment parentFrag = ((PagerFragment)HomeFragment.this.getParentFragment());
-                parentFrag.setActionShowFragment(LoginFragment.TAG, null, true);
-            }
-        });
+//        binding.btnNext.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                PagerFragment parentFrag = ((PagerFragment)HomeFragment.this.getParentFragment());
+//                parentFrag.setActionShowFragment(LoginFragment.TAG, null, true);
+//            }
+//        });
 
     }
 

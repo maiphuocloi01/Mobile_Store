@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:layout_marginHorizontal="20dp"
     android:background="@drawable/bg_white_corner_10"
     android:layout_height="wrap_content">
 
@@ -47,7 +48,7 @@
         android:background="@drawable/custom_input"
         android:fontFamily="sans-serif-light"
         android:hint="Nhập mã OTP"
-        android:inputType="text"
+        android:inputType="number"
         android:padding="15dp"
         android:textColorHint="@color/black_500"
         android:textSize="18sp" />

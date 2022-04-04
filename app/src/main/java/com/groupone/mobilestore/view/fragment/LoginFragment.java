@@ -35,6 +35,13 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, CommonView
                 callBack.showFragment(PagerFragment.TAG, null, false);
             }
         });
+
+        binding.tvForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callBack.showFragment(ForgotPasswordFragment.TAG, null, true);
+            }
+        });
     }
 
     @Override
