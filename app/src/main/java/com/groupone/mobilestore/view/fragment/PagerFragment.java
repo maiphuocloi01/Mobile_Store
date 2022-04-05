@@ -12,7 +12,7 @@ import com.groupone.mobilestore.databinding.FragmentPagerBinding;
 import com.groupone.mobilestore.view.adapters.MyViewPagerAdapter;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
-public class PagerFragment extends BaseFragment<FragmentPagerBinding, CommonViewModel>{
+public class PagerFragment extends BaseFragment<FragmentPagerBinding, CommonViewModel> {
 
     public static final String TAG = PagerFragment.class.getName();
 
@@ -38,15 +38,15 @@ public class PagerFragment extends BaseFragment<FragmentPagerBinding, CommonView
         binding.vpHome.setAdapter(myViewPagerAdapter);
 
         binding.bnvHome.setOnItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.bottom_home:
-                    binding.vpHome.setCurrentItem(0);
-                case R.id.bottom_bill:
-                    binding.vpHome.setCurrentItem(1);
-                case R.id.bottom_cart:
-                    binding.vpHome.setCurrentItem(2);
-                case R.id.bottom_profile:
-                    binding.vpHome.setCurrentItem(3);
+            int id = item.getItemId();
+            if (id == R.id.bottom_home) {
+                binding.vpHome.setCurrentItem(0);
+            } else if (id == R.id.bottom_bill) {
+                binding.vpHome.setCurrentItem(1);
+            } else if (id == R.id.bottom_cart) {
+                binding.vpHome.setCurrentItem(2);
+            } else if (id == R.id.bottom_profile) {
+                binding.vpHome.setCurrentItem(3);
             }
             return true;
         });

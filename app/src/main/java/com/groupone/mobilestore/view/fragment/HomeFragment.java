@@ -8,13 +8,23 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentHomeBinding;
+import com.groupone.mobilestore.model.Product;
+import com.groupone.mobilestore.view.adapters.ProductAdapter;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends BaseFragment<FragmentHomeBinding, CommonViewModel> {
 
     public static final String TAG = HomeFragment.class.getName();
+
+
 
     @Override
     protected Class<CommonViewModel> getClassVM() {
@@ -30,6 +40,19 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, CommonViewMo
 //                parentFrag.setActionShowFragment(LoginFragment.TAG, null, true);
 //            }
 //        });
+
+        List<Product> listProduct = new ArrayList<>();
+
+        listProduct.add(new Product(1, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
+        listProduct.add(new Product(2, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
+        listProduct.add(new Product(3, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
+        listProduct.add(new Product(4, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
+        listProduct.add(new Product(5, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
+        listProduct.add(new Product(6, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
+
+        binding.rvProduct.setLayoutManager(new GridLayoutManager(context, 2));
+        ProductAdapter adapter = new ProductAdapter(context, listProduct);
+        binding.rvProduct.setAdapter(adapter);
 
     }
 
