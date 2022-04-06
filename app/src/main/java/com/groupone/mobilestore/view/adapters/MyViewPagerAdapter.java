@@ -2,10 +2,9 @@ package com.groupone.mobilestore.view.adapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.groupone.mobilestore.view.fragment.BillFragment;
+import com.groupone.mobilestore.view.fragment.OrderFragment;
 import com.groupone.mobilestore.view.fragment.CartFragment;
 import com.groupone.mobilestore.view.fragment.HomeFragment;
 import com.groupone.mobilestore.view.fragment.ProfileFragment;
@@ -27,7 +26,7 @@ public class MyViewPagerAdapter extends FragmentStateAdapter {
             case 0:
                 return new HomeFragment();
             case 1:
-                return new BillFragment();
+                return new OrderFragment();
             case 2:
                 return new CartFragment();
             case 3:

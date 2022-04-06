@@ -41,7 +41,7 @@ public class PagerFragment extends BaseFragment<FragmentPagerBinding, CommonView
             int id = item.getItemId();
             if (id == R.id.bottom_home) {
                 binding.vpHome.setCurrentItem(0);
-            } else if (id == R.id.bottom_bill) {
+            } else if (id == R.id.bottom_order) {
                 binding.vpHome.setCurrentItem(1);
             } else if (id == R.id.bottom_cart) {
                 binding.vpHome.setCurrentItem(2);
@@ -59,7 +59,7 @@ public class PagerFragment extends BaseFragment<FragmentPagerBinding, CommonView
                         binding.bnvHome.getMenu().findItem(R.id.bottom_home).setChecked(true);
                         break;
                     case 1:
-                        binding.bnvHome.getMenu().findItem(R.id.bottom_bill).setChecked(true);
+                        binding.bnvHome.getMenu().findItem(R.id.bottom_order).setChecked(true);
                         break;
                     case 2:
                         binding.bnvHome.getMenu().findItem(R.id.bottom_cart).setChecked(true);
@@ -73,11 +73,6 @@ public class PagerFragment extends BaseFragment<FragmentPagerBinding, CommonView
 
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        getChildFragmentManager().beginTransaction().add(R.id.bottom_home, new HomeFragment()).commit();
-//    }
 
     public void setActionShowFragment(String tag, Object data, boolean isBack) {
         callBack.showFragment(tag, data, isBack);
