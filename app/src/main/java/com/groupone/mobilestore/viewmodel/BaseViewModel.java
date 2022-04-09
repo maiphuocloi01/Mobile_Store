@@ -5,17 +5,12 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
-import com.groupone.mobilestore.OnAPICallBack;
+import com.groupone.mobilestore.view.callback.OnAPICallBack;
 
-import java.util.concurrent.TimeUnit;
-
-import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public abstract class BaseViewModel extends ViewModel {
 

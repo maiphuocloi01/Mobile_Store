@@ -9,7 +9,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentPagerBinding;
-import com.groupone.mobilestore.view.adapters.MyViewPagerAdapter;
+import com.groupone.mobilestore.view.adapter.MyViewPagerAdapter;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
 public class PagerFragment extends BaseFragment<FragmentPagerBinding, CommonViewModel> {

@@ -1,4 +1,4 @@
-package com.groupone.mobilestore.utils;
+package com.groupone.mobilestore.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;

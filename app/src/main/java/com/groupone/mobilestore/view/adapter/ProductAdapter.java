@@ -1,15 +1,12 @@
-package com.groupone.mobilestore.view.adapters;
+package com.groupone.mobilestore.view.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.LayoutItemProductBinding;
 import com.groupone.mobilestore.model.Product;
 

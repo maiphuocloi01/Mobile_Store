@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
-import com.groupone.mobilestore.OnMainCallBack;
+import com.groupone.mobilestore.view.callback.OnMainCallBack;
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.view.fragment.BaseFragment;
 import com.groupone.mobilestore.view.fragment.HomeFragment;

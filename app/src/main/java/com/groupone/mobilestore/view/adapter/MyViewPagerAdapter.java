@@ -1,4 +1,4 @@
-package com.groupone.mobilestore.view.adapters;
+package com.groupone.mobilestore.view.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

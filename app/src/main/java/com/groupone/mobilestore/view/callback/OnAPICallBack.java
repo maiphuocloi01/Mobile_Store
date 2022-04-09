@@ -1,4 +1,4 @@
-package com.groupone.mobilestore;
+package com.groupone.mobilestore.view.callback;
 
 public interface OnAPICallBack {
     void apiSuccess(String key, Object data);

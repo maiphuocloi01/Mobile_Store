@@ -12,9 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewbinding.ViewBinding;
 
-import com.groupone.mobilestore.OnAPICallBack;
-import com.groupone.mobilestore.OnMainCallBack;
-import com.groupone.mobilestore.R;
+import com.groupone.mobilestore.view.callback.OnAPICallBack;
+import com.groupone.mobilestore.view.callback.OnMainCallBack;
 import com.groupone.mobilestore.viewmodel.BaseViewModel;
 
 public abstract class BaseFragment<B extends ViewBinding, V extends BaseViewModel> extends Fragment
