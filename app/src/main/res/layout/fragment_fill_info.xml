@@ -13,7 +13,7 @@
         android:background="@color/background">
 
         <TextView
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="@font/roboto_bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -79,7 +79,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:fontFamily="sans-serif-light"
+                    android:fontFamily="@font/roboto_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
@@ -94,7 +94,7 @@
                     android:layout_marginHorizontal="30dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/custom_input"
-                    android:fontFamily="sans-serif-light"
+                    android:fontFamily="@font/roboto_regular"
                     android:hint="Nhập nội dung"
                     android:inputType="text"
                     android:padding="15dp"
@@ -102,7 +102,7 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:fontFamily="sans-serif-light"
+                    android:fontFamily="@font/roboto_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
@@ -117,7 +117,7 @@
                     android:layout_marginHorizontal="30dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/custom_input"
-                    android:fontFamily="sans-serif-light"
+                    android:fontFamily="@font/roboto_regular"
                     android:hint="Nhập nội dung"
                     android:inputType="text"
                     android:padding="15dp"
@@ -130,6 +130,7 @@
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="20dp"
                     android:text="Ngày sinh"
+                    android:fontFamily="@font/roboto_regular"
                     android:textColor="@color/black_700"
                     android:textSize="20sp" />
 
@@ -140,7 +141,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/custom_input"
                     android:drawableRight="@drawable/ic_calendar"
-                    android:fontFamily="sans-serif-light"
+                    android:fontFamily="@font/roboto_regular"
                     android:hint="Nhập nội dung"
                     android:inputType="text"
                     android:padding="15dp"
@@ -153,6 +154,7 @@
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="20dp"
                     android:text="Ngày sinh"
+                    android:fontFamily="@font/roboto_regular"
                     android:textColor="@color/black_700"
                     android:textSize="20sp" />
 
@@ -166,6 +168,7 @@
                     <RadioButton
                         android:buttonTint="@color/blue_500"
                         android:id="@+id/rb_male"
+                        android:fontFamily="@font/roboto_regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -175,6 +178,7 @@
                     <RadioButton
                         android:buttonTint="@color/blue_500"
                         android:id="@+id/rb_female"
+                        android:fontFamily="@font/roboto_regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -194,7 +198,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="30dp"
                 android:background="@drawable/bg_orange_corner_10"
-                android:fontFamily="sans-serif-light"
+                android:fontFamily="@font/roboto_bold"
                 android:text="Xác nhận"
                 android:textAllCaps="false"
                 android:textColor="@color/background"

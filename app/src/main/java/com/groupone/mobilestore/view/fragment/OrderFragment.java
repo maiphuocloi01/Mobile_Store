@@ -24,7 +24,7 @@ public class OrderFragment extends BaseFragment<FragmentOrderBinding, CommonView
             @Override
             public void onClick(View view) {
                 PagerFragment parentFrag = ((PagerFragment)OrderFragment.this.getParentFragment());
-                parentFrag.setActionShowFragment(LoginFragment.TAG, null, true);
+                parentFrag.setActionShowFragment(LoginFragment.TAG, null, false);
             }
         });
     }

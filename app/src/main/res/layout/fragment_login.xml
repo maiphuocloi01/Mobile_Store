@@ -12,96 +12,95 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_weight="6">
+        android:layout_weight="6"
+        android:gravity="center">
 
-        <ImageView android:layout_width="18.5dp"
+        <ImageView
+            android:layout_width="18.5dp"
             android:layout_height="34.5dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_logo"
             app:tint="@color/background" />
 
-        <TextView android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/roboto_bold"
             android:text="MobileStore"
             android:textColor="@color/background"
-            android:fontFamily="sans-serif-light"
-            android:textSize="24sp"
-            android:layout_marginStart="5dp"
-            android:textStyle="bold"/>
+            android:textSize="24sp" />
     </TableRow>
 
 
     <FrameLayout
-        android:layout_weight="4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="4"
         android:background="@drawable/bg_login">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Đăng nhập"
-                android:fontFamily="sans-serif-light"
-                android:textColor="@color/blue_500"
-                android:textStyle="bold"
-                android:textAllCaps="false"
-                android:padding="10dp"
-                android:textAlignment="center"
-                android:textSize="24sp"
-                android:layout_marginTop="30dp"
                 android:layout_marginHorizontal="30dp"
-                android:background="@drawable/bg_light_blue_corner_30"/>
+                android:layout_marginTop="30dp"
+                android:background="@drawable/bg_light_blue_corner_30"
+                android:fontFamily="@font/roboto_bold"
+                android:padding="10dp"
+                android:text="Đăng nhập"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/blue_500"
+                android:textSize="24sp" />
 
 
             <EditText
-                android:drawablePadding="15dp"
-                android:drawableLeft="@drawable/ic_profile"
-                android:textColorHint="@color/black_500"
-                android:layout_marginTop="50dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/custom_input"
+                android:drawableLeft="@drawable/ic_profile"
+                android:drawablePadding="15dp"
+                android:fontFamily="@font/roboto_regular"
+                android:hint="Tên tài khoản"
                 android:inputType="text"
                 android:padding="15dp"
-                android:textSize="18sp"
-                android:fontFamily="sans-serif-light"
-                android:background="@drawable/custom_input"
-                android:layout_marginHorizontal="30dp"
-                android:hint="Tên tài khoản"/>
+                android:textColorHint="@color/black_500"
+                android:textSize="18sp" />
 
             <EditText
-                android:drawablePadding="15dp"
-                android:drawableLeft="@drawable/ic_lock"
-                android:textColorHint="@color/black_500"
-                android:layout_marginTop="30dp"
-                android:padding="15dp"
-                android:background="@drawable/custom_input"
-                android:layout_marginHorizontal="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/custom_input"
+                android:drawableLeft="@drawable/ic_lock"
+                android:drawablePadding="15dp"
+                android:fontFamily="@font/roboto_regular"
+                android:hint="Mật khẩu"
                 android:inputType="textPassword"
-                android:textSize="18sp"
-                android:fontFamily="sans-serif-light"
-                android:hint="Mật khẩu"/>
+                android:padding="15dp"
+                android:textColorHint="@color/black_500"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_forgot_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Quên mật khẩu"
-                android:textStyle="bold"
                 android:layout_gravity="end"
-                android:fontFamily="sans-serif-light"
-                android:layout_marginEnd="30dp"
-                android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="Quên mật khẩu"
                 android:textColor="@color/orange_500"
-                android:textSize="18sp"/>
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/bt_login"
@@ -110,16 +109,15 @@
                 android:layout_marginHorizontal="30dp"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/bg_orange_corner_10"
-                android:fontFamily="sans-serif-light"
+                android:fontFamily="@font/roboto_bold"
                 android:text="Tiếp tục"
                 android:textAllCaps="false"
                 android:textColor="@color/background"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="20sp" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="80dp"/>
+                android:layout_height="80dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -127,27 +125,25 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="30dp"
-                android:fontFamily="sans-serif-light"
+                android:fontFamily="@font/roboto_bold"
                 android:text="Bạn chưa có tài khoản?"
                 android:textAlignment="center"
                 android:textColor="@color/black_500"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/bt_signup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/bg_transparent_corner_10_border_orange"
+                android:enabled="true"
                 android:text="Đăng ký tài khoản"
-                android:textStyle="bold"
                 android:textAllCaps="false"
                 android:textColor="@color/orange_500"
-                android:enabled="true"
-                android:fontFamily="sans-serif-light"
-                android:background="@drawable/bg_white_corner_10_border_orange"
-                android:layout_marginHorizontal="30dp"
-                android:layout_marginTop="15dp"/>
+                android:textSize="20sp"
+                android:fontFamily="@font/roboto_bold" />
 
         </LinearLayout>
 

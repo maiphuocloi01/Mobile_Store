@@ -9,6 +9,7 @@ import com.groupone.mobilestore.view.callback.OnMainCallBack;
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.view.fragment.BaseFragment;
 import com.groupone.mobilestore.view.fragment.HomeFragment;
+import com.groupone.mobilestore.view.fragment.LoginFragment;
 import com.groupone.mobilestore.view.fragment.PagerFragment;
 
 import java.lang.reflect.Constructor;
@@ -32,12 +33,11 @@ public class MainActivity extends AppCompatActivity implements OnMainCallBack {
     private void initViews() {
 
 
-
-        PagerFragment frg = new PagerFragment();
+        LoginFragment frg = new LoginFragment();
         frg.setCallBack(this);
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.layout_main, frg, HomeFragment.class.getName())
+                .replace(R.id.layout_main, frg, LoginFragment.class.getName())
                 .commit();
 
     }
