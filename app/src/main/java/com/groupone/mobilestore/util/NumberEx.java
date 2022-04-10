@@ -2,7 +2,7 @@ package com.groupone.mobilestore.util;
 
 import java.text.DecimalFormat;
 
-public class ConvertString {
+public class NumberEx {
 
     public static String convertPrice(long price) {
         DecimalFormat formatter = new DecimalFormat("###,###,###");

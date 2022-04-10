@@ -35,7 +35,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CommonViewMo
         listCart.add(new Cart(1, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", "Xám", 34000000, 1));
         listCart.add(new Cart(1, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", "Xám", 34000000, 1));
         listCart.add(new Cart(1, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", "Xám", 34000000, 1));
-        listCart.add(new Cart(1, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", "Xám", 34000000, 1));
+        listCart.add(new Cart(1, R.drawable.img_iphone13, "iPhone 13 Pro Max Ultra Ultimate Super Plus", "128GB", "Xám", 34000000, 1));
 
 
         binding.rvCart.setLayoutManager(new LinearLayoutManager(context));

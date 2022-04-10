@@ -1,107 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:layout_marginBottom="10dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    app:cardBackgroundColor="@color/white"
+    android:layout_marginVertical="10dp"
+    android:layout_marginHorizontal="10dp"
+    app:cardCornerRadius="10dp"
+    android:id="@+id/view_product"
+    app:cardElevation="0dp">
 
-    <androidx.cardview.widget.CardView
-        app:cardCornerRadius="10dp"
-        app:cardElevation="0dp"
-        app:cardBackgroundColor="@color/white"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginHorizontal="10dp"
+        <ImageView
+            android:id="@+id/iv_product"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="180dp"
+            android:background="@drawable/bg_light_blue_corner_10"
+            android:padding="20dp"
+            android:src="@drawable/img_iphone13" />
 
-            <ImageView
-                android:padding="20dp"
-                android:id="@+id/iv_product"
-                android:layout_width="match_parent"
-                android:src="@drawable/img_iphone13"
-                android:background="@drawable/bg_light_blue_corner_10"
-                android:layout_height="180dp"/>
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/roboto_bold"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="iPhone 13 Pro Max Ultra Ultimate Super Plus"
+            android:textColor="@color/black_700"
+            android:textSize="16sp" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="match_parent"
+                android:id="@+id/tv_type"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:textSize="16sp"
-                android:fontFamily="@font/roboto_bold"
-                android:textColor="@color/black_700"
-                android:text="iPhone 13 Pro Max"/>
+                android:fontFamily="@font/roboto_regular"
+                android:text="128GB"
+                android:maxLines="1"
+                android:textColor="@color/black_500"
+                android:textSize="16sp" />
 
-            <TableRow android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end">
 
-                <TextView android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tv_rate"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="128GB"
-                    android:id="@+id/tv_type"
-                    android:textColor="@color/black_500"
-                    android:textSize="16sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:layout_marginTop="5dp"/>
+                    android:text="3.8"
+                    android:textColor="@color/orange_500"
+                    android:textSize="16sp" />
 
-                <TableRow
-                    android:gravity="end"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/ic_star"
+                    app:tint="@color/orange_500" />
 
-                    <TextView android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="3.8"
-                        android:fontFamily="@font/roboto_regular"
-                        android:id="@+id/tv_rate"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:textColor="@color/orange_500"
-                        android:textSize="16sp" />
-
-                    <ImageView android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_star"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginTop="5dp"
-                        app:tint="@color/orange_500" />
-
-                    <TextView android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="(38)"
-                        android:fontFamily="@font/roboto_regular"
-                        android:id="@+id/tv_countReview"
-                        android:layout_marginTop="5dp"
-                        android:textColor="@color/black_500"
-                        android:textSize="16sp" />
-
-                </TableRow>
+                <TextView
+                    android:id="@+id/tv_countReview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="(38)"
+                    android:textColor="@color/black_500"
+                    android:textSize="16sp" />
 
             </TableRow>
 
-            <TextView
-                android:gravity="end"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textSize="16sp"
-                android:id="@+id/tv_price"
-                android:fontFamily="@font/roboto_regular"
-                android:textColor="@color/blue_500"
-                android:text="33,990,000₫"/>
+        </TableRow>
 
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="end"
+            android:text="33,990,000₫"
+            android:textColor="@color/blue_500"
+            android:textSize="16sp" />
+
+    </LinearLayout>
 
 
-
-    </androidx.cardview.widget.CardView>
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>

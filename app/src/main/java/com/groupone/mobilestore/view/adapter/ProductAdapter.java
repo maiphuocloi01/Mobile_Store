@@ -1,8 +1,13 @@
 package com.groupone.mobilestore.view.adapter;
 
+import static com.groupone.mobilestore.util.NumberEx.convertCountReview;
+import static com.groupone.mobilestore.util.NumberEx.convertPrice;
+
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,6 +46,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         //Glide.with(context).load(product.getImage()).into(holder.itemProductBinding.ivProduct);
         holder.itemProductBinding.ivProduct.setImageResource(product.getImage());
+        holder.itemProductBinding.tvName.setTag(product);
     }
 
     @Override
@@ -54,16 +60,27 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         public ProductViewHolder(LayoutItemProductBinding itemProductBinding) {
             super(itemProductBinding.getRoot());
             this.itemProductBinding = itemProductBinding;
+            itemProductBinding.viewProduct.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    itemProductBinding.viewProduct.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
+                    clickItemProduct((Product) itemProductBinding.tvName.getTag());
+                }
+            });
         }
     }
 
-    public static String convertPrice(long price) {
-        DecimalFormat formatter = new DecimalFormat("###,###,###");
-        return formatter.format(price) + "₫";
+    private void clickItemProduct(Product product) {
+
     }
 
-    public static String convertCountReview(int count) {
-        return "(" + count + ")";
-    }
+//    public static String convertPrice(long price) {
+//        DecimalFormat formatter = new DecimalFormat("###,###,###");
+//        return formatter.format(price) + "₫";
+//    }
+//
+//    public static String convertCountReview(int count) {
+//        return "(" + count + ")";
+//    }
 
 }

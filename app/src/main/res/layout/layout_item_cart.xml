@@ -59,6 +59,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_bold"
                     android:maxLines="2"
+                    android:ellipsize="end"
                     android:text="iPhone 13 Pro Max Ultra Ultimate Super Plus"
                     android:textColor="@color/black_700"
                     android:textSize="16sp" />

@@ -13,10 +13,10 @@
         android:background="@color/background">
 
         <TextView
-            android:fontFamily="@font/roboto_bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:fontFamily="@font/roboto_bold"
             android:text="Thêm thông tin cá nhân"
             android:textAlignment="center"
             android:textColor="@color/black_700"
@@ -30,60 +30,57 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
-            android:paddingBottom="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="30dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:id="@+id/layout_avatar"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_margin="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/bg_white_corner_10">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_avatar"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/img_default_avt" />
 
                 <ImageButton
                     android:id="@+id/imageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_margin="20dp"
+                    android:background="@drawable/bg_white_circle"
+                    android:padding="10dp"
+                    android:translationX="-20dp"
+                    app:layout_anchor="@id/iv_avatar"
+                    app:layout_anchorGravity="right|bottom"
                     app:srcCompat="@drawable/ic_photo" />
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardView"
-                    android:layout_width="160dp"
-                    android:layout_height="160dp"
-                    android:layout_centerHorizontal="true"
-                    app:cardCornerRadius="100dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/img_default_avt" />
-
-                </androidx.cardview.widget.CardView>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
             <LinearLayout
-                android:layout_below="@+id/layout_avatar"
                 android:id="@+id/layout_fill_form"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/layout_avatar"
                 android:orientation="vertical">
 
                 <TextView
-                    android:fontFamily="@font/roboto_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto_regular"
                     android:text="Họ và tên"
                     android:textColor="@color/black_700"
                     android:textSize="20sp" />
@@ -102,11 +99,11 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:fontFamily="@font/roboto_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="20dp"
+                    android:fontFamily="@font/roboto_regular"
                     android:text="Số điện thoại"
                     android:textColor="@color/black_700"
                     android:textSize="20sp" />
@@ -129,8 +126,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="20dp"
-                    android:text="Ngày sinh"
                     android:fontFamily="@font/roboto_regular"
+                    android:text="Ngày sinh"
                     android:textColor="@color/black_700"
                     android:textSize="20sp" />
 
@@ -153,8 +150,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="20dp"
-                    android:text="Ngày sinh"
                     android:fontFamily="@font/roboto_regular"
+                    android:text="Ngày sinh"
                     android:textColor="@color/black_700"
                     android:textSize="20sp" />
 
@@ -166,24 +163,24 @@
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:buttonTint="@color/blue_500"
                         android:id="@+id/rb_male"
-                        android:fontFamily="@font/roboto_regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textSize="20sp"
-                        android:text="Nam" />
+                        android:buttonTint="@color/blue_500"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Nam"
+                        android:textSize="20sp" />
 
                     <RadioButton
-                        android:buttonTint="@color/blue_500"
                         android:id="@+id/rb_female"
-                        android:fontFamily="@font/roboto_regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textSize="20sp"
-                        android:text="Nữ" />
+                        android:buttonTint="@color/blue_500"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Nữ"
+                        android:textSize="20sp" />
                 </RadioGroup>
 
             </LinearLayout>

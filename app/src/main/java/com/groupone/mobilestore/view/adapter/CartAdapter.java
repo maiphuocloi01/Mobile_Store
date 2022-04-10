@@ -1,11 +1,10 @@
 package com.groupone.mobilestore.view.adapter;
 
-import static com.groupone.mobilestore.util.ConvertString.convertPrice;
+import static com.groupone.mobilestore.util.NumberEx.convertPrice;
 
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
@@ -14,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.LayoutItemCartBinding;
 import com.groupone.mobilestore.model.Cart;
@@ -67,8 +65,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
             //Listen select item in shopping cart
             binding.ivChoose.setOnClickListener(view -> {
+                binding.ivChoose.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
                 Cart item = (Cart) binding.tvName.getTag();
-                AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in);
                 if (!item.isSelected()) {
                     binding.ivChoose.setImageResource(R.drawable.ic_checked);
                     binding.ivChoose.setColorFilter(ContextCompat.getColor(context, R.color.blue_500));
@@ -82,36 +80,30 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 }
             });
 
-            binding.ivSubtract.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Cart item = (Cart) binding.tvName.getTag();
-                    if(item.getQty() > 1){
-                        item.setQty(item.getQty() - 1);
-                        Log.d(TAG, "onClick: " + item.getQty());
-                        notifyDataSetChanged();
-                    } else {
-                        doDeleteItem(item);
-                    }
-                }
-            });
-
-            binding.ivPlus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Cart item = (Cart) binding.tvName.getTag();
-                    item.setQty(item.getQty() + 1);
-                    notifyDataSetChanged();
+            binding.ivSubtract.setOnClickListener(view -> {
+                Cart item = (Cart) binding.tvName.getTag();
+                if(item.getQty() > 1){
+                    item.setQty(item.getQty() - 1);
                     Log.d(TAG, "onClick: " + item.getQty());
-                }
-            });
-
-            binding.ivDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Cart item = (Cart) binding.tvName.getTag();
+                    notifyDataSetChanged();
+                } else {
                     doDeleteItem(item);
                 }
+                binding.ivSubtract.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
+            });
+
+            binding.ivPlus.setOnClickListener(view -> {
+                Cart item = (Cart) binding.tvName.getTag();
+                item.setQty(item.getQty() + 1);
+                notifyDataSetChanged();
+                binding.ivPlus.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
+                Log.d(TAG, "onClick: " + item.getQty());
+            });
+
+            binding.ivDelete.setOnClickListener(view -> {
+                binding.ivDelete.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
+                Cart item = (Cart) binding.tvName.getTag();
+                doDeleteItem(item);
             });
         }
 
