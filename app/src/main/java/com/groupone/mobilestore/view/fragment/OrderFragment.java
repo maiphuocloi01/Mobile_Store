@@ -6,12 +6,17 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.groupone.mobilestore.databinding.FragmentOrderBinding;
+import com.groupone.mobilestore.view.adapter.MyViewPagerAdapter;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
 public class OrderFragment extends BaseFragment<FragmentOrderBinding, CommonViewModel> {
 
     public static final String TAG = OrderFragment.class.getName();
+    private MyViewPagerAdapter viewPagerAdapter;
 
     @Override
     protected Class<CommonViewModel> getClassVM() {
@@ -20,7 +25,22 @@ public class OrderFragment extends BaseFragment<FragmentOrderBinding, CommonView
 
     @Override
     protected void initViews() {
+        viewPagerAdapter = new MyViewPagerAdapter(this);
+        binding.vpOrder.setAdapter(viewPagerAdapter);
 
+        new TabLayoutMediator(binding.tabLayoutOrder, binding.vpOrder, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                switch (position){
+                    case 0:
+                        tab.setText("Đang giao");
+                        break;
+                    case 1:
+                        tab.setText("Hoàn thành");
+                        break;
+                }
+            }
+        }).attach();
     }
 
     @Override
