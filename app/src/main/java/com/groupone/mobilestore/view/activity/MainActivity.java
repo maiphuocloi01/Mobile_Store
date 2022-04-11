@@ -1,5 +1,7 @@
 package com.groupone.mobilestore.view.activity;
 
+import static com.groupone.mobilestore.util.IMEUtils.hideSoftInput;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements OnMainCallBack {
     @Override
     public void showFragment(String tag, Object data, boolean isBack) {
         try {
+            hideSoftInput(MainActivity.this);
             Class<?> clazz = Class.forName(tag);
             Constructor<?> cons = clazz.getConstructor();
             BaseFragment<?,?> frg = (BaseFragment<?, ?>) cons.newInstance();
@@ -57,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements OnMainCallBack {
             }
             trans.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
             trans.replace(R.id.layout_main, frg, tag).commit();
+
         } catch (Exception e){
             e.printStackTrace();
         }

@@ -1,6 +1,12 @@
 package com.groupone.mobilestore.view.fragment;
 
+import static com.groupone.mobilestore.util.IMEUtils.hideSoftInput;
+import static com.groupone.mobilestore.util.IMEUtils.showSoftInput;
+import static com.groupone.mobilestore.util.IMEUtils.toggleSoftInput;
+
+import android.app.Activity;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -10,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentHomeBinding;
 import com.groupone.mobilestore.model.Product;
+import com.groupone.mobilestore.view.activity.MainActivity;
 import com.groupone.mobilestore.view.adapter.ProductAdapter;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
@@ -49,6 +56,14 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, CommonViewMo
         binding.rvProduct.setLayoutManager(new GridLayoutManager(context, 2));
         ProductAdapter adapter = new ProductAdapter(context, listProduct);
         binding.rvProduct.setAdapter(adapter);
+
+        binding.rowSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PagerFragment parentFrag = ((PagerFragment)HomeFragment.this.getParentFragment());
+                parentFrag.setActionShowFragment(SearchFragment.TAG, null, true);
+            }
+        });
 
     }
 

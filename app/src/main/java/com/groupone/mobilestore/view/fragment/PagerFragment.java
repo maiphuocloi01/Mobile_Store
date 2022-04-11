@@ -1,12 +1,17 @@
 package com.groupone.mobilestore.view.fragment;
 
+import static com.groupone.mobilestore.util.IMEUtils.hideSoftInput;
+
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentPagerBinding;
 import com.groupone.mobilestore.view.adapter.MyViewPagerAdapter;
@@ -34,43 +39,66 @@ public class PagerFragment extends BaseFragment<FragmentPagerBinding, CommonView
     @Override
     protected void initViews() {
 
-        MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter(this);
-        binding.vpHome.setAdapter(myViewPagerAdapter);
+        //hideSoftInput(binding.getRoot());
+
+//        MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter(this);
+//        binding.vpHome.setAdapter(myViewPagerAdapter);
+
+        loadFragment(new HomeFragment());
 
         binding.bnvHome.setOnItemSelectedListener(item -> {
+            Fragment frg;
             int id = item.getItemId();
-            if (id == R.id.bottom_home) {
-                binding.vpHome.setCurrentItem(0);
-            } else if (id == R.id.bottom_order) {
-                binding.vpHome.setCurrentItem(1);
-            } else if (id == R.id.bottom_cart) {
-                binding.vpHome.setCurrentItem(2);
-            } else if (id == R.id.bottom_profile) {
-                binding.vpHome.setCurrentItem(3);
+            switch (id){
+                case R.id.bottom_home:
+                    frg = new HomeFragment();
+                    loadFragment(frg);
+                    return true;
+                case R.id.bottom_order:
+                    frg = new OrderFragment();
+                    loadFragment(frg);
+                    return true;
+                case R.id.bottom_cart:
+                    frg = new CartFragment();
+                    loadFragment(frg);
+                    return true;
+                case R.id.bottom_profile:
+                    frg = new ProfileFragment();
+                    loadFragment(frg);
+                    return true;
             }
-            return true;
+            return false;
         });
 
-        binding.vpHome.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                switch (position) {
-                    case 0:
-                        binding.bnvHome.getMenu().findItem(R.id.bottom_home).setChecked(true);
-                        break;
-                    case 1:
-                        binding.bnvHome.getMenu().findItem(R.id.bottom_order).setChecked(true);
-                        break;
-                    case 2:
-                        binding.bnvHome.getMenu().findItem(R.id.bottom_cart).setChecked(true);
-                        break;
-                    case 3:
-                        binding.bnvHome.getMenu().findItem(R.id.bottom_profile).setChecked(true);
-                        break;
-                }
-            }
-        });
 
+//        binding.vpHome.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+//            @Override
+//            public void onPageSelected(int position) {
+//                switch (position) {
+//                    case 0:
+//                        binding.bnvHome.getMenu().findItem(R.id.bottom_home).setChecked(true);
+//                        break;
+//                    case 1:
+//                        binding.bnvHome.getMenu().findItem(R.id.bottom_order).setChecked(true);
+//                        break;
+//                    case 2:
+//                        binding.bnvHome.getMenu().findItem(R.id.bottom_cart).setChecked(true);
+//                        break;
+//                    case 3:
+//                        binding.bnvHome.getMenu().findItem(R.id.bottom_profile).setChecked(true);
+//                        break;
+//                }
+//            }
+//        });
+
+    }
+
+    private void loadFragment(Fragment fragment) {
+        // load fragment
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
 

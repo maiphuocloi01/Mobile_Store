@@ -1,6 +1,6 @@
 package com.groupone.mobilestore.view.adapter;
 
-import static com.groupone.mobilestore.util.NumberEx.convertPrice;
+import static com.groupone.mobilestore.util.NumberUtils.convertPrice;
 
 import android.content.Context;
 import android.util.Log;

@@ -78,6 +78,7 @@
                     android:textSize="18sp" />
 
                 <TextView
+                    android:id="@+id/tv_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -112,6 +113,7 @@
                 android:textSize="18sp" />
 
             <TableRow
+                android:id="@+id/row_edit_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -151,6 +153,7 @@
             </TableRow>
 
             <TableRow
+                android:id="@+id/row_shipment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -190,6 +193,7 @@
             </TableRow>
 
             <TableRow
+                android:id="@+id/row_payment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -229,6 +233,7 @@
             </TableRow>
 
             <TableRow
+                android:id="@+id/row_favorite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -277,6 +282,7 @@
                 android:textSize="18sp" />
 
             <TableRow
+                android:id="@+id/row_term"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -316,6 +322,7 @@
             </TableRow>
 
             <TableRow
+                android:id="@+id/row_version_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"

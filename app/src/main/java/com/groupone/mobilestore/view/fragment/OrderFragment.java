@@ -20,13 +20,7 @@ public class OrderFragment extends BaseFragment<FragmentOrderBinding, CommonView
 
     @Override
     protected void initViews() {
-        binding.btLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PagerFragment parentFrag = ((PagerFragment)OrderFragment.this.getParentFragment());
-                parentFrag.setActionShowFragment(LoginFragment.TAG, null, false);
-            }
-        });
+
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.groupone.mobilestore.view.adapter;
 
-import static com.groupone.mobilestore.util.NumberEx.convertCountReview;
-import static com.groupone.mobilestore.util.NumberEx.convertPrice;
+import static com.groupone.mobilestore.util.NumberUtils.convertCountReview;
+import static com.groupone.mobilestore.util.NumberUtils.convertPrice;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.groupone.mobilestore.databinding.LayoutItemProductBinding;
 import com.groupone.mobilestore.model.Product;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
