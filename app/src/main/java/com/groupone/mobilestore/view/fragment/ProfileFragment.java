@@ -36,6 +36,7 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Common
             @Override
             public void onClick(View view) {
                 binding.rowShipment.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
+                actionShowFragment(AddressFragment.TAG, null, true);
             }
         });
 
@@ -43,6 +44,7 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Common
             @Override
             public void onClick(View view) {
                 binding.rowPayment.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
+                actionShowFragment(BankFragment.TAG, null, true);
             }
         });
 
@@ -50,6 +52,7 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Common
             @Override
             public void onClick(View view) {
                 binding.rowFavorite.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
+                actionShowFragment(FavoriteFragment.TAG, null, true);
             }
         });
 

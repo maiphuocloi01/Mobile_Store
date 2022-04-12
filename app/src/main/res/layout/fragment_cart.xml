@@ -40,6 +40,7 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -191,14 +192,15 @@
             android:id="@+id/layout_empty_cart"
             android:orientation="vertical"
             android:gravity="center"
+            android:layout_marginTop="40dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageView
                 android:layout_marginTop="40dp"
                 android:id="@+id/imageView"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:src="@drawable/ic_empty_cart" />
 
             <TextView

@@ -3,6 +3,7 @@ package com.groupone.mobilestore.view.fragment;
 import static com.groupone.mobilestore.util.NumberUtils.convertPrice;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -54,6 +55,13 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CommonViewMo
             }
         });
 
+        binding.btPayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                actionShowFragment(PaymentFragment.TAG, null, true);
+            }
+        });
+
     }
 
     private void showPayment(List<Cart> carts) {
@@ -70,6 +78,13 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CommonViewMo
         binding.tvProductCost.setText(convertPrice(productCost));
         binding.tvShipCost.setText(convertPrice(shipCost));
         binding.tvTotalCost.setText(convertPrice(productCost + shipCost));
+    }
+
+    private void actionShowFragment(String tag, Object data, boolean isBack) {
+        PagerFragment parentFrag = ((PagerFragment) CartFragment.this.getParentFragment());
+        if (parentFrag != null) {
+            parentFrag.setActionShowFragment(tag, data, isBack);
+        }
     }
 
     @Override

@@ -12,7 +12,7 @@
         <RelativeLayout
             android:id="@+id/header_title"
             android:layout_width="match_parent"
-            android:layout_height="186dp"
+            android:layout_height="176dp"
             android:paddingHorizontal="25dp"
             android:background="@color/blue_500"
             app:layout_anchorGravity="top">
@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="25dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="Thông tin cá nhân"
                 android:textAlignment="center"

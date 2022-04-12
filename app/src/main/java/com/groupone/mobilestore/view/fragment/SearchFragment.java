@@ -54,6 +54,13 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, CommonVi
                 callBack.backToPrev();
             }
         });
+
+        binding.ivFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callBack.showFragment(FilterFragment.TAG, null, true);
+            }
+        });
     }
 
     @Override
