@@ -80,13 +80,13 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/iv_product_cost"
+                    android:id="@+id/tv_product_cost"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_alignParentTop="true"
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_bold"
-                    android:text="33,990,000₫"
+                    android:text="0₫"
                     android:textAlignment="textEnd"
                     android:textColor="@color/blue_500"
                     android:textSize="18sp" />
@@ -112,13 +112,13 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/iv_ship_cost"
+                    android:id="@+id/tv_ship_cost"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_bold"
-                    android:text="20,000₫"
+                    android:text="0₫"
                     android:textAlignment="textEnd"
                     android:textColor="@color/blue_500"
                     android:textSize="18sp" />
@@ -153,13 +153,13 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/iv_total_cost"
+                    android:id="@+id/tv_total_cost"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_bold"
-                    android:text="34,010,000₫"
+                    android:text="0₫"
                     android:textAlignment="textEnd"
                     android:textColor="@color/blue_500"
                     android:textSize="18sp" />

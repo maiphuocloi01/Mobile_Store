@@ -1,10 +1,13 @@
 package com.groupone.mobilestore.view.fragment;
 
+import static com.groupone.mobilestore.util.NumberUtils.convertPrice;
+
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -22,6 +25,7 @@ import java.util.List;
 public class CartFragment extends BaseFragment<FragmentCartBinding, CommonViewModel>{
 
     public static final String TAG = CartFragment.class.getName();
+    List<Cart> listCart;
 
     @Override
     protected Class<CommonViewModel> getClassVM() {
@@ -30,7 +34,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CommonViewMo
 
     @Override
     protected void initViews() {
-        List<Cart> listCart = new ArrayList<>();
+        listCart = new ArrayList<>();
 
         listCart.add(new Cart(1, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", "Xám", 34000000, 1));
         listCart.add(new Cart(1, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", "Xám", 34000000, 1));
@@ -41,6 +45,31 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CommonViewMo
         binding.rvCart.setLayoutManager(new LinearLayoutManager(context));
         CartAdapter adapter = new CartAdapter(context, listCart);
         binding.rvCart.setAdapter(adapter);
+
+        adapter.getListCartLD().observe(this, new Observer<List<Cart>>() {
+            @Override
+            public void onChanged(List<Cart> carts) {
+                if (carts.isEmpty()) return;
+                showPayment(carts);
+            }
+        });
+
+    }
+
+    private void showPayment(List<Cart> carts) {
+        long productCost = 0L;
+        long shipCost = 0L;
+        for (Cart cart: carts){
+            if(cart.isSelected()) {
+                productCost += cart.getPrice()*cart.getQty();
+            }
+        }
+        if(productCost > 0) {
+            shipCost = 20000L;
+        }
+        binding.tvProductCost.setText(convertPrice(productCost));
+        binding.tvShipCost.setText(convertPrice(shipCost));
+        binding.tvTotalCost.setText(convertPrice(productCost + shipCost));
     }
 
     @Override

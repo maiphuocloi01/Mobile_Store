@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.groupone.mobilestore.R;
@@ -26,6 +28,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     private Context context;
     private List<Cart> listItem;
+
+    private MutableLiveData<List<Cart>> listCartLD = new MutableLiveData<>();
+
+    public LiveData<List<Cart>> getListCartLD() {
+        return listCartLD;
+    }
 
     public CartAdapter(Context context, List<Cart> listItem) {
         this.context = context;
@@ -67,25 +75,30 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             binding.ivChoose.setOnClickListener(view -> {
                 binding.ivChoose.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
                 Cart item = (Cart) binding.tvName.getTag();
+                int index = listItem.indexOf(item);
                 if (!item.isSelected()) {
                     binding.ivChoose.setImageResource(R.drawable.ic_checked);
                     binding.ivChoose.setColorFilter(ContextCompat.getColor(context, R.color.blue_500));
                     binding.bgCart.setBackgroundColor(ContextCompat.getColor(context, R.color.blue_200));
                     item.setSelected(true);
+                    changeListCartListener(item, index);
                 } else {
                     binding.ivChoose.setImageResource(R.drawable.ic_uncheck);
                     binding.ivChoose.setColorFilter(ContextCompat.getColor(context, R.color.black_500));
                     binding.bgCart.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
                     item.setSelected(false);
+                    changeListCartListener(item, index);
                 }
             });
 
             binding.ivSubtract.setOnClickListener(view -> {
                 Cart item = (Cart) binding.tvName.getTag();
+                int index = listItem.indexOf(item);
                 if(item.getQty() > 1){
                     item.setQty(item.getQty() - 1);
                     Log.d(TAG, "onClick: " + item.getQty());
                     notifyDataSetChanged();
+                    changeListCartListener(item, index);
                 } else {
                     doDeleteItem(item);
                 }
@@ -94,10 +107,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
             binding.ivPlus.setOnClickListener(view -> {
                 Cart item = (Cart) binding.tvName.getTag();
+                int index = listItem.indexOf(item);
                 item.setQty(item.getQty() + 1);
                 notifyDataSetChanged();
                 binding.ivPlus.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
                 Log.d(TAG, "onClick: " + item.getQty());
+                changeListCartListener(item, index);
             });
 
             binding.ivDelete.setOnClickListener(view -> {
@@ -109,6 +124,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         private void doDeleteItem(Cart item) {
             Toast.makeText(context, "Delete successfully", Toast.LENGTH_SHORT).show();
+            //changeListCardListener(item, index);
+        }
+
+        private void changeListCartListener(Cart cart, int index){
+            listItem.set(index, cart);
+            listCartLD.postValue(listItem);
         }
 
     }
