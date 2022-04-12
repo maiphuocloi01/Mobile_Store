@@ -61,7 +61,9 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, CommonViewMo
             @Override
             public void onClick(View view) {
                 PagerFragment parentFrag = ((PagerFragment)HomeFragment.this.getParentFragment());
-                parentFrag.setActionShowFragment(SearchFragment.TAG, null, true);
+                if (parentFrag != null) {
+                    parentFrag.setActionShowFragment(SearchFragment.TAG, null, true);
+                }
             }
         });
 
@@ -81,4 +83,5 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, CommonViewMo
     public void apiError(String key, int code, Object data) {
 
     }
+
 }

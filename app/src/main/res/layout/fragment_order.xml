@@ -8,9 +8,10 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_marginHorizontal="20dp"
+        android:layout_marginHorizontal="25dp"
         android:background="@color/background"
         android:gravity="center">
 
@@ -37,10 +38,22 @@
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:tabGravity="center"
+        android:elevation="0dp"
+        android:background="@drawable/bg_white_corner_10"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        app:tabMode="fixed"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="10dp"
+        app:tabRippleColor="@null"
+        app:tabIndicator="@drawable/bg_light_blue_corner_10"
         android:id="@+id/tab_layout_order"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vp_order"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

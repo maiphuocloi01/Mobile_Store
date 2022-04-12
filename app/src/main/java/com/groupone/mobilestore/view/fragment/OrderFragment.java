@@ -3,12 +3,14 @@ package com.groupone.mobilestore.view.fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentOrderBinding;
 import com.groupone.mobilestore.view.adapter.MyViewPagerAdapter;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
@@ -41,6 +43,14 @@ public class OrderFragment extends BaseFragment<FragmentOrderBinding, CommonView
                 }
             }
         }).attach();
+
+        for (int i = 0; i < binding.tabLayoutOrder.getTabCount(); i++){
+
+            TextView tv = (TextView) LayoutInflater.from(context)
+                    .inflate(R.layout.custom_tablayout, null);
+
+            binding.tabLayoutOrder.getTabAt(i).setCustomView(tv);
+        }
     }
 
     @Override

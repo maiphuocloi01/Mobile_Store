@@ -16,8 +16,9 @@ import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentPagerBinding;
 import com.groupone.mobilestore.view.adapter.MyViewPagerAdapter;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
+import com.groupone.mobilestore.viewmodel.PagerViewModel;
 
-public class PagerFragment extends BaseFragment<FragmentPagerBinding, CommonViewModel> {
+public class PagerFragment extends BaseFragment<FragmentPagerBinding, PagerViewModel> {
 
     public static final String TAG = PagerFragment.class.getName();
 
@@ -32,8 +33,8 @@ public class PagerFragment extends BaseFragment<FragmentPagerBinding, CommonView
     }
 
     @Override
-    protected Class<CommonViewModel> getClassVM() {
-        return CommonViewModel.class;
+    protected Class<PagerViewModel> getClassVM() {
+        return PagerViewModel.class;
     }
 
     @Override
@@ -44,7 +45,11 @@ public class PagerFragment extends BaseFragment<FragmentPagerBinding, CommonView
 //        MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter(this);
 //        binding.vpHome.setAdapter(myViewPagerAdapter);
 
-        loadFragment(new HomeFragment());
+        if(viewModel.getFragment() == null) {
+            loadFragment(new HomeFragment());
+        } else {
+            loadFragment(viewModel.getFragment());
+        }
 
         binding.bnvHome.setOnItemSelectedListener(item -> {
             Fragment frg;
@@ -53,18 +58,22 @@ public class PagerFragment extends BaseFragment<FragmentPagerBinding, CommonView
                 case R.id.bottom_home:
                     frg = new HomeFragment();
                     loadFragment(frg);
+                    viewModel.setFragment(frg);
                     return true;
                 case R.id.bottom_order:
                     frg = new OrderFragment();
                     loadFragment(frg);
+                    viewModel.setFragment(frg);
                     return true;
                 case R.id.bottom_cart:
                     frg = new CartFragment();
                     loadFragment(frg);
+                    viewModel.setFragment(frg);
                     return true;
                 case R.id.bottom_profile:
                     frg = new ProfileFragment();
                     loadFragment(frg);
+                    viewModel.setFragment(frg);
                     return true;
             }
             return false;

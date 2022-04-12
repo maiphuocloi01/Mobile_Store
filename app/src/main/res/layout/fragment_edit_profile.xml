@@ -1,30 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/background">
+        android:layout_marginHorizontal="20dp"
+        android:background="@color/background"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/ic_back"
+            app:tint="@color/black_700" />
 
         <TextView
+            android:id="@+id/iv_back"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"
             android:fontFamily="@font/roboto_bold"
-            android:text="Thêm thông tin cá nhân"
+            android:text="Chỉnh sửa hồ sơ"
             android:textAlignment="center"
             android:textColor="@color/black_700"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+            android:textSize="22sp" />
 
-    </LinearLayout>
+    </RelativeLayout>
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -76,10 +88,11 @@
                 android:layout_below="@+id/layout_avatar"
                 android:orientation="vertical">
 
-                <TableRow android:layout_width="wrap_content"
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_height="wrap_content">
+                    android:layout_marginTop="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -90,9 +103,9 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:layout_marginStart="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
                         android:fontFamily="@font/roboto_regular"
                         android:text="*"
                         android:textColor="@color/orange_500"
@@ -114,10 +127,11 @@
                     android:textSize="18sp" />
 
 
-                <TableRow android:layout_width="wrap_content"
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_height="wrap_content">
+                    android:layout_marginTop="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -128,9 +142,9 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:layout_marginStart="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
                         android:fontFamily="@font/roboto_regular"
                         android:text="*"
                         android:textColor="@color/orange_500"
@@ -140,7 +154,6 @@
 
 
                 <EditText
-                    android:id="@+id/et_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
@@ -153,10 +166,50 @@
                     android:textColorHint="@color/black_500"
                     android:textSize="18sp" />
 
-                <TableRow android:layout_width="wrap_content"
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_height="wrap_content">
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Email"
+                        android:textColor="@color/black_700"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="*"
+                        android:textColor="@color/orange_500"
+                        android:textSize="20sp" />
+
+                </TableRow>
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/custom_input"
+                    android:fontFamily="@font/roboto_regular"
+                    android:hint="Nhập nội dung"
+                    android:inputType="text"
+                    android:padding="15dp"
+                    android:textColorHint="@color/black_500"
+                    android:textSize="18sp" />
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -167,16 +220,15 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:layout_marginStart="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
                         android:fontFamily="@font/roboto_regular"
                         android:text="*"
                         android:textColor="@color/orange_500"
                         android:textSize="20sp" />
 
                 </TableRow>
-
 
 
                 <EditText
@@ -189,16 +241,16 @@
                     android:fontFamily="@font/roboto_regular"
                     android:hint="Nhập nội dung"
                     android:inputType="text"
-                    android:focusableInTouchMode="true"
                     android:padding="15dp"
                     android:textColorHint="@color/black_500"
                     android:textSize="18sp" />
 
 
-                <TableRow android:layout_width="wrap_content"
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_height="wrap_content">
+                    android:layout_marginTop="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -209,9 +261,9 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:layout_marginStart="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
                         android:fontFamily="@font/roboto_regular"
                         android:text="*"
                         android:textColor="@color/orange_500"
@@ -256,15 +308,15 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/layout_fill_form"
                 android:layout_alignParentBottom="true"
-                android:layout_marginHorizontal="20dp"
+                android:layout_marginHorizontal="30dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/bg_orange_corner_10"
                 android:fontFamily="@font/roboto_bold"
                 android:padding="12dp"
-                android:text="Xác nhận"
-                android:textAllCaps="false"
                 android:stateListAnimator="@null"
+                android:text="Lưu thông tin"
+                android:textAllCaps="false"
                 android:textColor="@color/background"
                 android:textSize="22sp"
                 android:textStyle="bold" />

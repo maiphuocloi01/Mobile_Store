@@ -7,6 +7,7 @@ import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.groupone.mobilestore.databinding.FragmentProfileBinding;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
@@ -26,6 +27,8 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Common
             @Override
             public void onClick(View view) {
                 binding.rowEditProfile.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
+                actionShowFragment(EditProfileFragment.TAG, null, true);
+
             }
         });
 
@@ -68,12 +71,17 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Common
             @Override
             public void onClick(View view) {
                 binding.btLogout.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
-                PagerFragment parentFrag = ((PagerFragment)ProfileFragment.this.getParentFragment());
-                if (parentFrag != null) {
-                    parentFrag.setActionShowFragment(LoginFragment.TAG, null, false);
-                }
+                actionShowFragment(LoginFragment.TAG, null, false);
+
             }
         });
+    }
+
+    private void actionShowFragment(String tag, Object data, boolean isBack) {
+        PagerFragment parentFrag = ((PagerFragment) ProfileFragment.this.getParentFragment());
+        if (parentFrag != null) {
+            parentFrag.setActionShowFragment(tag, data, isBack);
+        }
     }
 
     @Override

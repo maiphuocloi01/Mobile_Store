@@ -13,7 +13,7 @@
         <TableRow
             android:id="@+id/layout_banner"
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_height="130dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"

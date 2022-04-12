@@ -22,7 +22,7 @@
             android:id="@+id/iv_product"
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            android:background="@drawable/bg_light_blue_corner_10"
+            android:background="@drawable/bg_light_blue_corner_10_version1"
             android:padding="20dp"
             android:src="@drawable/img_iphone13" />
 
