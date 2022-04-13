@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import com.groupone.mobilestore.databinding.FragmentSignupBinding;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
-public class SignupFragment extends BaseFragment<FragmentSignupBinding, CommonViewModel>{
+public class SignupFragment extends BaseFragment<FragmentSignupBinding, CommonViewModel> {
 
     public static final String TAG = SignupFragment.class.getName();
 

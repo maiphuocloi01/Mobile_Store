@@ -1,7 +1,6 @@
 package com.groupone.mobilestore.view.fragment;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -33,7 +32,7 @@ public class OrderFragment extends BaseFragment<FragmentOrderBinding, CommonView
         new TabLayoutMediator(binding.tabLayoutOrder, binding.vpOrder, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                switch (position){
+                switch (position) {
                     case 0:
                         tab.setText("Đang giao");
                         break;
@@ -44,7 +43,7 @@ public class OrderFragment extends BaseFragment<FragmentOrderBinding, CommonView
             }
         }).attach();
 
-        for (int i = 0; i < binding.tabLayoutOrder.getTabCount(); i++){
+        for (int i = 0; i < binding.tabLayoutOrder.getTabCount(); i++) {
 
             TextView tv = (TextView) LayoutInflater.from(context)
                     .inflate(R.layout.custom_tablayout, null);

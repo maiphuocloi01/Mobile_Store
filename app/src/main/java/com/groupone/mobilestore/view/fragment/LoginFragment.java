@@ -3,18 +3,14 @@ package com.groupone.mobilestore.view.fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-
 import com.groupone.mobilestore.databinding.FragmentLoginBinding;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
-public class LoginFragment extends BaseFragment<FragmentLoginBinding, CommonViewModel>{
+public class LoginFragment extends BaseFragment<FragmentLoginBinding, CommonViewModel> {
 
     public static final String TAG = LoginFragment.class.getName();
-
 
     @Override
     protected Class<CommonViewModel> getClassVM() {

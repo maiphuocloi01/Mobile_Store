@@ -69,7 +69,7 @@ public class Cart {
         this.price = price;
     }
 
-    public int  getQty() {
+    public int getQty() {
         return qty;
     }
 

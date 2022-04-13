@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import com.groupone.mobilestore.databinding.FragmentDeliveredBinding;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
-public class DeliveredFragment extends BaseFragment<FragmentDeliveredBinding, CommonViewModel>{
+public class DeliveredFragment extends BaseFragment<FragmentDeliveredBinding, CommonViewModel> {
     @Override
     public void apiSuccess(String key, Object data) {
 

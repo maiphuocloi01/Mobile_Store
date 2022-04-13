@@ -1,7 +1,5 @@
 package com.groupone.mobilestore.view.fragment;
 
-import static com.groupone.mobilestore.util.IMEUtils.hideSoftInput;
-
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -9,13 +7,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager2.widget.ViewPager2;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentPagerBinding;
-import com.groupone.mobilestore.view.adapter.MyViewPagerAdapter;
-import com.groupone.mobilestore.viewmodel.CommonViewModel;
 import com.groupone.mobilestore.viewmodel.PagerViewModel;
 
 public class PagerFragment extends BaseFragment<FragmentPagerBinding, PagerViewModel> {
@@ -45,7 +39,7 @@ public class PagerFragment extends BaseFragment<FragmentPagerBinding, PagerViewM
 //        MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter(this);
 //        binding.vpHome.setAdapter(myViewPagerAdapter);
 
-        if(viewModel.getFragment() == null) {
+        if (viewModel.getFragment() == null) {
             loadFragment(new HomeFragment());
         } else {
             loadFragment(viewModel.getFragment());
@@ -54,7 +48,7 @@ public class PagerFragment extends BaseFragment<FragmentPagerBinding, PagerViewM
         binding.bnvHome.setOnItemSelectedListener(item -> {
             Fragment frg;
             int id = item.getItemId();
-            switch (id){
+            switch (id) {
                 case R.id.bottom_home:
                     frg = new HomeFragment();
                     loadFragment(frg);

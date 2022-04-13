@@ -1,7 +1,6 @@
 package com.groupone.mobilestore.view.fragment;
 
 import android.app.Dialog;
-import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
@@ -18,7 +17,7 @@ import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentForgotPasswordBinding;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
-public class ForgotPasswordFragment extends BaseFragment<FragmentForgotPasswordBinding, CommonViewModel>{
+public class ForgotPasswordFragment extends BaseFragment<FragmentForgotPasswordBinding, CommonViewModel> {
 
     public static final String TAG = ForgotPasswordFragment.class.getName();
 
@@ -48,7 +47,7 @@ public class ForgotPasswordFragment extends BaseFragment<FragmentForgotPasswordB
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_dialog_confirm_otp);
         Window window = dialog.getWindow();
-        if(window == null){
+        if (window == null) {
             return;
         }
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);

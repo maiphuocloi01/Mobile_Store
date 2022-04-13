@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
@@ -76,10 +75,11 @@
                 android:layout_below="@+id/layout_avatar"
                 android:orientation="vertical">
 
-                <TableRow android:layout_width="wrap_content"
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_height="wrap_content">
+                    android:layout_marginTop="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -90,9 +90,9 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:layout_marginStart="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
                         android:fontFamily="@font/roboto_regular"
                         android:text="*"
                         android:textColor="@color/orange_500"
@@ -114,10 +114,11 @@
                     android:textSize="18sp" />
 
 
-                <TableRow android:layout_width="wrap_content"
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_height="wrap_content">
+                    android:layout_marginTop="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -128,9 +129,9 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:layout_marginStart="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
                         android:fontFamily="@font/roboto_regular"
                         android:text="*"
                         android:textColor="@color/orange_500"
@@ -153,10 +154,11 @@
                     android:textColorHint="@color/black_500"
                     android:textSize="18sp" />
 
-                <TableRow android:layout_width="wrap_content"
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_height="wrap_content">
+                    android:layout_marginTop="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -167,16 +169,15 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:layout_marginStart="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
                         android:fontFamily="@font/roboto_regular"
                         android:text="*"
                         android:textColor="@color/orange_500"
                         android:textSize="20sp" />
 
                 </TableRow>
-
 
 
                 <EditText
@@ -186,19 +187,20 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/custom_input"
                     android:drawableRight="@drawable/ic_calendar"
+                    android:focusableInTouchMode="true"
                     android:fontFamily="@font/roboto_regular"
                     android:hint="Nhập nội dung"
                     android:inputType="text"
-                    android:focusableInTouchMode="true"
                     android:padding="15dp"
                     android:textColorHint="@color/black_500"
                     android:textSize="18sp" />
 
 
-                <TableRow android:layout_width="wrap_content"
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_height="wrap_content">
+                    android:layout_marginTop="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -209,9 +211,9 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:layout_marginStart="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
                         android:fontFamily="@font/roboto_regular"
                         android:text="*"
                         android:textColor="@color/orange_500"
@@ -262,9 +264,9 @@
                 android:background="@drawable/bg_orange_corner_10"
                 android:fontFamily="@font/roboto_bold"
                 android:padding="12dp"
+                android:stateListAnimator="@null"
                 android:text="Xác nhận"
                 android:textAllCaps="false"
-                android:stateListAnimator="@null"
                 android:textColor="@color/background"
                 android:textSize="22sp"
                 android:textStyle="bold" />

@@ -98,12 +98,11 @@
             android:background="@drawable/bg_blue_corner_10"
             android:fontFamily="@font/roboto_bold"
             android:padding="15dp"
+            android:stateListAnimator="@null"
             android:text="Xác nhận"
             android:textAllCaps="false"
-            android:stateListAnimator="@null"
             android:textColor="@color/background"
-            android:textSize="20sp"
-             />
+            android:textSize="20sp" />
 
     </TableRow>
 

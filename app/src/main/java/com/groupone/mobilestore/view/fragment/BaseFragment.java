@@ -18,10 +18,9 @@ import com.groupone.mobilestore.viewmodel.BaseViewModel;
 
 public abstract class BaseFragment<B extends ViewBinding, V extends BaseViewModel> extends Fragment
         implements OnAPICallBack {
+    private static final String TAG = BaseFragment.class.getName();
     protected B binding;
     protected V viewModel;
-
-    private static final String TAG = BaseFragment.class.getName();
     protected Context context;
     protected OnMainCallBack callBack;
     protected Object data;

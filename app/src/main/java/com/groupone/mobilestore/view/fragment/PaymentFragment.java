@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import com.groupone.mobilestore.databinding.FragmentPaymentBinding;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
-public class PaymentFragment extends BaseFragment<FragmentPaymentBinding, CommonViewModel>{
+public class PaymentFragment extends BaseFragment<FragmentPaymentBinding, CommonViewModel> {
 
     public static final String TAG = PaymentFragment.class.getName();
 

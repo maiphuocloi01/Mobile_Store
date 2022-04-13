@@ -66,16 +66,16 @@ public class Product implements Serializable {
         return countReview;
     }
 
+    public void setCountReview(int countReview) {
+        this.countReview = countReview;
+    }
+
     public String getType() {
         return type;
     }
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public void setCountReview(int countReview) {
-        this.countReview = countReview;
     }
 
 }

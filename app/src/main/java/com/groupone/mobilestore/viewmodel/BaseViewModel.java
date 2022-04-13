@@ -15,13 +15,12 @@ import retrofit2.Response;
 public abstract class BaseViewModel extends ViewModel {
 
     private static final String TAG = BaseViewModel.class.getName();
+    private static final String BASE_URL = "http://www.phuocloi123.somee.com/";
     protected OnAPICallBack callBack;
 
     public void setCallBack(OnAPICallBack callBack) {
         this.callBack = callBack;
     }
-
-    private static final String BASE_URL = "http://www.phuocloi123.somee.com/";
 
 //    protected NoteApi getApi() {
 //        Retrofit retrofit = new Retrofit.Builder()

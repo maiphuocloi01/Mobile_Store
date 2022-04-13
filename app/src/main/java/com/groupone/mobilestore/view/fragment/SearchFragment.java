@@ -2,7 +2,6 @@ package com.groupone.mobilestore.view.fragment;
 
 import static com.groupone.mobilestore.util.IMEUtils.hideSoftInput;
 import static com.groupone.mobilestore.util.IMEUtils.showSoftInput;
-import static com.groupone.mobilestore.util.IMEUtils.toggleSoftInput;
 
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -17,7 +16,7 @@ import androidx.annotation.Nullable;
 import com.groupone.mobilestore.databinding.FragmentSearchBinding;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
-public class SearchFragment extends BaseFragment<FragmentSearchBinding, CommonViewModel>{
+public class SearchFragment extends BaseFragment<FragmentSearchBinding, CommonViewModel> {
 
     public static final String TAG = SearchFragment.class.getName();
 
@@ -29,11 +28,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, CommonVi
     @Override
     protected void initViews() {
 
-        //toggleSoftInput(context);
-        //showSoftInput(binding.etSearch);
-        //binding.etSearch.setSelected(true);
-
-        if(binding.etSearch.requestFocus()) {
+        if (binding.etSearch.requestFocus()) {
             showSoftInput(binding.etSearch);
         }
 
@@ -46,7 +41,8 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, CommonVi
                     return true;
                 }
                 return false;
-            } });
+            }
+        });
 
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
             @Override

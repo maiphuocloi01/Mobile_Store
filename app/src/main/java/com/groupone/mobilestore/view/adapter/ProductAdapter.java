@@ -53,6 +53,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return listProduct.size();
     }
 
+    private void clickItemProduct(Product product) {
+
+    }
+
     public class ProductViewHolder extends RecyclerView.ViewHolder {
         private LayoutItemProductBinding itemProductBinding;
 
@@ -67,10 +71,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 }
             });
         }
-    }
-
-    private void clickItemProduct(Product product) {
-
     }
 
 //    public static String convertPrice(long price) {

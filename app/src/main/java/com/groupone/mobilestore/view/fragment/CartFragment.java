@@ -9,21 +9,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentCartBinding;
 import com.groupone.mobilestore.model.Cart;
-import com.groupone.mobilestore.model.Product;
 import com.groupone.mobilestore.view.adapter.CartAdapter;
-import com.groupone.mobilestore.view.adapter.ProductAdapter;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartFragment extends BaseFragment<FragmentCartBinding, CommonViewModel>{
+public class CartFragment extends BaseFragment<FragmentCartBinding, CommonViewModel> {
 
     public static final String TAG = CartFragment.class.getName();
     List<Cart> listCart;
@@ -67,12 +64,12 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CommonViewMo
     private void showPayment(List<Cart> carts) {
         long productCost = 0L;
         long shipCost = 0L;
-        for (Cart cart: carts){
-            if(cart.isSelected()) {
-                productCost += cart.getPrice()*cart.getQty();
+        for (Cart cart : carts) {
+            if (cart.isSelected()) {
+                productCost += cart.getPrice() * cart.getQty();
             }
         }
-        if(productCost > 0) {
+        if (productCost > 0) {
             shipCost = 20000L;
         }
         binding.tvProductCost.setText(convertPrice(productCost));

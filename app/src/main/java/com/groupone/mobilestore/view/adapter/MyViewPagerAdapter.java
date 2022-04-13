@@ -6,10 +6,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.groupone.mobilestore.view.fragment.DeliveredFragment;
 import com.groupone.mobilestore.view.fragment.DeliveringFragment;
-import com.groupone.mobilestore.view.fragment.OrderFragment;
-import com.groupone.mobilestore.view.fragment.CartFragment;
-import com.groupone.mobilestore.view.fragment.HomeFragment;
-import com.groupone.mobilestore.view.fragment.ProfileFragment;
 
 public class MyViewPagerAdapter extends FragmentStateAdapter {
 
@@ -24,7 +20,7 @@ public class MyViewPagerAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        switch (position){
+        switch (position) {
             case 0:
                 return new DeliveringFragment();
             case 1:

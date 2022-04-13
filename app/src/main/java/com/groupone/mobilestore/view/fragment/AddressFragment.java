@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import com.groupone.mobilestore.databinding.FragmentAddressBinding;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
-public class AddressFragment extends BaseFragment<FragmentAddressBinding, CommonViewModel>{
+public class AddressFragment extends BaseFragment<FragmentAddressBinding, CommonViewModel> {
 
     public static final String TAG = AddressFragment.class.getName();
 
