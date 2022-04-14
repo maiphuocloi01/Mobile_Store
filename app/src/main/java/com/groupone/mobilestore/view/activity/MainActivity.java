@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements OnMainCallBack {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_MobileStore);
         setContentView(R.layout.activity_main);
 
         //mViewPager = findViewById(R.id.vp_home);

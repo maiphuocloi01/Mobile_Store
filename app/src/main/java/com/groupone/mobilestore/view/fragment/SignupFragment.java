@@ -30,7 +30,7 @@ public class SignupFragment extends BaseFragment<FragmentSignupBinding, CommonVi
         binding.btSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                callBack.showFragment(FillInfoFragment.TAG, null, true);
+                callBack.showFragment(FillInfoFragment.TAG, null, false);
             }
         });
     }

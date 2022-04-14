@@ -27,7 +27,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                     android:src="@drawable/img_default_avt" />
 
                 <ImageButton
-                    android:id="@+id/imageButton"
+                    android:id="@+id/bt_add_avatar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
@@ -181,6 +181,7 @@
 
 
                 <EditText
+                    android:id="@+id/et_birthday"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
@@ -257,10 +258,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/layout_fill_form"
-                android:layout_alignParentBottom="true"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/bg_orange_corner_10"
                 android:fontFamily="@font/roboto_bold"
                 android:padding="12dp"

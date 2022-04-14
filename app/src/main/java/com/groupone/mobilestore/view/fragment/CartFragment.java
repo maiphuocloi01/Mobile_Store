@@ -1,5 +1,6 @@
 package com.groupone.mobilestore.view.fragment;
 
+import static com.groupone.mobilestore.util.NumberUtils.convertParentheses;
 import static com.groupone.mobilestore.util.NumberUtils.convertPrice;
 
 import android.view.LayoutInflater;
@@ -44,6 +45,8 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CommonViewMo
         CartAdapter adapter = new CartAdapter(context, listCart);
         binding.rvCart.setAdapter(adapter);
 
+        binding.tvTotalCount.setText(convertParentheses(listCart.size()));
+
         adapter.getListCartLD().observe(this, new Observer<List<Cart>>() {
             @Override
             public void onChanged(List<Cart> carts) {
@@ -72,6 +75,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CommonViewMo
         if (productCost > 0) {
             shipCost = 20000L;
         }
+        binding.tvTotalCount.setText(convertParentheses(listCart.size()));
         binding.tvProductCost.setText(convertPrice(productCost));
         binding.tvShipCost.setText(convertPrice(shipCost));
         binding.tvTotalCost.setText(convertPrice(productCost + shipCost));

@@ -1,16 +1,21 @@
 package com.groupone.mobilestore.view.fragment;
 
+import android.app.ProgressDialog;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentLoginBinding;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
 public class LoginFragment extends BaseFragment<FragmentLoginBinding, CommonViewModel> {
 
     public static final String TAG = LoginFragment.class.getName();
+    ProgressDialog progressDialog;
 
     @Override
     protected Class<CommonViewModel> getClassVM() {
@@ -29,7 +34,15 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, CommonView
         binding.btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                callBack.showFragment(PagerFragment.TAG, null, false);
+                progressDialog = new ProgressDialog(context);
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.custom_progress_dialog);
+                progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+                new Handler().postDelayed(() -> {
+                    progressDialog.dismiss();
+                    callBack.showFragment(PagerFragment.TAG, null, false);
+                }, 1000);
             }
         });
 

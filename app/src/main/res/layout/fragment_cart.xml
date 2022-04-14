@@ -1,73 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:layout_marginTop="10dp"
+    android:background="@color/background"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="@color/background"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Giỏ hàng"
+            android:textAlignment="center"
+            android:textColor="@color/black_700"
+            android:textSize="22sp" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:background="@color/black_200" />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="5dp"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical">
+        android:visibility="visible">
 
-        <RelativeLayout
+        <TableRow
+            android:id="@+id/layout_total"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_marginHorizontal="20dp"
-            android:background="@color/background"
-            android:gravity="center">
+            android:layout_marginTop="10dp">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="15dp"
                 android:fontFamily="@font/roboto_bold"
-                android:text="Giỏ hàng"
-                android:textAlignment="center"
-                android:textColor="@color/black_700"
-                android:textSize="22sp" />
-
-            <View
-                android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="5dp"
-                android:background="@color/black_200" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="visible">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/roboto_bold"
-                android:text="Tất cả (3)"
+                android:text="Tất cả"
                 android:textColor="@color/blue_500"
                 android:textSize="18sp" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_cart"
-                android:layout_width="match_parent"
-                android:layout_height="450dp"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                tools:listitem="@layout/layout_item_cart" />
+            <TextView
+                android:id="@+id/tv_total_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="(3)"
+                android:layout_marginStart="5dp"
+                android:textColor="@color/blue_500"
+                android:textSize="18sp" />
+
+
+        </TableRow>
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_cart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/layout_payment"
+            android:layout_below="@+id/layout_total"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            tools:listitem="@layout/layout_item_cart" />
+
+        <LinearLayout
+            android:id="@+id/layout_payment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
+                android:layout_marginHorizontal="25dp"
                 android:layout_marginTop="20dp"
                 android:weightSum="2">
 
@@ -76,10 +100,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_weight="1"
-                    android:fontFamily="@font/roboto_bold"
-                    android:text="Giá sản phẩm"
-                    android:textColor="@color/black_700"
-                    android:textSize="18sp" />
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Giá sản phẩm:"
+                    android:textColor="@color/black_500"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tv_product_cost"
@@ -87,7 +111,7 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentTop="true"
                     android:layout_weight="1"
-                    android:fontFamily="@font/roboto_bold"
+                    android:fontFamily="@font/roboto_regular"
                     android:text="0₫"
                     android:textAlignment="textEnd"
                     android:textColor="@color/blue_500"
@@ -99,27 +123,34 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                android:weightSum="2">
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginTop="10dp">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/roboto_bold"
-                    android:text="Phí vận chuyển"
-                    android:textColor="@color/black_700"
-                    android:textSize="18sp" />
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Phí vận chuyển "
+                    android:textColor="@color/black_500"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="(mặc định):"
+                    android:textColor="@color/black_500"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tv_ship_cost"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_weight="1"
-                    android:fontFamily="@font/roboto_bold"
+                    android:fontFamily="@font/roboto_regular"
                     android:text="0₫"
                     android:textAlignment="textEnd"
                     android:textColor="@color/blue_500"
@@ -134,7 +165,7 @@
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:background="@color/black_200" />
 
             <TableRow
@@ -150,9 +181,9 @@
                     android:layout_alignParentTop="true"
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_bold"
-                    android:text="Tổng thanh toán"
+                    android:text="Tổng thanh toán:"
                     android:textColor="@color/black_700"
-                    android:textSize="18sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/tv_total_cost"
@@ -164,7 +195,7 @@
                     android:text="0₫"
                     android:textAlignment="textEnd"
                     android:textColor="@color/blue_500"
-                    android:textSize="18sp" />
+                    android:textSize="22sp" />
 
 
             </TableRow>
@@ -174,7 +205,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/bg_orange_corner_10"
                 android:fontFamily="@font/roboto_bold"
@@ -185,39 +216,42 @@
                 android:textColor="@color/background"
                 android:textSize="22sp" />
 
+
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/layout_empty_cart"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_empty_cart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_marginTop="40dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="gone">
+            android:src="@drawable/ic_empty_cart" />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_marginTop="40dp"
-                android:src="@drawable/ic_empty_cart" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/roboto_regular"
-                android:text="Không có sản phẩm nào trong giỏ hàng"
-                android:textColor="@color/black_700"
-                android:textSize="16sp" />
-
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Không có sản phẩm nào trong giỏ hàng"
+            android:textColor="@color/black_700"
+            android:textSize="16sp" />
 
 
     </LinearLayout>
-</ScrollView>
+
+
+</LinearLayout>
 
 

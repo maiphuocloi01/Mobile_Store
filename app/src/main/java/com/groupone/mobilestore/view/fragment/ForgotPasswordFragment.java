@@ -45,7 +45,7 @@ public class ForgotPasswordFragment extends BaseFragment<FragmentForgotPasswordB
     private void openSendOTPDialog() {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.layout_dialog_confirm_otp);
+        dialog.setContentView(R.layout.custom_dialog_confirm_otp);
         Window window = dialog.getWindow();
         if (window == null) {
             return;

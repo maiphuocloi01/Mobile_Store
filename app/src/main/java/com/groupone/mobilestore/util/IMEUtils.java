@@ -7,6 +7,13 @@ import android.view.inputmethod.InputMethodManager;
 
 public class IMEUtils {
 
+    //Chuyển đổi trạng thái hiển thị / ẩn bàn phím
+    public static void toggleSoftInput(Context context) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+
     /**
      * Use only from Activities, don't use from Fragment (with getActivity) or from Dialog/DialogFragment
      */

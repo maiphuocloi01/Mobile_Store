@@ -1,6 +1,6 @@
 package com.groupone.mobilestore.view.adapter;
 
-import static com.groupone.mobilestore.util.NumberUtils.convertCountReview;
+import static com.groupone.mobilestore.util.NumberUtils.convertParentheses;
 import static com.groupone.mobilestore.util.NumberUtils.convertPrice;
 
 import android.content.Context;
@@ -41,7 +41,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.itemProductBinding.tvType.setText(product.getType());
         holder.itemProductBinding.tvPrice.setText(convertPrice(product.getPrice()));
         holder.itemProductBinding.tvRate.setText(String.valueOf(product.getRate()));
-        holder.itemProductBinding.tvCountReview.setText(convertCountReview(product.getCountReview()));
+        holder.itemProductBinding.tvCountReview.setText(convertParentheses(product.getCountReview()));
 
         //Glide.with(context).load(product.getImage()).into(holder.itemProductBinding.ivProduct);
         holder.itemProductBinding.ivProduct.setImageResource(product.getImage());
