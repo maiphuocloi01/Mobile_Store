@@ -15,6 +15,7 @@
         android:gravity="center">
 
         <ImageView
+            android:id="@+id/iv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -24,7 +25,6 @@
             app:tint="@color/black_700" />
 
         <TextView
-            android:id="@+id/iv_back"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -36,5 +36,133 @@
             android:textSize="22sp" />
 
     </RelativeLayout>
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="20dp"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/scroll_view"
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:background="@drawable/bg_image_slider">
+
+                    <com.smarteist.autoimageslider.SliderView
+                        android:id="@+id/imageSlider"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        app:sliderAnimationDuration="600"
+                        app:sliderAutoCycleDirection="back_and_forth"
+                        app:sliderIndicatorAnimationDuration="600"
+                        app:sliderIndicatorEnabled="true"
+                        app:sliderIndicatorGravity="center_horizontal|bottom"
+                        app:sliderIndicatorMargin="15dp"
+                        app:sliderIndicatorOrientation="horizontal"
+                        app:sliderIndicatorPadding="3dp"
+                        app:sliderIndicatorRadius="2dp"
+                        app:sliderIndicatorSelectedColor="#5A5A5A"
+                        app:sliderIndicatorUnselectedColor="#FFF"
+                        app:sliderScrollTimeInSec="1" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="iPhone 13 Pro Max Pro Plus Super Ultra Ultimate"
+                    android:maxLines="2"
+                    android:textColor="@color/black_700"
+                    android:textSize="22sp" />
+
+                <TableRow android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent">
+
+                    <TextView
+                        android:id="@+id/tv_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="33,990,000₫"
+                        android:textColor="@color/blue_500"
+                        android:textSize="20sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_favorite"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_white_corner_5"
+                        android:src="@drawable/ic_favorite"
+                        android:padding="5dp"
+                        android:layout_marginEnd="10dp"
+                        app:tint="@color/blue_500" />
+                </TableRow>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Phiên bản"
+                    android:maxLines="2"
+                    android:textColor="@color/black_700"
+                    android:textSize="20sp" />
+
+
+            </LinearLayout>
+
+
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/btn_add_cart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_fill_form"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            app:layout_anchorGravity="center|bottom"
+            app:layout_anchor="@+id/scroll_view"
+            android:background="@drawable/bg_orange_corner_10"
+            android:fontFamily="@font/roboto_regular"
+            android:padding="12dp"
+            android:stateListAnimator="@null"
+            android:text="Thêm vào giỏ hàng"
+            android:drawableEnd="@drawable/ic_cart"
+            android:drawableTint="@color/background"
+            android:paddingStart="20dp"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:textColor="@color/background"
+            android:textSize="22sp" />
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
 
 </LinearLayout>

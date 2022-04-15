@@ -42,9 +42,9 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, CommonViewMo
         List<Product> listProduct = new ArrayList<>();
 
         listProduct.add(new Product(1, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
-        listProduct.add(new Product(2, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
-        listProduct.add(new Product(3, R.drawable.img_iphone13, "iPhone 13 Pro Max Ultra Ultimate Super Plus", "128GB", 3.8, 34000000, 38));
-        listProduct.add(new Product(4, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
+        listProduct.add(new Product(2, R.drawable.img_iphone13_2, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
+        listProduct.add(new Product(3, R.drawable.img_iphone13_3, "iPhone 13 Pro Max Ultra Ultimate Super Plus", "128GB", 3.8, 34000000, 38));
+        listProduct.add(new Product(4, R.drawable.img_iphone13_4, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
         listProduct.add(new Product(5, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
         listProduct.add(new Product(6, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
 

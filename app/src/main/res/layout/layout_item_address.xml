@@ -22,10 +22,9 @@
 
             <TextView
                 android:id="@+id/tv_type_address"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="1"
                 android:ellipsize="end"
                 android:fontFamily="@font/roboto_bold"
                 android:maxLines="2"
@@ -38,13 +37,21 @@
                 android:id="@+id/tv_default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="20dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/roboto_regular"
-                android:text="Mặc định"
-                android:textAlignment="textEnd"
+                android:text="(Mặc định)"
+                android:layout_marginEnd="10dp"
                 android:textColor="@color/orange_500"
                 android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/iv_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_edit"
+                app:tint="@color/blue_500" />
 
         </TableRow>
 
@@ -62,7 +69,7 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/roboto_regular"
                 android:maxLines="2"
-                android:text="Nhà riêng"
+                android:text="Mai Phước Lợi"
                 android:textColor="@color/black_500"
                 android:textSize="16sp" />
 
@@ -98,7 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/roboto_regular"
-            android:text="Linh Trung, Thủ Đức, Hồ Chí Minh"
+            android:text="Phường Linh Trung,Thành Phố Thủ Đức,TP Hồ Chí Minh"
             android:textColor="@color/black_700"
             android:textSize="16sp" />
 
