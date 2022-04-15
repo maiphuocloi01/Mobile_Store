@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.groupone.mobilestore.R;
@@ -57,6 +58,16 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, CommonViewMo
                 PagerFragment parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
                 if (parentFrag != null) {
                     parentFrag.setActionShowFragment(SearchFragment.TAG, null, true);
+                }
+            }
+        });
+        adapter.getProductLD().observe(this, new Observer<Product>() {
+            @Override
+            public void onChanged(Product product) {
+                //callBack.showFragment(ProductFragment.TAG, product, true);
+                PagerFragment parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
+                if (parentFrag != null) {
+                    parentFrag.setActionShowFragment(ProductFragment.TAG, product, true);
                 }
             }
         });

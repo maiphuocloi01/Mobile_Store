@@ -7,12 +7,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.groupone.mobilestore.databinding.FragmentProductBinding;
+import com.groupone.mobilestore.databinding.FragmentAddVisaBinding;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
-public class ProductFragment extends BaseFragment<FragmentProductBinding, CommonViewModel> {
+public class AddVisaFragment extends BaseFragment<FragmentAddVisaBinding, CommonViewModel>{
 
-    public static final String TAG = ProductFragment.class.getName();
+    public static final String TAG = AddVisaFragment.class.getName();
 
     @Override
     protected Class<CommonViewModel> getClassVM() {
@@ -30,8 +30,8 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Common
     }
 
     @Override
-    protected FragmentProductBinding initViewBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
-        return FragmentProductBinding.inflate(inflater, container, false);
+    protected FragmentAddVisaBinding initViewBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
+        return FragmentAddVisaBinding.inflate(inflater, container, false);
     }
 
     @Override

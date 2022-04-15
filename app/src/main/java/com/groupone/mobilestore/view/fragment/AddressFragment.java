@@ -1,6 +1,7 @@
 package com.groupone.mobilestore.view.fragment;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -20,7 +21,18 @@ public class AddressFragment extends BaseFragment<FragmentAddressBinding, Common
 
     @Override
     protected void initViews() {
-
+        binding.frameAddAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callBack.showFragment(AddAddressFragment.TAG, null, true);
+            }
+        });
+        binding.ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callBack.backToPrev();
+            }
+        });
     }
 
     @Override

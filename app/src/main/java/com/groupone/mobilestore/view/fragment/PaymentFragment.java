@@ -1,6 +1,7 @@
 package com.groupone.mobilestore.view.fragment;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -21,7 +22,12 @@ public class PaymentFragment extends BaseFragment<FragmentPaymentBinding, Common
 
     @Override
     protected void initViews() {
-
+        binding.ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callBack.backToPrev();
+            }
+        });
     }
 
     @Override

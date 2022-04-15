@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.groupone.mobilestore.databinding.LayoutItemProductBinding;
@@ -21,6 +23,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     private final Context context;
     private final List<Product> listProduct;
+
+    private MutableLiveData<Product> productLD = new MutableLiveData<>();
+
+    public LiveData<Product> getProductLD() {
+        return productLD;
+    }
 
     public ProductAdapter(Context context, List<Product> listProduct) {
         this.context = context;
@@ -54,7 +62,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     private void clickItemProduct(Product product) {
-
+        productLD.postValue(product);
     }
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
@@ -73,13 +81,5 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
     }
 
-//    public static String convertPrice(long price) {
-//        DecimalFormat formatter = new DecimalFormat("###,###,###");
-//        return formatter.format(price) + "₫";
-//    }
-//
-//    public static String convertCountReview(int count) {
-//        return "(" + count + ")";
-//    }
 
 }

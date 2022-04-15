@@ -238,7 +238,7 @@
                         android:buttonTint="@color/blue_500"
                         android:fontFamily="@font/roboto_regular"
                         android:text="Nam"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                     <RadioButton
                         android:id="@+id/rb_female"
@@ -248,7 +248,7 @@
                         android:buttonTint="@color/blue_500"
                         android:fontFamily="@font/roboto_regular"
                         android:text="Nữ"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
                 </RadioGroup>
 
             </LinearLayout>
