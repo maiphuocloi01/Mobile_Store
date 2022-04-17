@@ -81,13 +81,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                     binding.ivChoose.setColorFilter(ContextCompat.getColor(context, R.color.blue_500));
                     binding.bgCart.setBackgroundColor(ContextCompat.getColor(context, R.color.blue_200));
                     item.setSelected(true);
-                    changeListCartListener(item, index);
+                    changeListCartListener(item, index, false);
                 } else {
                     binding.ivChoose.setImageResource(R.drawable.ic_uncheck);
                     binding.ivChoose.setColorFilter(ContextCompat.getColor(context, R.color.black_500));
                     binding.bgCart.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
                     item.setSelected(false);
-                    changeListCartListener(item, index);
+                    changeListCartListener(item, index, false);
                 }
             });
 
@@ -98,9 +98,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                     item.setQty(item.getQty() - 1);
                     Log.d(TAG, "onClick: " + item.getQty());
                     notifyDataSetChanged();
-                    changeListCartListener(item, index);
+                    changeListCartListener(item, index, false);
+
                 } else {
                     doDeleteItem(item);
+                    changeListCartListener(item, index, true);
                 }
                 binding.ivSubtract.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
             });
@@ -112,23 +114,35 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 notifyDataSetChanged();
                 binding.ivPlus.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
                 Log.d(TAG, "onClick: " + item.getQty());
-                changeListCartListener(item, index);
+                changeListCartListener(item, index, false);
             });
 
             binding.ivDelete.setOnClickListener(view -> {
                 binding.ivDelete.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
                 Cart item = (Cart) binding.tvName.getTag();
+                int index = listItem.indexOf(item);
                 doDeleteItem(item);
+                changeListCartListener(item, index, true);
             });
         }
 
         private void doDeleteItem(Cart item) {
-            Toast.makeText(context, "Delete successfully", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, "Delete successfully", Toast.LENGTH_SHORT).show();
             //changeListCardListener(item, index);
+            if (item.isSelected()){
+                binding.ivChoose.setImageResource(R.drawable.ic_uncheck);
+                binding.ivChoose.setColorFilter(ContextCompat.getColor(context, R.color.black_500));
+                binding.bgCart.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
+                item.setSelected(false);
+            }
+            listItem.remove(item);
+            notifyDataSetChanged();
         }
 
-        private void changeListCartListener(Cart cart, int index){
-            listItem.set(index, cart);
+        private void changeListCartListener(Cart cart, int index, boolean isDelete){
+            if (!isDelete) {
+                listItem.set(index, cart);
+            }
             listCartLD.postValue(listItem);
         }
 

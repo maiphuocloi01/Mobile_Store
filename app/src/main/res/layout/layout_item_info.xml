@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/bg_version"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/black_200"
+    app:cardCornerRadius="0dp"
+    app:cardElevation="0dp">
+
+    <TableRow android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:layout_marginStart="10dp"
+            android:id="@+id/tv_title"
+            android:layout_gravity="center_vertical"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:maxLines="1"
+            android:text="Camera trước"
+            android:paddingVertical="15dp"
+            android:textColor="@color/black_700"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_marginStart="20dp"
+            android:id="@+id/tv_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:maxLines="2"
+            android:layout_weight="9"
+            android:layout_marginEnd="10dp"
+            android:text="OLED, 6.7, Super Retina XDR"
+            android:paddingVertical="15dp"
+            android:textColor="@color/black_700"
+            android:textSize="16sp" />
+
+    </TableRow>
+
+
+
+
+</androidx.cardview.widget.CardView>

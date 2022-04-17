@@ -1,13 +1,26 @@
 package com.groupone.mobilestore.view.fragment;
 
+import static com.groupone.mobilestore.util.NumberUtils.convertDateType1;
+import static com.groupone.mobilestore.util.NumberUtils.convertDateType2;
+
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentProfileBinding;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
@@ -74,7 +87,7 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Common
             @Override
             public void onClick(View view) {
                 binding.btLogout.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
-                actionShowFragment(LoginFragment.TAG, null, false);
+                showAlertDialog();
 
             }
         });
@@ -85,6 +98,37 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Common
         if (parentFrag != null) {
             parentFrag.setActionShowFragment(tag, data, isBack);
         }
+    }
+
+    private void showAlertDialog() {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.custom_alert_dialog);
+        Window window = dialog.getWindow();
+        if (window == null) {
+            return;
+        }
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        WindowManager.LayoutParams windowAttributes = window.getAttributes();
+        windowAttributes.gravity = Gravity.CENTER;
+        window.setAttributes(windowAttributes);
+
+        dialog.setCancelable(false);
+
+        Button btnCancel = dialog.findViewById(R.id.bt_cancel3);
+        Button btnConfirm = dialog.findViewById(R.id.bt_confirm3);
+
+        btnCancel.setOnClickListener(view -> dialog.dismiss());
+
+        btnConfirm.setOnClickListener(view -> {
+            actionShowFragment(LoginFragment.TAG, null, false);
+            dialog.dismiss();
+        });
+
+
+        dialog.show();
     }
 
     @Override

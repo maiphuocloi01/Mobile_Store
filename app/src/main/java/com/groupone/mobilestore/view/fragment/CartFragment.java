@@ -6,6 +6,7 @@ import static com.groupone.mobilestore.util.NumberUtils.convertPrice;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -50,17 +51,24 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CommonViewMo
         adapter.getListCartLD().observe(this, new Observer<List<Cart>>() {
             @Override
             public void onChanged(List<Cart> carts) {
-                if (carts.isEmpty()) return;
+                if (carts.isEmpty()) {
+                    binding.tvTotalCount.setText(convertParentheses(0));
+                    binding.tvProductCost.setText(convertPrice(0));
+                    binding.tvShipCost.setText(convertPrice(0));
+                    binding.tvTotalCost.setText(convertPrice(0));
+                    binding.btPayment.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Toast.makeText(context, "Không có sản phẩm nào trong giỏ hàng!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    return;
+                }
                 showPayment(carts);
             }
         });
 
-        binding.btPayment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                actionShowFragment(PaymentFragment.TAG, null, true);
-            }
-        });
+
 
     }
 
@@ -75,6 +83,17 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CommonViewMo
         if (productCost > 0) {
             shipCost = 20000L;
         }
+        binding.btPayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for(Cart item: carts){
+                    if(item.isSelected()){
+                        actionShowFragment(PaymentFragment.TAG, null, true);
+                    }
+                }
+                Toast.makeText(context, "Chưa có sản phẩm nào được chọn!", Toast.LENGTH_SHORT).show();
+            }
+        });
         binding.tvTotalCount.setText(convertParentheses(listCart.size()));
         binding.tvProductCost.setText(convertPrice(productCost));
         binding.tvShipCost.setText(convertPrice(shipCost));

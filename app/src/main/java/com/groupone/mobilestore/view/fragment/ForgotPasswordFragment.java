@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -57,7 +58,17 @@ public class ForgotPasswordFragment extends BaseFragment<FragmentForgotPasswordB
         windowAttributes.gravity = Gravity.CENTER;
         window.setAttributes(windowAttributes);
 
-        dialog.setCancelable(true);
+        dialog.setCancelable(false);
+
+        Button btnCancel = dialog.findViewById(R.id.bt_cancel);
+        Button btnConfirm = dialog.findViewById(R.id.bt_confirm);
+
+        btnCancel.setOnClickListener(view -> dialog.dismiss());
+
+        btnConfirm.setOnClickListener(view -> {
+            dialog.dismiss();
+        });
+
         dialog.show();
     }
 
