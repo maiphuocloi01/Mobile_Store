@@ -119,6 +119,7 @@
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/roboto_regular"
                     android:hint="CVV"
+                    android:maxLength="3"
                     android:inputType="number"
                     android:padding="15dp"
                     android:textColorHint="@color/black_500"
