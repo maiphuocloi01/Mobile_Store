@@ -1,12 +1,13 @@
 package com.groupone.mobilestore.view.fragment;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.groupone.mobilestore.databinding.FragmentFilterBinding;
+
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
 public class FilterFragment extends BaseFragment<FragmentFilterBinding, CommonViewModel>{
@@ -21,7 +22,25 @@ public class FilterFragment extends BaseFragment<FragmentFilterBinding, CommonVi
 
     @Override
     protected void initViews() {
+        binding.ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callBack.backToPrev();
+            }
+        });
+        binding.btConfirm3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callBack.showFragment(SearchResultFragment.TAG, null, false);
+            }
+        });
 
+        binding.btCancel3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override

@@ -6,9 +6,17 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.groupone.mobilestore.databinding.FragmentBankBinding;
+import com.groupone.mobilestore.model.Bank;
+import com.groupone.mobilestore.model.Shipment;
+import com.groupone.mobilestore.view.adapter.AddressAdapter;
+import com.groupone.mobilestore.view.adapter.BankAdapter;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BankFragment extends BaseFragment<FragmentBankBinding, CommonViewModel> {
 
@@ -21,6 +29,15 @@ public class BankFragment extends BaseFragment<FragmentBankBinding, CommonViewMo
 
     @Override
     protected void initViews() {
+
+        List<Bank> listBank = new ArrayList<>();
+
+        listBank.add(new Bank(1, "Mai Phước Lợi", "1234567890121234", "10/23", 123, "Thẻ VISA"));
+        listBank.add(new Bank(2, "Mai Phước Lợi", "1234567890121234", "", 0, "Vietcombank"));
+
+        binding.rvBank.setLayoutManager(new LinearLayoutManager(context));
+        BankAdapter bankAdapter = new BankAdapter(context, listBank);
+        binding.rvBank.setAdapter(bankAdapter);
 
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
             @Override

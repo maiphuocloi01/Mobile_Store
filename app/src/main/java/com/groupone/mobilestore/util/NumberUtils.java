@@ -27,4 +27,9 @@ public class NumberUtils {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.format(date);
     }
+
+    public static String hideCardNumber(String cardNumber){
+        String lastFour = cardNumber.substring(cardNumber.length()-4);
+        return "************" + lastFour;
+    }
 }

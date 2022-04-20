@@ -133,6 +133,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:nestedScrollingEnabled="false"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/layout_item_version" />
@@ -143,6 +144,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"
+                    android:nestedScrollingEnabled="false"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/layout_item_version" />
 
@@ -182,6 +184,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:nestedScrollingEnabled="false"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="9"
                     tools:listitem="@layout/layout_item_info" />
@@ -241,6 +244,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/rv_rating"
                     android:layout_marginTop="10dp"
+                    android:nestedScrollingEnabled="false"
                     tools:listitem="@layout/layout_item_review"
                     tools:itemCount="3"/>
 

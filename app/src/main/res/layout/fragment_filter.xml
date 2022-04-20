@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,8 +7,10 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
+        android:layout_alignParentTop="true"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="15dp"
         android:background="@color/background"
@@ -37,4 +39,591 @@
 
     </RelativeLayout>
 
-</LinearLayout>
+    <ScrollView
+        android:layout_below="@+id/appbar"
+        android:layout_above="@id/group_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Hãng"
+                android:layout_marginHorizontal="20dp"
+                android:textColor="@color/black_700"
+                android:textSize="20sp" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:weightSum="4">
+
+                <ImageButton
+                    android:id="@+id/bt_apple"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_white_corner_10"
+                    android:src="@drawable/ic_apple" />
+
+                <ImageButton
+                    android:id="@+id/bt_samsung"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_white_corner_10"
+                    android:src="@drawable/ic_samsung" />
+
+                <ImageButton
+                    android:id="@+id/bt_xiaomi"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_white_corner_10"
+                    android:src="@drawable/ic_xiaomi" />
+
+                <ImageButton
+                    android:id="@+id/bt_oppo"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_white_corner_10"
+                    android:src="@drawable/ic_oppo" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:weightSum="4">
+
+                <ImageButton
+                    android:id="@+id/bt_nokia"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_white_corner_10"
+                    android:src="@drawable/ic_nokia" />
+
+                <ImageButton
+                    android:id="@+id/bt_asus"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_white_corner_10"
+                    android:src="@drawable/ic_asus" />
+
+                <ImageButton
+                    android:id="@+id/bt_vivo"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_white_corner_10"
+                    android:src="@drawable/ic_vivo" />
+
+                <ImageButton
+                    android:id="@+id/bt_realme"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_white_corner_10"
+                    android:src="@drawable/ic_realme" />
+            </TableRow>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Giá"
+                android:layout_marginHorizontal="20dp"
+                android:textColor="@color/black_700"
+                android:textSize="20sp" />
+
+            <TableRow
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="20dp">
+
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:text="Dưới 2 triệu"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:paddingVertical="3dp"
+                        android:textColor="@color/black_700"
+                        android:background="@drawable/bg_white_corner_5"
+                        android:textAlignment="center"/>
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:text="Từ 4 - 7 triệu"
+                        android:textSize="18sp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:paddingVertical="3dp"
+                        android:textColor="@color/black_700"
+                        android:background="@drawable/bg_white_corner_5"
+                        android:textAlignment="center"/>
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:text="Từ 13 - 20 triệu"
+                        android:textSize="18sp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:paddingVertical="3dp"
+                        android:textColor="@color/black_700"
+                        android:background="@drawable/bg_white_corner_5"
+                        android:textAlignment="center"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:text="Từ 2 - 4 triệu"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:paddingVertical="3dp"
+                        android:textColor="@color/black_700"
+                        android:background="@drawable/bg_white_corner_5"
+                        android:textAlignment="center"/>
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:text="Từ 7 - 13 triệu"
+                        android:textSize="18sp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:paddingVertical="3dp"
+                        android:textColor="@color/black_700"
+                        android:background="@drawable/bg_white_corner_5"
+                        android:textAlignment="center"/>
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:text="Từ 7 - 13 triệu"
+                        android:textSize="18sp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:paddingVertical="3dp"
+                        android:textColor="@color/black_700"
+                        android:background="@drawable/bg_white_corner_5"
+                        android:textAlignment="center"/>
+
+                </LinearLayout>
+
+
+
+            </TableRow>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Loại sản phẩm"
+                android:layout_marginHorizontal="20dp"
+                android:textColor="@color/black_700"
+                android:textSize="20sp" />
+
+            <TableRow
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="20dp">
+
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:text="Điện thoại"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:paddingVertical="3dp"
+                        android:textColor="@color/black_700"
+                        android:background="@drawable/bg_white_corner_5"
+                        android:textAlignment="center"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:text="Máy tính bảng"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:paddingVertical="3dp"
+                        android:textColor="@color/black_700"
+                        android:background="@drawable/bg_white_corner_5"
+                        android:textAlignment="center"/>
+
+
+                </LinearLayout>
+
+
+
+            </TableRow>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Ram"
+                android:layout_marginHorizontal="20dp"
+                android:textColor="@color/black_700"
+                android:textSize="20sp" />
+
+            <TableRow
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="20dp">
+
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="2GB"
+                    android:textSize="18sp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_regular"
+                    android:paddingVertical="3dp"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@color/black_700"
+                    android:background="@drawable/bg_white_corner_5"
+                    android:textAlignment="center"/>
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="3GB"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:paddingVertical="3dp"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@color/black_700"
+                    android:background="@drawable/bg_white_corner_5"
+                    android:textAlignment="center"/>
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="4GB"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:paddingVertical="3dp"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@color/black_700"
+                    android:background="@drawable/bg_white_corner_5"
+                    android:textAlignment="center"/>
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="6GB"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:paddingVertical="3dp"
+                    android:textColor="@color/black_700"
+                    android:background="@drawable/bg_white_corner_5"
+                    android:textAlignment="center"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="20dp">
+
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="8GB"
+                    android:textSize="18sp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_regular"
+                    android:paddingVertical="3dp"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@color/black_700"
+                    android:background="@drawable/bg_white_corner_5"
+                    android:textAlignment="center"/>
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="12GB"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:paddingVertical="3dp"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@color/black_700"
+                    android:background="@drawable/bg_white_corner_5"
+                    android:textAlignment="center"/>
+
+            </TableRow>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Bộ nhớ trong"
+                android:layout_marginHorizontal="20dp"
+                android:textColor="@color/black_700"
+                android:textSize="20sp" />
+
+            <TableRow
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="20dp">
+
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="32GB"
+                    android:textSize="18sp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_regular"
+                    android:paddingVertical="3dp"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@color/black_700"
+                    android:background="@drawable/bg_white_corner_5"
+                    android:textAlignment="center"/>
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="64GB"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:paddingVertical="3dp"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@color/black_700"
+                    android:background="@drawable/bg_white_corner_5"
+                    android:textAlignment="center"/>
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="128GB"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:paddingVertical="3dp"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@color/black_700"
+                    android:background="@drawable/bg_white_corner_5"
+                    android:textAlignment="center"/>
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="256GB"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:paddingVertical="3dp"
+                    android:textColor="@color/black_700"
+                    android:background="@drawable/bg_white_corner_5"
+                    android:textAlignment="center"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="20dp">
+
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="512GB"
+                    android:textSize="18sp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_regular"
+                    android:paddingVertical="3dp"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@color/black_700"
+                    android:background="@drawable/bg_white_corner_5"
+                    android:textAlignment="center"/>
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="1TB"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:paddingVertical="3dp"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@color/black_700"
+                    android:background="@drawable/bg_white_corner_5"
+                    android:textAlignment="center"/>
+
+            </TableRow>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Màn hình"
+                android:layout_marginHorizontal="20dp"
+                android:textColor="@color/black_700"
+                android:textSize="20sp" />
+
+
+            <TableRow
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="30dp"
+                android:layout_marginHorizontal="20dp">
+
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="Màn hình nhỏ gọn"
+                    android:textSize="18sp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_regular"
+                    android:paddingVertical="3dp"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@color/black_700"
+                    android:background="@drawable/bg_white_corner_5"
+                    android:textAlignment="center"/>
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="Từ 6 inch trở lên"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:paddingVertical="3dp"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@color/black_700"
+                    android:background="@drawable/bg_white_corner_5"
+                    android:textAlignment="center"/>
+
+            </TableRow>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <TableRow
+        android:id="@+id/group_button"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="wrap_content"
+        android:paddingVertical="15dp"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/bt_cancel3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_transparent_corner_10_border_orange"
+            android:enabled="true"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Đặt lại"
+            android:layout_marginStart="20dp"
+            android:textAllCaps="false"
+            android:textColor="@color/orange_500"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/bt_confirm3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/bg_orange_corner_10"
+            android:fontFamily="@font/roboto_bold"
+            android:stateListAnimator="@null"
+            android:text="Áp dụng"
+            android:textAllCaps="false"
+            android:textColor="@color/background"
+            android:textSize="20sp" />
+
+    </TableRow>
+
+
+</RelativeLayout>

@@ -34,7 +34,14 @@ public class SearchResultFragment extends BaseFragment<FragmentSearchResultBindi
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                callBack.backToPrev();
+                callBack.showFragment(PagerFragment.TAG, null, false);
+            }
+        });
+
+        binding.ivFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callBack.showFragment(FilterFragment.TAG, null, true);
             }
         });
     }

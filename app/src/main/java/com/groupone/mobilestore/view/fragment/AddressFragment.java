@@ -18,7 +18,7 @@ import com.groupone.mobilestore.viewmodel.CommonViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddressFragment extends BaseFragment<FragmentAddressBinding, CommonViewModel> {
+public class AddressFragment extends BaseFragment<FragmentAddressBinding, CommonViewModel> implements AddressAdapter.AddressCallback {
 
     public static final String TAG = AddressFragment.class.getName();
     private AddressAdapter adapter;
@@ -38,7 +38,7 @@ public class AddressFragment extends BaseFragment<FragmentAddressBinding, Common
 
 
         binding.rvAddress.setLayoutManager(new LinearLayoutManager(context));
-        adapter = new AddressAdapter(context, listAddress);
+        adapter = new AddressAdapter(context, listAddress, this);
         binding.rvAddress.setAdapter(adapter);
 
         binding.frameAddAddress.setOnClickListener(new View.OnClickListener() {
@@ -68,5 +68,10 @@ public class AddressFragment extends BaseFragment<FragmentAddressBinding, Common
     @Override
     public void apiError(String key, int code, Object data) {
 
+    }
+
+    @Override
+    public void gotoEditAddress(Shipment shipment) {
+        callBack.showFragment(EditAddressFragment.TAG, null, true);
     }
 }

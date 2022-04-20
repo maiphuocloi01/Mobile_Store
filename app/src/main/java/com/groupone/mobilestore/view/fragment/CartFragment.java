@@ -2,6 +2,8 @@ package com.groupone.mobilestore.view.fragment;
 
 import static com.groupone.mobilestore.util.NumberUtils.convertParentheses;
 import static com.groupone.mobilestore.util.NumberUtils.convertPrice;
+import static com.groupone.mobilestore.util.ViewUtils.gone;
+import static com.groupone.mobilestore.util.ViewUtils.show;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +58,8 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CommonViewMo
                     binding.tvProductCost.setText(convertPrice(0));
                     binding.tvShipCost.setText(convertPrice(0));
                     binding.tvTotalCost.setText(convertPrice(0));
+                    gone(binding.layoutCart);
+                    show(binding.layoutEmptyCart);
                     binding.btPayment.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {

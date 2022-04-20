@@ -4,6 +4,7 @@ import static com.groupone.mobilestore.util.ViewUtils.inv;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -20,7 +21,14 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
     private List<Shipment> listAddress;
     private Context context;
 
-    public AddressAdapter(Context context, List<Shipment> listAddress) {
+    private AddressCallback callback;
+
+    public interface AddressCallback{
+        void gotoEditAddress(Shipment shipment);
+    }
+
+    public AddressAdapter(Context context, List<Shipment> listAddress, AddressCallback callback) {
+        this.callback = callback;
         this.listAddress = listAddress;
         this.context = context;
     }
@@ -48,6 +56,13 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
         } else if (address.getTypeAddress() == 2) {
             holder.binding.tvTypeAddress.setText("Văn phòng");
         }
+
+        holder.binding.ivEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callback.gotoEditAddress(address);
+            }
+        });
     }
 
     @Override

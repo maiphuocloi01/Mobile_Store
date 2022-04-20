@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentProductBinding;
+import com.groupone.mobilestore.model.Comment;
 import com.groupone.mobilestore.model.Information;
+import com.groupone.mobilestore.view.adapter.CommentAdapter;
 import com.groupone.mobilestore.view.adapter.InformationAdapter;
 import com.groupone.mobilestore.view.adapter.SliderAdapter;
 import com.groupone.mobilestore.view.adapter.VersionAdapter;
@@ -82,6 +84,17 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Common
         binding.rvInfo.setLayoutManager(new LinearLayoutManager(context));
         InformationAdapter adapterInfo = new InformationAdapter(context, listInfo);
         binding.rvInfo.setAdapter(adapterInfo);
+
+
+        List<Comment> listComment = new ArrayList<>();
+        listComment.add(new Comment(1, "Mai Phước Lợi", "01-01-2022 12:59", "Phân loại: 128GB, Xám", "Sản phẩm chất lượng tốt, giao hàng nhanh chóng, mình sẽ giới thiệu cho bạn bè, người thân.", 5));
+        listComment.add(new Comment(2, "Mai Phước Lợi", "01-01-2022 12:59", "Phân loại: 128GB, Xám", "Sản phẩm chất lượng tốt, giao hàng nhanh chóng, mình sẽ giới thiệu cho bạn bè, người thân.", 4));
+        listComment.add(new Comment(3, "Mai Phước Lợi", "01-01-2022 12:59", "Phân loại: 128GB, Xám", "Sản phẩm chất lượng tốt, giao hàng nhanh chóng, mình sẽ giới thiệu cho bạn bè, người thân.", 3));
+        //listComment.add(new Comment(4, "Mai Phước Lợi", "01-01-2022 12:59", "Phân loại: 128GB, Xám", "Sản phẩm chất lượng tốt, giao hàng nhanh chóng, mình sẽ giới thiệu cho bạn bè, người thân.", 2));
+
+        binding.rvRating.setLayoutManager(new LinearLayoutManager(context));
+        CommentAdapter commentAdapter = new CommentAdapter(context, listComment);
+        binding.rvRating.setAdapter(commentAdapter);
 
         sliderView = binding.imageSlider;
 

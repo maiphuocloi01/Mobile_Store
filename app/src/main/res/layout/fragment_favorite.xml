@@ -39,7 +39,7 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:orientation="vertical"
@@ -51,6 +51,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_regular"
             android:text="6 sản phẩm"
+            android:id="@+id/tv_count"
             android:textColor="@color/black_500"
             android:textSize="20sp" />
 
@@ -58,13 +59,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:id="@+id/rv_favor"
             tools:listitem="@layout/layout_item_product"
             android:layout_marginHorizontal="10dp"/>
 
     </LinearLayout>
 
     <LinearLayout
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
