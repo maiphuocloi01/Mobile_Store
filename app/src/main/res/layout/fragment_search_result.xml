@@ -79,23 +79,35 @@
 
     </RelativeLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="20dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/layout_item_filter"
+        tools:itemCount="3"
+        android:layout_marginTop="15dp"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_marginHorizontal="20dp"
-        android:fontFamily="@font/roboto_bold"
-        android:text="Gợi ý"
-        android:textColor="@color/black_700"
-        android:textSize="20sp" />
+        android:fontFamily="@font/roboto_regular"
+        android:text="Tìm thấy 15 kết quả"
+        android:textColor="@color/black_500"
+        android:textSize="18sp" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_marginHorizontal="20dp"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/layout_item_recommend"
-        android:id="@+id/rv_recommend"
-        android:layout_marginTop="10dp"/>
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        tools:listitem="@layout/layout_item_product"
+        android:layout_marginTop="15dp"/>
 
 
 </LinearLayout>

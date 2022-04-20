@@ -23,6 +23,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, CommonViewMo
 
     public static final String TAG = HomeFragment.class.getName();
 
+    private PagerFragment parentFrag;
 
     @Override
     protected Class<CommonViewModel> getClassVM() {
@@ -31,13 +32,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, CommonViewMo
 
     @Override
     protected void initViews() {
-//        binding.btnNext.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                PagerFragment parentFrag = ((PagerFragment)HomeFragment.this.getParentFragment());
-//                parentFrag.setActionShowFragment(LoginFragment.TAG, null, true);
-//            }
-//        });
 
         List<Product> listProduct = new ArrayList<>();
 
@@ -55,7 +49,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, CommonViewMo
         binding.rowSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PagerFragment parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
+                parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
                 if (parentFrag != null) {
                     parentFrag.setActionShowFragment(SearchFragment.TAG, null, true);
                 }
@@ -64,10 +58,19 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, CommonViewMo
         adapter.getProductLD().observe(this, new Observer<Product>() {
             @Override
             public void onChanged(Product product) {
-                //callBack.showFragment(ProductFragment.TAG, product, true);
-                PagerFragment parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
+                parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
                 if (parentFrag != null) {
                     parentFrag.setActionShowFragment(ProductFragment.TAG, product, true);
+                }
+            }
+        });
+
+        binding.btApple.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
+                if (parentFrag != null) {
+                    parentFrag.setActionShowFragment(SearchResultFragment.TAG, null, true);
                 }
             }
         });

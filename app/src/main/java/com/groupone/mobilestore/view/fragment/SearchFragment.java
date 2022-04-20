@@ -12,9 +12,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.groupone.mobilestore.databinding.FragmentSearchBinding;
+import com.groupone.mobilestore.view.adapter.RecommendAdapter;
+import com.groupone.mobilestore.view.adapter.VersionAdapter;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchFragment extends BaseFragment<FragmentSearchBinding, CommonViewModel> {
 
@@ -28,21 +34,31 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, CommonVi
     @Override
     protected void initViews() {
 
+        List<String> listRecommend = new ArrayList<>();
+        listRecommend.add("iPhone 13 Pro Max");
+        listRecommend.add("Xiaomi 12");
+        listRecommend.add("iPhone SE 2022");
+
+        binding.rvRecommend.setLayoutManager(new LinearLayoutManager(context));
+        RecommendAdapter adapterRecommend = new RecommendAdapter(context, listRecommend);
+        binding.rvRecommend.setAdapter(adapterRecommend);
+
+
         if (binding.etSearch.requestFocus()) {
             showSoftInput(binding.etSearch);
         }
 
-        binding.etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    //performSearch();
-                    hideSoftInput(binding.etSearch);
-                    return true;
-                }
-                return false;
-            }
-        });
+//        binding.etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+//                    //performSearch();
+//
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
 
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +71,18 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, CommonVi
             @Override
             public void onClick(View view) {
                 callBack.showFragment(FilterFragment.TAG, null, true);
+            }
+        });
+
+        binding.etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    hideSoftInput(binding.etSearch);
+                    callBack.showFragment(SearchResultFragment.TAG, null, false);
+                    return true;
+                }
+                return false;
             }
         });
     }

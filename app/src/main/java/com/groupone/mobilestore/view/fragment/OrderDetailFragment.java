@@ -1,6 +1,7 @@
 package com.groupone.mobilestore.view.fragment;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -20,7 +21,18 @@ public class OrderDetailFragment extends BaseFragment<FragmentOrderDetailBinding
 
     @Override
     protected void initViews() {
-
+        binding.ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callBack.backToPrev();
+            }
+        });
+        binding.btDoAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callBack.showFragment(EvaluateFragment.TAG, null, true);
+            }
+        });
     }
 
     @Override

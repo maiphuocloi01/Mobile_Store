@@ -7,12 +7,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.groupone.mobilestore.databinding.FragmentEvaluateBinding;
+import com.groupone.mobilestore.databinding.FragmentSearchResultBinding;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
-public class EvaluateFragment extends BaseFragment<FragmentEvaluateBinding, CommonViewModel>{
+public class SearchResultFragment extends BaseFragment<FragmentSearchResultBinding, CommonViewModel>{
 
-    public static final String TAG = EvaluateFragment.class.getName();
+    public static final String TAG = SearchResultFragment.class.getName();
 
     @Override
     public void apiSuccess(String key, Object data) {
@@ -37,17 +37,10 @@ public class EvaluateFragment extends BaseFragment<FragmentEvaluateBinding, Comm
                 callBack.backToPrev();
             }
         });
-
-        binding.btSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                callBack.showFragment(PagerFragment.TAG, null, false);
-            }
-        });
     }
 
     @Override
-    protected FragmentEvaluateBinding initViewBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
-        return FragmentEvaluateBinding.inflate(inflater, container, false);
+    protected FragmentSearchResultBinding initViewBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
+        return FragmentSearchResultBinding.inflate(inflater, container, false);
     }
 }

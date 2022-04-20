@@ -234,14 +234,6 @@
                         android:textSize="16sp" />
 
 
-                    <ImageView
-                        android:id="@+id/iv_edit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="10dp"
-                        android:src="@drawable/ic_edit"
-                        app:tint="@color/blue_500" />
 
                 </TableRow>
 
@@ -284,10 +276,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
-                    android:ellipsize="end"
                     android:fontFamily="@font/roboto_regular"
-                    android:maxLines="1"
-                    android:text="KTX Khu A, Khu Phố 6, Phường Linh Trung,Thành Phố Thủ Đức,TP Hồ Chí Minh"
+                    android:text="KTX Khu A, Khu Phố 6, Phường Linh Trung, Thành Phố Thủ Đức,TP Hồ Chí Minh"
                     android:textColor="@color/black_700"
                     android:textSize="16sp" />
 
@@ -326,10 +316,10 @@
                         android:layout_alignParentTop="true"
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto_bold"
-                        android:text="0₫"
+                        android:text="33,990,000₫"
                         android:textAlignment="textEnd"
                         android:textColor="@color/blue_500"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
 
                 </TableRow>
@@ -354,10 +344,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto_bold"
-                        android:text="0₫"
+                        android:text="40,000₫"
                         android:textAlignment="textEnd"
                         android:textColor="@color/blue_500"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
 
                 </TableRow>
@@ -391,7 +381,7 @@
                         android:layout_alignParentTop="true"
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto_bold"
-                        android:text="0₫"
+                        android:text="34,030,000₫"
                         android:textAlignment="textEnd"
                         android:textColor="@color/blue_500"
                         android:textSize="16sp" />
@@ -402,17 +392,17 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/bt_payment"
+                android:id="@+id/bt_do_action"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/bg_orange_corner_10"
                 android:fontFamily="@font/roboto_bold"
                 android:padding="12dp"
                 android:stateListAnimator="@null"
-                android:text="Đặt hàng"
+                android:text="Đánh giá"
                 android:textAllCaps="false"
                 android:textColor="@color/background"
                 android:textSize="22sp" />

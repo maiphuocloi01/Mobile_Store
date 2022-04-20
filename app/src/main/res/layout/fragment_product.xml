@@ -113,7 +113,7 @@
                         android:layout_marginEnd="10dp"
                         android:background="@drawable/bg_white_corner_5"
                         android:padding="5dp"
-                        android:src="@drawable/ic_favorite"
+                        android:src="@drawable/ic_favorite_border"
                         app:tint="@color/blue_500" />
                 </TableRow>
 
