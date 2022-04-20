@@ -253,7 +253,7 @@
                     android:layout_gravity="center_horizontal"
                     android:textAlignment="center"
                     android:textColor="@color/black_700"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     app:drawableEndCompat="@drawable/ic_arrow_down" />
 
                 <View

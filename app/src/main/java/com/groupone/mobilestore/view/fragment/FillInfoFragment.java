@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,9 @@ public class FillInfoFragment extends BaseFragment<FragmentFillInfoBinding, Comm
 
     public static final String TAG = FillInfoFragment.class.getName();
 
+    private int defaultYear = 2000;
+    private int defaultMonth = 0;
+    private int defaultDay = 1;
     // You can do the assignment inside onAttach or onCreate, i.e, before the activity is displayed
     ActivityResultLauncher<Intent> someActivityResultLauncher;
 
@@ -109,7 +113,12 @@ public class FillInfoFragment extends BaseFragment<FragmentFillInfoBinding, Comm
             }
         });
 
-
+        binding.btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callBack.showFragment(LoginFragment.TAG, null, false);
+            }
+        });
     }
 
     private void showDatePickerDialog() {
@@ -135,9 +144,7 @@ public class FillInfoFragment extends BaseFragment<FragmentFillInfoBinding, Comm
         DatePicker picker = dialog.findViewById(R.id.datePicker);
         //Calendar calendar = Calendar.getInstance();
         //calendar.setTimeInMillis(System.currentTimeMillis());
-        int defaultYear = 2000;
-        int defaultMonth = 0;
-        int defaultDay = 1;
+
         tvDate.setText(convertDateType1(defaultDay, defaultMonth + 1, defaultYear));
         picker.init(defaultYear, defaultMonth, defaultDay, new DatePicker.OnDateChangedListener() {
 
@@ -145,6 +152,9 @@ public class FillInfoFragment extends BaseFragment<FragmentFillInfoBinding, Comm
             public void onDateChanged(DatePicker datePicker, int year, int month, int dayOfMonth) {
                 //Log.d("Date", "Year=" + year + " Month=" + (month + 1) + " day=" + dayOfMonth);
                 tvDate.setText(convertDateType1(dayOfMonth, month + 1, year));
+                defaultDay = dayOfMonth;
+                defaultMonth = month;
+                defaultYear = year;
 
             }
         });

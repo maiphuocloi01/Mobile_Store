@@ -30,7 +30,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="15dp"
             android:fontFamily="@font/roboto_bold"
-            android:text="Thanh toán"
+            android:text="Thông tin đơn hàng"
             android:textAlignment="center"
             android:textColor="@color/black_700"
             android:textSize="22sp" />
@@ -46,12 +46,24 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TableRow
-                android:layout_margin="20dp"
-                android:background="@drawable/bg_white_corner_10"
-                android:padding="10dp"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_width="match_parent">
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp"
+                android:fontFamily="@font/roboto_bold"
+                android:maxLines="1"
+                android:text="Đơn hàng đã hoàn thành"
+                android:textColor="@color/blue_500"
+                android:textSize="18sp" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bg_white_corner_10"
+                android:padding="10dp">
 
                 <ImageView
                     android:id="@+id/iv_product"
@@ -70,11 +82,11 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_marginStart="10dp"
                         android:id="@+id/tv_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
                         android:ellipsize="end"
@@ -97,19 +109,21 @@
                         android:textColor="@color/black_500"
                         android:textSize="16sp" />
 
-                    <TableRow android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_width="match_parent">
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp">
+
                         <TextView
                             android:id="@+id/tv_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="end"
                             android:layout_marginTop="1dp"
+                            android:layout_marginEnd="10dp"
                             android:layout_weight="1"
                             android:fontFamily="@font/roboto_regular"
                             android:text="33,990,000₫"
-                            android:layout_gravity="end"
-                            android:layout_marginEnd="10dp"
                             android:textColor="@color/blue_500"
                             android:textSize="16sp" />
 
@@ -117,19 +131,16 @@
                             android:id="@+id/tv_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="end"
                             android:layout_marginTop="1dp"
                             android:layout_weight="1"
                             android:fontFamily="@font/roboto_regular"
                             android:text="1 sản phẩm"
-                            android:layout_gravity="end"
                             android:textAlignment="textEnd"
                             android:textColor="@color/black_500"
                             android:textSize="16sp" />
 
                     </TableRow>
-
-
-
 
 
                 </LinearLayout>
@@ -139,40 +150,88 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
                 android:fontFamily="@font/roboto_bold"
                 android:maxLines="1"
+                android:text="Thông tin vận chuyển"
+                android:textColor="@color/black_700"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp"
+                android:background="@drawable/bg_white_corner_10"
+                android:orientation="vertical"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="15dp">
+
+                <TextView
+                    android:id="@+id/tv_ship_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto_bold"
+                    android:maxLines="2"
+                    android:text="Giao hàng thành công"
+                    android:textColor="@color/blue_500"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_ship_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto_regular"
+                    android:maxLines="1"
+                    android:text="Thời gian: 01-01-2022 12:56"
+                    android:textColor="@color/black_700"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:fontFamily="@font/roboto_bold"
+                android:maxLines="1"
                 android:text="Địa chỉ nhận hàng"
                 android:textColor="@color/black_700"
                 android:textSize="18sp" />
 
             <LinearLayout
-                android:layout_marginVertical="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp"
+                android:background="@drawable/bg_white_corner_10"
                 android:orientation="vertical"
                 android:paddingHorizontal="15dp"
-                android:paddingVertical="15dp"
-                android:background="@drawable/bg_white_corner_10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:paddingVertical="15dp">
 
                 <TableRow
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/tv_type_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
                         android:ellipsize="end"
                         android:fontFamily="@font/roboto_bold"
                         android:maxLines="2"
                         android:text="Nhà riêng"
-                        android:layout_weight="1"
                         android:textColor="@color/black_700"
                         android:textSize="16sp" />
-
 
 
                     <ImageView
@@ -180,16 +239,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_edit"
                         android:layout_marginEnd="10dp"
+                        android:src="@drawable/ic_edit"
                         app:tint="@color/blue_500" />
 
                 </TableRow>
 
                 <TableRow
-                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_width="match_parent">
+                    android:layout_marginTop="10dp">
 
                     <TextView
                         android:id="@+id/tv_full_name"
@@ -220,189 +279,30 @@
                 </TableRow>
 
                 <TextView
-                    android:layout_marginTop="10dp"
                     android:id="@+id/tv_street"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="1"
-                    android:maxLines="1"
                     android:ellipsize="end"
                     android:fontFamily="@font/roboto_regular"
+                    android:maxLines="1"
                     android:text="KTX Khu A, Khu Phố 6, Phường Linh Trung,Thành Phố Thủ Đức,TP Hồ Chí Minh"
                     android:textColor="@color/black_700"
                     android:textSize="16sp" />
 
             </LinearLayout>
 
-            <TextView
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_bold"
-                android:maxLines="1"
                 android:layout_marginHorizontal="20dp"
-                android:text="Phương thức vận chuyển"
-                android:textColor="@color/black_700"
-                android:textSize="18sp" />
-
-            <LinearLayout
                 android:layout_marginVertical="10dp"
-                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/bg_white_corner_10"
                 android:orientation="vertical"
                 android:paddingHorizontal="15dp"
-                android:paddingVertical="15dp"
-                android:background="@drawable/bg_white_corner_10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-
-                <TableRow
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent">
-
-                    <TextView
-                        android:id="@+id/tv_ship_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/roboto_bold"
-                        android:maxLines="2"
-                        android:text="Giao hàng nhanh"
-                        android:textColor="@color/black_700"
-                        android:textSize="16sp" />
-
-
-                    <TextView
-                        android:id="@+id/tv_choose_ship_cost"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="40,000₫"
-                        android:textAlignment="textEnd"
-                        android:textColor="@color/blue_500"
-                        android:textSize="16sp" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_marginTop="10dp"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent">
-
-                    <TextView
-                        android:id="@+id/tv_ship_info"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/roboto_regular"
-                        android:maxLines="1"
-                        android:text="Đơn hàng được giao nhanh trong ngày"
-                        android:layout_weight="1"
-                        android:textColor="@color/black_700"
-                        android:textSize="16sp" />
-
-
-
-                    <ImageView
-                        android:id="@+id/iv_choose_shipment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_arrow_forward"
-                        android:layout_marginEnd="10dp"
-                        app:tint="@color/orange_500" />
-
-                </TableRow>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_bold"
-                android:maxLines="1"
-                android:layout_marginHorizontal="20dp"
-                android:text="Phương thức thanh toán"
-                android:textColor="@color/black_700"
-                android:textSize="18sp" />
-
-            <LinearLayout
-                android:layout_marginVertical="10dp"
-                android:layout_marginHorizontal="20dp"
-                android:orientation="vertical"
-                android:paddingHorizontal="15dp"
-                android:paddingVertical="15dp"
-                android:background="@drawable/bg_white_corner_10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-
-                <TableRow
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent">
-
-                    <TextView
-                        android:id="@+id/tv_pay_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/roboto_bold"
-                        android:maxLines="2"
-                        android:text="Thanh toán khi nhận hàng"
-                        android:textColor="@color/black_700"
-                        android:textSize="16sp" />
-
-
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_marginTop="10dp"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent">
-
-                    <TextView
-                        android:id="@+id/tv_pay_info"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/roboto_regular"
-                        android:maxLines="1"
-                        android:text="Nhấn chọn để thay đổi"
-                        android:layout_weight="1"
-                        android:textColor="@color/black_700"
-                        android:textSize="16sp" />
-
-
-                    <ImageView
-                        android:id="@+id/iv_choose_payment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_arrow_forward"
-                        android:layout_marginEnd="10dp"
-                        app:tint="@color/orange_500" />
-
-                </TableRow>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_marginVertical="10dp"
-                android:layout_marginHorizontal="20dp"
-                android:orientation="vertical"
-                android:paddingHorizontal="15dp"
-                android:paddingVertical="15dp"
-                android:background="@drawable/bg_white_corner_10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:paddingVertical="15dp">
 
 
                 <TableRow
@@ -435,9 +335,9 @@
                 </TableRow>
 
                 <TableRow
-                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -520,7 +420,6 @@
         </LinearLayout>
 
     </ScrollView>
-
 
 
 </LinearLayout>

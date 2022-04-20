@@ -7,34 +7,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.groupone.mobilestore.databinding.FragmentReviewBinding;
+import com.groupone.mobilestore.databinding.FragmentEvaluateBinding;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
-public class ReviewFragment extends BaseFragment<FragmentReviewBinding, CommonViewModel>{
+public class EvaluateFragment extends BaseFragment<FragmentEvaluateBinding, CommonViewModel>{
 
-    public static final String TAG = ReviewFragment.class.getName();
-
-    @Override
-    protected Class<CommonViewModel> getClassVM() {
-        return CommonViewModel.class;
-    }
-
-    @Override
-    protected void initViews() {
-
-        binding.rbAll.setChecked(true);
-        binding.ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                callBack.backToPrev();
-            }
-        });
-    }
-
-    @Override
-    protected FragmentReviewBinding initViewBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
-        return FragmentReviewBinding.inflate(inflater, container, false);
-    }
+    public static final String TAG = EvaluateFragment.class.getName();
 
     @Override
     public void apiSuccess(String key, Object data) {
@@ -44,5 +22,25 @@ public class ReviewFragment extends BaseFragment<FragmentReviewBinding, CommonVi
     @Override
     public void apiError(String key, int code, Object data) {
 
+    }
+
+    @Override
+    protected Class<CommonViewModel> getClassVM() {
+        return CommonViewModel.class;
+    }
+
+    @Override
+    protected void initViews() {
+        binding.ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callBack.backToPrev();
+            }
+        });
+    }
+
+    @Override
+    protected FragmentEvaluateBinding initViewBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
+        return FragmentEvaluateBinding.inflate(inflater, container, false);
     }
 }

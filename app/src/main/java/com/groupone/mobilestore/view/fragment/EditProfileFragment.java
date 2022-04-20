@@ -39,6 +39,9 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
 
     public static final String TAG = EditProfileFragment.class.getName();
 
+    private int defaultYear = 2001;
+    private int defaultMonth = 3;
+    private int defaultDay = 12;
     // You can do the assignment inside onAttach or onCreate, i.e, before the activity is displayed
     ActivityResultLauncher<Intent> someActivityResultLauncher;
 
@@ -98,6 +101,13 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
         binding.etBirthday.setText("12/04/2001");
         binding.etBirthday.setCursorVisible(false);
         binding.etBirthday.setShowSoftInputOnFocus(false);
+        binding.rbMale.setChecked(true);
+        binding.btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callBack.backToPrev();
+            }
+        });
 
         binding.etBirthday.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -140,16 +150,16 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
         DatePicker picker = dialog.findViewById(R.id.datePicker);
         //Calendar calendar = Calendar.getInstance();
         //calendar.setTimeInMillis(System.currentTimeMillis());
-        int defaultYear = 2000;
-        int defaultMonth = 0;
-        int defaultDay = 1;
+
         tvDate.setText(convertDateType1(defaultDay, defaultMonth + 1, defaultYear));
         picker.init(defaultYear, defaultMonth, defaultDay, new DatePicker.OnDateChangedListener() {
 
             @Override
             public void onDateChanged(DatePicker datePicker, int year, int month, int dayOfMonth) {
                 tvDate.setText(convertDateType1(dayOfMonth, month + 1, year));
-
+                defaultDay = dayOfMonth;
+                defaultMonth = month;
+                defaultYear = year;
             }
         });
 

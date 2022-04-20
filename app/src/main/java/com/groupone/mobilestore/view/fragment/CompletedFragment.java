@@ -7,12 +7,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.groupone.mobilestore.databinding.FragmentReviewBinding;
+import com.groupone.mobilestore.databinding.FragmentCompletedBinding;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
-public class ReviewFragment extends BaseFragment<FragmentReviewBinding, CommonViewModel>{
+public class CompletedFragment extends BaseFragment<FragmentCompletedBinding, CommonViewModel>{
 
-    public static final String TAG = ReviewFragment.class.getName();
+    public static final String TAG = CompletedFragment.class.getName();
+
 
     @Override
     protected Class<CommonViewModel> getClassVM() {
@@ -21,19 +22,24 @@ public class ReviewFragment extends BaseFragment<FragmentReviewBinding, CommonVi
 
     @Override
     protected void initViews() {
-
-        binding.rbAll.setChecked(true);
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 callBack.backToPrev();
             }
         });
+
+        binding.btGoHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callBack.showFragment(PagerFragment.TAG, null, false);
+            }
+        });
     }
 
     @Override
-    protected FragmentReviewBinding initViewBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
-        return FragmentReviewBinding.inflate(inflater, container, false);
+    protected FragmentCompletedBinding initViewBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
+        return FragmentCompletedBinding.inflate(inflater, container, false);
     }
 
     @Override

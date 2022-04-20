@@ -62,6 +62,12 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Common
                 Log.i("GGG", "onIndicatorClicked: " + sliderView.getCurrentPagePosition());
             }
         });
+        binding.tvExpanded.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callBack.showFragment(ReviewFragment.TAG, null, true);
+            }
+        });
     }
 
     public void renewItems(View view) {

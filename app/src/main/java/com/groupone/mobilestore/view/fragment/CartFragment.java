@@ -91,7 +91,6 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CommonViewMo
                         actionShowFragment(PaymentFragment.TAG, null, true);
                     }
                 }
-                Toast.makeText(context, "Chưa có sản phẩm nào được chọn!", Toast.LENGTH_SHORT).show();
             }
         });
         binding.tvTotalCount.setText(convertParentheses(listCart.size()));

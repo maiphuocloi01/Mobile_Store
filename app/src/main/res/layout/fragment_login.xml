@@ -68,35 +68,87 @@
                     android:textSize="24sp" />
 
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="30dp"
-                    android:layout_marginTop="50dp"
-                    android:background="@drawable/text_input_selector"
-                    android:drawableLeft="@drawable/ic_profile"
-                    android:drawablePadding="15dp"
-                    android:fontFamily="@font/roboto_regular"
-                    android:hint="Tên tài khoản"
-                    android:inputType="text"
-                    android:padding="15dp"
-                    android:textColorHint="@color/black_500"
-                    android:textSize="18sp" />
+<!--                <EditText-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginHorizontal="30dp"-->
+<!--                    android:layout_marginTop="50dp"-->
+<!--                    android:background="@drawable/text_input_selector"-->
+<!--                    android:drawableLeft="@drawable/ic_profile"-->
+<!--                    android:drawablePadding="15dp"-->
+<!--                    android:fontFamily="@font/roboto_regular"-->
+<!--                    android:hint="Tên tài khoản"-->
+<!--                    android:inputType="text"-->
+<!--                    android:padding="15dp"-->
+<!--                    android:textColorHint="@color/black_500"-->
+<!--                    android:textSize="18sp" />-->
 
-                <EditText
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
                     android:layout_marginTop="30dp"
                     android:background="@drawable/text_input_selector"
-                    android:drawableLeft="@drawable/ic_lock"
-                    android:drawablePadding="15dp"
-                    android:fontFamily="@font/roboto_regular"
-                    android:hint="Mật khẩu"
-                    android:inputType="textPassword"
-                    android:padding="15dp"
-                    android:textColorHint="@color/black_500"
-                    android:textSize="18sp" />
+                    app:hintAnimationEnabled="false"
+                    app:endIconMode="clear_text"
+                    app:hintEnabled="false">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/roboto_regular"
+                        android:hint="Tên tài khoản"
+                        android:drawableStart="@drawable/ic_profile"
+                        android:inputType="text"
+                        android:drawablePadding="15dp"
+                        android:padding="15dp"
+                        android:textColorHint="@color/black_500"
+                        android:textSize="18sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                <!--                <EditText-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginHorizontal="30dp"-->
+<!--                    android:layout_marginTop="30dp"-->
+<!--                    android:background="@drawable/text_input_selector"-->
+<!--                    android:drawableLeft="@drawable/ic_lock"-->
+<!--                    android:drawablePadding="15dp"-->
+<!--                    android:fontFamily="@font/roboto_regular"-->
+<!--                    android:hint="Mật khẩu"-->
+<!--                    android:inputType="textPassword"-->
+<!--                    android:padding="15dp"-->
+<!--                    android:textColorHint="@color/black_500"-->
+<!--                    android:textSize="18sp" />-->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    app:passwordToggleEnabled="true"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/text_input_selector"
+                    app:hintAnimationEnabled="false"
+                    app:hintEnabled="false">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/roboto_regular"
+                        android:hint="Mật khẩu"
+                        android:drawableStart="@drawable/ic_lock"
+                        android:inputType="textPassword"
+                        android:drawablePadding="15dp"
+                        android:padding="15dp"
+                        android:textColorHint="@color/black_500"
+                        android:textSize="18sp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
                     android:id="@+id/tv_forgot_password"
@@ -109,7 +161,7 @@
                     android:fontFamily="@font/roboto_regular"
                     android:text="Quên mật khẩu"
                     android:textColor="@color/orange_500"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <Button
                     android:id="@+id/bt_login"

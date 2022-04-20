@@ -52,6 +52,13 @@ public class OrderFragment extends BaseFragment<FragmentOrderBinding, CommonView
         }
     }
 
+    public void setActionShowFragmentFromPager(String tag, Object data, boolean isBack) {
+        PagerFragment parentFrag = ((PagerFragment) OrderFragment.this.getParentFragment());
+        if (parentFrag != null) {
+            parentFrag.setActionShowFragment(tag, data, isBack);
+        }
+    }
+
     @Override
     protected FragmentOrderBinding initViewBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
         return FragmentOrderBinding.inflate(inflater, container, false);
