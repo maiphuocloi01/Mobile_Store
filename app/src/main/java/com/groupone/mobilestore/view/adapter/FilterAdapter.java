@@ -1,15 +1,24 @@
 package com.groupone.mobilestore.view.adapter;
 
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.FilterViewHolder> {
 
 
+    private Context context;
+    private List<String> listFilter;
 
+    public FilterAdapter(Context context, List<String> listFilter) {
+        this.context = context;
+        this.listFilter = listFilter;
+    }
 
     @NonNull
     @Override
