@@ -27,8 +27,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:fontFamily="@font/roboto_bold"
-                android:text="Đang tải..."
+                android:fontFamily="@font/roboto_regular"
+                android:text="Vui lòng chờ..."
                 android:textColor="@color/black_500"
                 android:textSize="20sp" />
 
