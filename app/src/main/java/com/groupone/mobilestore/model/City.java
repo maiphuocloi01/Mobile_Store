@@ -5,6 +5,7 @@ import java.util.List;
 public class City {
     private String name;
     private int code;
+    private boolean isSelected = false;
     private List<District> districts;
 
     public City(String name, int code, List<District> districts) {
@@ -14,6 +15,14 @@ public class City {
     }
 
     public City() {
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 
     public String getName() {

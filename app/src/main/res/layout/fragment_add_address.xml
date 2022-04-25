@@ -114,6 +114,8 @@
                 android:textSize="18sp" />
 
             <EditText
+                android:id="@+id/et_city"
+                app:errorEnabled="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -127,6 +129,8 @@
                 android:textSize="18sp" />
 
             <EditText
+                android:id="@+id/et_district"
+                app:errorEnabled="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -140,6 +144,8 @@
                 android:textSize="18sp" />
 
             <EditText
+                android:id="@+id/et_ward"
+                app:errorEnabled="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"

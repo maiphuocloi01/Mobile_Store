@@ -1,6 +1,7 @@
 package com.groupone.mobilestore.view.fragment;
 
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,9 +69,111 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, CommonViewMo
         binding.btApple.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ArrayList<String> listName = new ArrayList<>();
+                listName.add("Apple");
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("filter", listName);
                 parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
                 if (parentFrag != null) {
-                    parentFrag.setActionShowFragment(SearchResultFragment.TAG, null, true);
+                    parentFrag.setActionShowFragment(SearchResultFragment.TAG, bundle, true);
+                }
+            }
+        });
+
+        binding.btSamsung.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<String> listName = new ArrayList<>();
+                listName.add("Samsung");
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("filter", listName);
+                parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
+                if (parentFrag != null) {
+                    parentFrag.setActionShowFragment(SearchResultFragment.TAG, bundle, true);
+                }
+            }
+        });
+
+        binding.btXiaomi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<String> listName = new ArrayList<>();
+                listName.add("Xiaomi");
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("filter", listName);
+                parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
+                if (parentFrag != null) {
+                    parentFrag.setActionShowFragment(SearchResultFragment.TAG, bundle, true);
+                }
+            }
+        });
+
+        binding.btOppo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<String> listName = new ArrayList<>();
+                listName.add("Oppo");
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("filter", listName);
+                parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
+                if (parentFrag != null) {
+                    parentFrag.setActionShowFragment(SearchResultFragment.TAG, bundle, true);
+                }
+            }
+        });
+
+        binding.btNokia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<String> listName = new ArrayList<>();
+                listName.add("Nokia");
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("filter", listName);
+                parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
+                if (parentFrag != null) {
+                    parentFrag.setActionShowFragment(SearchResultFragment.TAG, bundle, true);
+                }
+            }
+        });
+
+        binding.btAsus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<String> listName = new ArrayList<>();
+                listName.add("Asus");
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("filter", listName);
+                parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
+                if (parentFrag != null) {
+                    parentFrag.setActionShowFragment(SearchResultFragment.TAG, bundle, true);
+                }
+            }
+        });
+
+        binding.btVivo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<String> listName = new ArrayList<>();
+                listName.add("Vivo");
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("filter", listName);
+                parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
+                if (parentFrag != null) {
+                    parentFrag.setActionShowFragment(SearchResultFragment.TAG, bundle, true);
+                }
+            }
+        });
+
+        binding.btRealme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<String> listName = new ArrayList<>();
+                listName.add("Realme");
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("filter", listName);
+                parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
+                if (parentFrag != null) {
+                    parentFrag.setActionShowFragment(SearchResultFragment.TAG, bundle, true);
                 }
             }
         });

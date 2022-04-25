@@ -73,6 +73,7 @@
                     android:layout_height="50dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
+                    android:contentDescription="Apple"
                     android:background="@drawable/bg_white_corner_10"
                     android:src="@drawable/ic_apple" />
 
@@ -83,6 +84,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
+                    android:contentDescription="Samsung"
                     android:background="@drawable/bg_white_corner_10"
                     android:src="@drawable/ic_samsung" />
 
@@ -93,6 +95,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
+                    android:contentDescription="Xiaomi"
                     android:background="@drawable/bg_white_corner_10"
                     android:src="@drawable/ic_xiaomi" />
 
@@ -102,6 +105,7 @@
                     android:layout_height="50dp"
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
+                    android:contentDescription="Oppo"
                     android:background="@drawable/bg_white_corner_10"
                     android:src="@drawable/ic_oppo" />
             </TableRow>
@@ -119,6 +123,7 @@
                     android:layout_height="50dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
+                    android:contentDescription="Nokia"
                     android:background="@drawable/bg_white_corner_10"
                     android:src="@drawable/ic_nokia" />
 
@@ -129,6 +134,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
+                    android:contentDescription="Asus"
                     android:background="@drawable/bg_white_corner_10"
                     android:src="@drawable/ic_asus" />
 
@@ -139,6 +145,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
+                    android:contentDescription="Vivo"
                     android:background="@drawable/bg_white_corner_10"
                     android:src="@drawable/ic_vivo" />
 
@@ -148,6 +155,7 @@
                     android:layout_height="50dp"
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
+                    android:contentDescription="Realme"
                     android:background="@drawable/bg_white_corner_10"
                     android:src="@drawable/ic_realme" />
             </TableRow>
@@ -176,9 +184,11 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_price1"
                         android:layout_height="wrap_content"
                         android:layout_width="match_parent"
                         android:text="Dưới 2 triệu"
+                        android:contentDescription="Dưới 2 triệu"
                         android:textSize="18sp"
                         android:fontFamily="@font/roboto_regular"
                         android:paddingVertical="3dp"
@@ -187,9 +197,11 @@
                         android:textAlignment="center"/>
 
                     <TextView
+                        android:id="@+id/tv_price3"
                         android:layout_height="wrap_content"
                         android:layout_width="match_parent"
                         android:text="Từ 4 - 7 triệu"
+                        android:contentDescription="Từ 4 - 7 triệu"
                         android:textSize="18sp"
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/roboto_regular"
@@ -199,9 +211,11 @@
                         android:textAlignment="center"/>
 
                     <TextView
+                        android:id="@+id/tv_price5"
                         android:layout_height="wrap_content"
                         android:layout_width="match_parent"
                         android:text="Từ 13 - 20 triệu"
+                        android:contentDescription="Từ 13 - 20 triệu"
                         android:textSize="18sp"
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/roboto_regular"
@@ -220,9 +234,11 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_price2"
                         android:layout_height="wrap_content"
                         android:layout_width="match_parent"
                         android:text="Từ 2 - 4 triệu"
+                        android:contentDescription="Từ 2 - 4 triệu"
                         android:textSize="18sp"
                         android:fontFamily="@font/roboto_regular"
                         android:paddingVertical="3dp"
@@ -231,9 +247,11 @@
                         android:textAlignment="center"/>
 
                     <TextView
+                        android:id="@+id/tv_price4"
                         android:layout_height="wrap_content"
                         android:layout_width="match_parent"
                         android:text="Từ 7 - 13 triệu"
+                        android:contentDescription="Từ 7 - 13 triệu"
                         android:textSize="18sp"
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/roboto_regular"
@@ -243,9 +261,11 @@
                         android:textAlignment="center"/>
 
                     <TextView
+                        android:id="@+id/tv_price6"
                         android:layout_height="wrap_content"
                         android:layout_width="match_parent"
-                        android:text="Từ 7 - 13 triệu"
+                        android:text="Trên 20 triệu"
+                        android:contentDescription="Trên 20 triệu"
                         android:textSize="18sp"
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/roboto_regular"
@@ -284,9 +304,11 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_type1"
                         android:layout_height="wrap_content"
                         android:layout_width="match_parent"
                         android:text="Điện thoại"
+                        android:contentDescription="Điện thoại"
                         android:textSize="18sp"
                         android:fontFamily="@font/roboto_regular"
                         android:paddingVertical="3dp"
@@ -305,9 +327,11 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_type2"
                         android:layout_height="wrap_content"
                         android:layout_width="match_parent"
                         android:text="Máy tính bảng"
+                        android:contentDescription="Máy tính bảng"
                         android:textSize="18sp"
                         android:fontFamily="@font/roboto_regular"
                         android:paddingVertical="3dp"
@@ -341,9 +365,11 @@
 
 
                 <TextView
+                    android:id="@+id/tv_ram2"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:text="2GB"
+                    android:contentDescription="2GB"
                     android:textSize="18sp"
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_regular"
@@ -354,9 +380,11 @@
                     android:textAlignment="center"/>
 
                 <TextView
+                    android:id="@+id/tv_ram3"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:text="3GB"
+                    android:contentDescription="3GB"
                     android:layout_weight="1"
                     android:textSize="18sp"
                     android:fontFamily="@font/roboto_regular"
@@ -367,9 +395,11 @@
                     android:textAlignment="center"/>
 
                 <TextView
+                    android:id="@+id/tv_ram4"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:text="4GB"
+                    android:contentDescription="4GB"
                     android:layout_weight="1"
                     android:textSize="18sp"
                     android:fontFamily="@font/roboto_regular"
@@ -380,9 +410,11 @@
                     android:textAlignment="center"/>
 
                 <TextView
+                    android:id="@+id/tv_ram6"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:text="6GB"
+                    android:contentDescription="6GB"
                     android:layout_weight="1"
                     android:textSize="18sp"
                     android:fontFamily="@font/roboto_regular"
@@ -401,9 +433,11 @@
 
 
                 <TextView
+                    android:id="@+id/tv_ram8"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:text="8GB"
+                    android:contentDescription="8GB"
                     android:textSize="18sp"
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_regular"
@@ -414,9 +448,11 @@
                     android:textAlignment="center"/>
 
                 <TextView
+                    android:id="@+id/tv_ram12"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:text="12GB"
+                    android:contentDescription="12GB"
                     android:layout_weight="1"
                     android:textSize="18sp"
                     android:fontFamily="@font/roboto_regular"
@@ -446,9 +482,11 @@
 
 
                 <TextView
+                    android:id="@+id/tv_rom32"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:text="32GB"
+                    android:contentDescription="32GB"
                     android:textSize="18sp"
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_regular"
@@ -459,9 +497,11 @@
                     android:textAlignment="center"/>
 
                 <TextView
+                    android:id="@+id/tv_rom64"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:text="64GB"
+                    android:contentDescription="64GB"
                     android:layout_weight="1"
                     android:textSize="18sp"
                     android:fontFamily="@font/roboto_regular"
@@ -472,9 +512,11 @@
                     android:textAlignment="center"/>
 
                 <TextView
+                    android:id="@+id/tv_rom128"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:text="128GB"
+                    android:contentDescription="128GB"
                     android:layout_weight="1"
                     android:textSize="18sp"
                     android:fontFamily="@font/roboto_regular"
@@ -485,9 +527,11 @@
                     android:textAlignment="center"/>
 
                 <TextView
+                    android:id="@+id/tv_rom256"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:text="256GB"
+                    android:contentDescription="256GB"
                     android:layout_weight="1"
                     android:textSize="18sp"
                     android:fontFamily="@font/roboto_regular"
@@ -506,9 +550,11 @@
 
 
                 <TextView
+                    android:id="@+id/tv_rom512"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:text="512GB"
+                    android:contentDescription="512GB"
                     android:textSize="18sp"
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_regular"
@@ -519,9 +565,11 @@
                     android:textAlignment="center"/>
 
                 <TextView
+                    android:id="@+id/tv_rom1024"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:text="1TB"
+                    android:contentDescription="1TB"
                     android:layout_weight="1"
                     android:textSize="18sp"
                     android:fontFamily="@font/roboto_regular"
@@ -553,9 +601,11 @@
 
 
                 <TextView
+                    android:id="@+id/tv_screen1"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:text="Màn hình nhỏ gọn"
+                    android:contentDescription="Màn hình nhỏ gọn"
                     android:textSize="18sp"
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_regular"
@@ -566,9 +616,11 @@
                     android:textAlignment="center"/>
 
                 <TextView
+                    android:id="@+id/tv_screen2"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:text="Từ 6 inch trở lên"
+                    android:contentDescription="Từ 6 inch trở lên"
                     android:layout_weight="1"
                     android:textSize="18sp"
                     android:fontFamily="@font/roboto_regular"
