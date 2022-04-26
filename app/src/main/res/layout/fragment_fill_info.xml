@@ -101,6 +101,7 @@
                 </TableRow>
 
                 <EditText
+                    android:id="@+id/et_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
@@ -141,7 +142,7 @@
 
 
                 <EditText
-                    android:id="@+id/et_phone"
+                    android:id="@+id/et_phone_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
@@ -149,7 +150,7 @@
                     android:background="@drawable/text_input_selector"
                     android:fontFamily="@font/roboto_regular"
                     android:hint="Nhập nội dung"
-                    android:inputType="text"
+                    android:inputType="phone"
                     android:padding="15dp"
                     android:textColorHint="@color/black_500"
                     android:textSize="18sp" />

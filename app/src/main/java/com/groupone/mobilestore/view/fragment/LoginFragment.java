@@ -1,25 +1,33 @@
 package com.groupone.mobilestore.view.fragment;
 
+import static com.groupone.mobilestore.viewmodel.AccountViewModel.KEY_LOGIN;
+
 import android.app.ProgressDialog;
-import android.os.Handler;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentLoginBinding;
-import com.groupone.mobilestore.viewmodel.CommonViewModel;
+import com.groupone.mobilestore.model.Token;
+import com.groupone.mobilestore.util.CommonUtils;
+import com.groupone.mobilestore.viewmodel.AccountViewModel;
 
-public class LoginFragment extends BaseFragment<FragmentLoginBinding, CommonViewModel> {
+public class LoginFragment extends BaseFragment<FragmentLoginBinding, AccountViewModel> {
 
     public static final String TAG = LoginFragment.class.getName();
+    public static final String ACCESS_TOKEN = "ACCESS_TOKEN";
     ProgressDialog progressDialog;
 
     @Override
-    protected Class<CommonViewModel> getClassVM() {
-        return CommonViewModel.class;
+    protected Class<AccountViewModel> getClassVM() {
+        return AccountViewModel.class;
     }
 
     @Override
@@ -34,15 +42,27 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, CommonView
         binding.btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialog = new ProgressDialog(context);
-                progressDialog.show();
-                progressDialog.setContentView(R.layout.custom_progress_dialog);
-                progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                if(TextUtils.isEmpty(binding.etUsername.getText())){
+                    binding.etUsername.setError("Vui lòng điền tên đăng nhập");
+                }
+                else if(TextUtils.isEmpty(binding.etPassword.getText())){
+                    binding.etPassword.setError("Vui lòng điền mật khẩu");
+                }
+                else {
+                    viewModel.login(
+                            binding.etUsername.getText().toString(),
+                            binding.etPassword.getText().toString()
+                    );
+                    progressDialog = new ProgressDialog(context);
+                    progressDialog.show();
+                    progressDialog.setContentView(R.layout.custom_progress_dialog);
+                    progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
-                new Handler().postDelayed(() -> {
-                    progressDialog.dismiss();
-                    callBack.showFragment(PagerFragment.TAG, null, false);
-                }, 1000);
+//                new Handler().postDelayed(() -> {
+//                    progressDialog.dismiss();
+//                    callBack.showFragment(PagerFragment.TAG, null, false);
+//                }, 1000);
+                }
             }
         });
 
@@ -62,11 +82,24 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, CommonView
 
     @Override
     public void apiSuccess(String key, Object data) {
-
+        if(key.equals(KEY_LOGIN)){
+            Token token = (Token) data;
+            Log.d(TAG, "apiSuccess: " + token.getAccessToken());
+            CommonUtils.getInstance().savePref(ACCESS_TOKEN, token.getAccessToken());
+            Toast.makeText(context, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+            callBack.showFragment(PagerFragment.TAG, null, false);
+        }
     }
 
     @Override
     public void apiError(String key, int code, Object data) {
-
+        Log.d(TAG, "error: " + code + data);
+        if(code == 400){
+            Toast.makeText(context, "Tài khoản hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Error: " + code + ", " + data, Toast.LENGTH_SHORT).show();
+        }
+        progressDialog.dismiss();
     }
 }

@@ -5,31 +5,37 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
+import com.groupone.mobilestore.api.Api;
 import com.groupone.mobilestore.view.callback.OnAPICallBack;
 
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public abstract class BaseViewModel extends ViewModel {
 
     private static final String TAG = BaseViewModel.class.getName();
-    private static final String BASE_URL = "http://www.phuocloi123.somee.com/";
+    private static final String BASE_URL = "http://www.nhom01.somee.com/";
     protected OnAPICallBack callBack;
 
     public void setCallBack(OnAPICallBack callBack) {
         this.callBack = callBack;
     }
 
-//    protected NoteApi getApi() {
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl(BASE_URL)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .client(new OkHttpClient.Builder().callTimeout(30, TimeUnit.SECONDS).build())
-//                .build();
-//        return retrofit.create(NoteApi.class);
-//    }
+    protected Api getApi() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(new OkHttpClient.Builder().callTimeout(30, TimeUnit.SECONDS).build())
+                .build();
+        return retrofit.create(Api.class);
+    }
 
     protected <T> Callback<T> initHandleResponse(String key) {
         return new Callback<T>() {

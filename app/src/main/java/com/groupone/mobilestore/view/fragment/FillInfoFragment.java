@@ -2,6 +2,8 @@ package com.groupone.mobilestore.view.fragment;
 
 import static com.groupone.mobilestore.util.NumberUtils.convertDateType1;
 import static com.groupone.mobilestore.util.NumberUtils.convertDateType2;
+import static com.groupone.mobilestore.viewmodel.AccountViewModel.KEY_CHECK_REGISTER;
+import static com.groupone.mobilestore.viewmodel.AccountViewModel.KEY_REGISTER;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -12,6 +14,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,6 +25,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -32,17 +36,20 @@ import androidx.annotation.Nullable;
 
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentFillInfoBinding;
+import com.groupone.mobilestore.viewmodel.AccountViewModel;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
 import java.io.IOException;
+import java.util.List;
 
-public class FillInfoFragment extends BaseFragment<FragmentFillInfoBinding, CommonViewModel> {
+public class FillInfoFragment extends BaseFragment<FragmentFillInfoBinding, AccountViewModel> {
 
     public static final String TAG = FillInfoFragment.class.getName();
 
     private int defaultYear = 2000;
     private int defaultMonth = 0;
     private int defaultDay = 1;
+    private Object mData;
     // You can do the assignment inside onAttach or onCreate, i.e, before the activity is displayed
     ActivityResultLauncher<Intent> someActivityResultLauncher;
 
@@ -75,8 +82,8 @@ public class FillInfoFragment extends BaseFragment<FragmentFillInfoBinding, Comm
 
 
     @Override
-    protected Class<CommonViewModel> getClassVM() {
-        return CommonViewModel.class;
+    protected Class<AccountViewModel> getClassVM() {
+        return AccountViewModel.class;
     }
 
     @Override
@@ -88,10 +95,6 @@ public class FillInfoFragment extends BaseFragment<FragmentFillInfoBinding, Comm
                 takeImageFromAlbumWithIntent();
             }
         });
-
-        //binding.etBirthday.setFocusableInTouchMode(false);
-        //binding.etBirthday.setFocusable(false);
-        //binding.etBirthday.clearFocus();
         binding.etBirthday.setCursorVisible(false);
         binding.etBirthday.setShowSoftInputOnFocus(false);
 
@@ -116,7 +119,35 @@ public class FillInfoFragment extends BaseFragment<FragmentFillInfoBinding, Comm
         binding.btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                callBack.showFragment(LoginFragment.TAG, null, false);
+                if(TextUtils.isEmpty(binding.etName.getText())){
+                    binding.etName.setError("Không được bỏ trống");
+
+                } else if (TextUtils.isEmpty(binding.etPhoneNumber.getText())){
+                    binding.etPhoneNumber.setError("Không được bỏ trống");
+
+                } else if (TextUtils.isEmpty(binding.etBirthday.getText())){
+                    binding.etBirthday.setError("Không được bỏ trống");
+
+                } else if(!binding.rbMale.isChecked() && !binding.rbFemale.isChecked()){
+                    Toast.makeText(context, "Chọn giới tính", Toast.LENGTH_SHORT).show();
+                } else {
+                    boolean gender = false;
+                    List<String> listInfo = (List<String>) mData;
+                    if (binding.rbFemale.isChecked()){
+                        gender = true;
+                    }
+                    viewModel.register(
+                            listInfo.get(1),
+                            binding.etName.getText().toString(),
+                            listInfo.get(0),
+                            binding.etPhoneNumber.getText().toString(),
+                            binding.etBirthday.getText().toString(),
+                            gender,
+                            null,
+                            listInfo.get(2)
+                    );
+                    //callBack.showFragment(LoginFragment.TAG, null, false);
+                }
             }
         });
     }
@@ -188,11 +219,27 @@ public class FillInfoFragment extends BaseFragment<FragmentFillInfoBinding, Comm
 
     @Override
     public void apiSuccess(String key, Object data) {
-
+        if(key.equals(KEY_REGISTER)){
+            int response = (int) data;
+            Log.d(TAG, "apiSuccess: " + response);
+            if(response == -1){
+                Toast.makeText(context, "Đăng ký thất bại", Toast.LENGTH_SHORT).show();
+                callBack.backToPrev();
+            } else {
+                Toast.makeText(context, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                callBack.showFragment(LoginFragment.TAG, null, false);
+            }
+        }
     }
 
     @Override
     public void apiError(String key, int code, Object data) {
+        Log.d(TAG, "apiSuccess: " + data.toString());
+        Toast.makeText(context, "Error: " + code + ", " + data, Toast.LENGTH_SHORT).show();
+    }
 
+    @Override
+    public void setData(Object data) {
+        this.mData = data;
     }
 }

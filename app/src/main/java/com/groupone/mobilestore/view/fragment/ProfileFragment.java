@@ -22,11 +22,13 @@ import androidx.annotation.Nullable;
 
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentProfileBinding;
+import com.groupone.mobilestore.util.CommonUtils;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
 public class ProfileFragment extends BaseFragment<FragmentProfileBinding, CommonViewModel> {
 
     public static final String TAG = ProfileFragment.class.getName();
+    public static final String ACCESS_TOKEN = "ACCESS_TOKEN";
 
     @Override
     protected Class<CommonViewModel> getClassVM() {
@@ -89,7 +91,6 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Common
             public void onClick(View view) {
                 binding.btLogout.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
                 showAlertDialog();
-
             }
         });
     }
@@ -125,6 +126,7 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Common
 
         btnConfirm.setOnClickListener(view -> {
             actionShowFragment(LoginFragment.TAG, null, false);
+            CommonUtils.getInstance().clearPref(ACCESS_TOKEN);
             dialog.dismiss();
         });
 

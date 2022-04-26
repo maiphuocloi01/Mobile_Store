@@ -130,7 +130,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_version"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:nestedScrollingEnabled="false"
@@ -140,7 +140,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_color"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"
@@ -173,7 +173,7 @@
                     android:layout_marginTop="15dp"
                     android:fontFamily="@font/roboto_bold"
                     android:maxLines="2"
-                    android:text="Thông tin sản phẩm"
+                    android:text="Thông số kỹ thuật"
                     android:textColor="@color/black_700"
                     android:textSize="20sp" />
 
@@ -181,7 +181,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_info"
                     android:background="@drawable/bg_white_corner_10"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:nestedScrollingEnabled="false"

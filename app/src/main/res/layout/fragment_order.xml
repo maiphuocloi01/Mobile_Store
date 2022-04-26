@@ -44,6 +44,8 @@
         android:elevation="0dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
+        android:layout_gravity="center"
+        app:tabIndicatorGravity="center"
         app:tabGravity="center"
         app:tabIndicator="@drawable/bg_light_blue_corner_10"
         app:tabMode="fixed"
