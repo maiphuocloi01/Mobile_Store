@@ -15,9 +15,13 @@ import retrofit2.http.Path;
 
 public interface Api {
 
-    @GET("Api/AccountController/GetAccountById/{id}")
+    @GET("Api/AccountController/GetAccountById/{Id}")
     @Headers("Content-type: application/json")
-    Call<User> getUserById(@Path("id") int id);
+    Call<User> getUserById(@Path("Id") int id);
+
+    @GET("Api/AccountController/GetAccountByUserName/{UserName}")
+    @Headers("Content-type: application/json")
+    Call<User> getUserByUserName(@Path("UserName") String username);
 
     @POST("Api/AccountController/IsRegisterAble")
     @Headers("Content-type: application/json")

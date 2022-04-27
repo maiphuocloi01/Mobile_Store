@@ -1,11 +1,13 @@
 package com.groupone.mobilestore.view.fragment;
 
-import static com.groupone.mobilestore.util.NumberUtils.convertDateType1;
-import static com.groupone.mobilestore.util.NumberUtils.convertDateType2;
+import static com.groupone.mobilestore.view.fragment.LoginFragment.USERNAME;
+import static com.groupone.mobilestore.viewmodel.AccountViewModel.KEY_GET_BY_USERNAME;
+import static com.groupone.mobilestore.viewmodel.AccountViewModel.KEY_LOGIN;
 
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,25 +16,27 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentProfileBinding;
+import com.groupone.mobilestore.model.Token;
+import com.groupone.mobilestore.model.User;
 import com.groupone.mobilestore.util.CommonUtils;
-import com.groupone.mobilestore.viewmodel.CommonViewModel;
+import com.groupone.mobilestore.viewmodel.AccountViewModel;
 
-public class ProfileFragment extends BaseFragment<FragmentProfileBinding, CommonViewModel> {
+public class ProfileFragment extends BaseFragment<FragmentProfileBinding, AccountViewModel> {
 
     public static final String TAG = ProfileFragment.class.getName();
     public static final String ACCESS_TOKEN = "ACCESS_TOKEN";
 
     @Override
-    protected Class<CommonViewModel> getClassVM() {
-        return CommonViewModel.class;
+    protected Class<AccountViewModel> getClassVM() {
+        return AccountViewModel.class;
     }
 
     @Override
@@ -93,6 +97,9 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Common
                 showAlertDialog();
             }
         });
+
+        String username = CommonUtils.getInstance().getPref(USERNAME);
+        viewModel.getUserByUserName(username);
     }
 
     private void actionShowFragment(String tag, Object data, boolean isBack) {
@@ -141,11 +148,19 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Common
 
     @Override
     public void apiSuccess(String key, Object data) {
-
+        if(key.equals(KEY_GET_BY_USERNAME)){
+            User user = (User) data;
+            Log.d(TAG, "apiSuccess: " + user.getUserName());
+            binding.tvName.setText(user.getFullName());
+            binding.tvEmail.setText(user.getEmail());
+            Glide.with(context).load(user.getAvatar()).into(binding.ivAvatar);
+        }
     }
 
     @Override
     public void apiError(String key, int code, Object data) {
+        Log.d(TAG, "error: " + code + data);
+        Toast.makeText(context, "Error: " + code + ", " + data, Toast.LENGTH_SHORT).show();
 
     }
 }

@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements OnMainCallBack {
     //private ViewPager2 mViewPager;
     //private BottomNavigationView bottomNavigationView;
     public static final String ACCESS_TOKEN = "ACCESS_TOKEN";
-    public static final String USERNAME = "USERNAME";
+
     public static final String KEY_LOGIN_WITH_TOKEN = "KEY_LOGIN_WITH_TOKEN";
     public static final String TAG = MainActivity.class.getName();
     private static final String BASE_URL = "http://www.nhom01.somee.com/";
@@ -207,7 +207,6 @@ public class MainActivity extends AppCompatActivity implements OnMainCallBack {
                 initViews();
             } else {
                 goToHome();
-                CommonUtils.getInstance().savePref(USERNAME, response);
             }
         }
     }

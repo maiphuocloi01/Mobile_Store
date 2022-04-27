@@ -13,16 +13,28 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentLoginBinding;
 import com.groupone.mobilestore.model.Token;
 import com.groupone.mobilestore.util.CommonUtils;
 import com.groupone.mobilestore.viewmodel.AccountViewModel;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+
+import kotlin.io.TextStreamsKt;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+
 public class LoginFragment extends BaseFragment<FragmentLoginBinding, AccountViewModel> {
 
     public static final String TAG = LoginFragment.class.getName();
     public static final String ACCESS_TOKEN = "ACCESS_TOKEN";
+    public static final String USERNAME = "USERNAME";
     ProgressDialog progressDialog;
 
     @Override
@@ -42,19 +54,18 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, AccountVie
         binding.btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(TextUtils.isEmpty(binding.etUsername.getText())){
+                if (TextUtils.isEmpty(binding.etUsername.getText())) {
                     binding.etUsername.setError("Vui lòng điền tên đăng nhập");
-                }
-                else if(TextUtils.isEmpty(binding.etPassword.getText())){
+                } else if (TextUtils.isEmpty(binding.etPassword.getText())) {
                     binding.etPassword.setError("Vui lòng điền mật khẩu");
-                }
-                else {
+                } else {
                     viewModel.login(
                             binding.etUsername.getText().toString(),
                             binding.etPassword.getText().toString()
                     );
                     progressDialog = new ProgressDialog(context);
                     progressDialog.show();
+                    progressDialog.setCancelable(false);
                     progressDialog.setContentView(R.layout.custom_progress_dialog);
                     progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
@@ -82,21 +93,26 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, AccountVie
 
     @Override
     public void apiSuccess(String key, Object data) {
-        if(key.equals(KEY_LOGIN)){
+        if (key.equals(KEY_LOGIN)) {
             Token token = (Token) data;
             Log.d(TAG, "apiSuccess: " + token.getAccessToken());
             CommonUtils.getInstance().savePref(ACCESS_TOKEN, token.getAccessToken());
             Toast.makeText(context, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
+            CommonUtils.getInstance().savePref(USERNAME, binding.etUsername.getText().toString());
             callBack.showFragment(PagerFragment.TAG, null, false);
         }
     }
 
     @Override
     public void apiError(String key, int code, Object data) {
-        Log.d(TAG, "error: " + code + data);
-        if(code == 400){
-            Toast.makeText(context, "Tài khoản hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
+        if (code == 400) {
+            ResponseBody res = (ResponseBody) data;
+            Gson gson = new Gson();
+            Type type = new TypeToken<Token>() {}.getType();
+            Token errorResponse = gson.fromJson(res.charStream(),type);
+            Toast.makeText(context, errorResponse.getErrorDescription(), Toast.LENGTH_SHORT).show();
+
         } else {
             Toast.makeText(context, "Error: " + code + ", " + data, Toast.LENGTH_SHORT).show();
         }

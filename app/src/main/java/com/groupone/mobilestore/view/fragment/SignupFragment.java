@@ -76,6 +76,7 @@ public class SignupFragment extends BaseFragment<FragmentSignupBinding, AccountV
 //                    viewModel.setPassword(binding.etUsername.getText().toString());
                     progressDialog = new ProgressDialog(context);
                     progressDialog.show();
+                    progressDialog.setCancelable(false);
                     progressDialog.setContentView(R.layout.custom_progress_dialog);
                     progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                 }
