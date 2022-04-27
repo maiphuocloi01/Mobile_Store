@@ -29,8 +29,10 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentEditProfileBinding;
+import com.groupone.mobilestore.model.User;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
 import java.io.IOException;
@@ -40,8 +42,9 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
     public static final String TAG = EditProfileFragment.class.getName();
 
     private int defaultYear = 2001;
-    private int defaultMonth = 3;
-    private int defaultDay = 12;
+    private int defaultMonth = 0;
+    private int defaultDay = 1;
+    private Object mData;
     // You can do the assignment inside onAttach or onCreate, i.e, before the activity is displayed
     ActivityResultLauncher<Intent> someActivityResultLauncher;
 
@@ -95,13 +98,21 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
             }
         });
 
-        binding.etName.setText("Mai Phước Lợi");
-        binding.etPhone.setText("0911920000");
-        binding.etEmail.setText("maiphuocloi01@gmail.com");
-        binding.etBirthday.setText("12/04/2001");
+        User user = (User) mData;
+
+        binding.etName.setText(user.getFullName());
+        binding.etPhone.setText(user.getPhoneNumber());
+        binding.etEmail.setText(user.getEmail());
+        binding.etBirthday.setText(user.getBirthday());
         binding.etBirthday.setCursorVisible(false);
         binding.etBirthday.setShowSoftInputOnFocus(false);
-        binding.rbMale.setChecked(true);
+        if(user.isGender()){
+            binding.rbFemale.setChecked(true);
+        } else {
+            binding.rbMale.setChecked(true);
+        }
+        Glide.with(context).load(user.getAvatar()).into(binding.ivAvatar);
+
         binding.btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -195,5 +206,10 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
     @Override
     public void apiError(String key, int code, Object data) {
 
+    }
+
+    @Override
+    public void setData(Object data) {
+        this.mData = data;
     }
 }

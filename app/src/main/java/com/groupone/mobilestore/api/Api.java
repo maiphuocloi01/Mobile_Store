@@ -34,6 +34,9 @@ public interface Api {
     @GET("Api/AccountController/LoginWithToken")
     Call<String> loginWithToken(@Header("Authorization") String auth);
 
+    @POST("Api/AccountController/SendOTP")
+    Call<String> sendOTP(@Body User user);
+
     @POST("Api/AccountController/Login")
     @FormUrlEncoded
     Call<Token> login(@Field("username") String username, @Field("password") String password, @Field("grant_type") String type);

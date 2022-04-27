@@ -11,6 +11,7 @@ public class AccountViewModel extends BaseViewModel{
     public static final String KEY_REGISTER = "KEY_REGISTER";
     public static final String KEY_CHECK_REGISTER = "KEY_CHECK_REGISTER";
     public static final String KEY_GET_BY_USERNAME = "KEY_GET_BY_USERNAME";
+    public static final String KEY_SEND_OTP = "KEY_SEND_OTP";
 
     public void login(String username, String password){
         getApi().login(username, password, "password").enqueue(initHandleResponse(KEY_LOGIN));
@@ -26,6 +27,10 @@ public class AccountViewModel extends BaseViewModel{
 
     public void getUserByUserName(String username){
         getApi().getUserByUserName(username).enqueue(initHandleResponse(KEY_GET_BY_USERNAME));
+    }
+
+    public void sendOTP(String email){
+        getApi().sendOTP(new User(email)).enqueue(initHandleResponse(KEY_SEND_OTP));
     }
 
 //    public void loginWithToken(String token){

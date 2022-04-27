@@ -33,6 +33,7 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Accoun
 
     public static final String TAG = ProfileFragment.class.getName();
     public static final String ACCESS_TOKEN = "ACCESS_TOKEN";
+    private User user;
 
     @Override
     protected Class<AccountViewModel> getClassVM() {
@@ -46,7 +47,7 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Accoun
             @Override
             public void onClick(View view) {
                 binding.rowEditProfile.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
-                actionShowFragment(EditProfileFragment.TAG, null, true);
+                actionShowFragment(EditProfileFragment.TAG, user, true);
 
             }
         });
@@ -149,7 +150,7 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Accoun
     @Override
     public void apiSuccess(String key, Object data) {
         if(key.equals(KEY_GET_BY_USERNAME)){
-            User user = (User) data;
+            user = (User) data;
             Log.d(TAG, "apiSuccess: " + user.getUserName());
             binding.tvName.setText(user.getFullName());
             binding.tvEmail.setText(user.getEmail());
