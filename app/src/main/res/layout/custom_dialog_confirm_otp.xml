@@ -23,7 +23,7 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/roboto_regular"
-        android:text="Vui lòng nhập mã xác thực gửi đến email"
+        android:text="Nhập mã xác thực gửi đến email"
         android:textAlignment="center"
         android:textColor="@color/black_700"
         android:textSize="18sp" />
@@ -54,16 +54,45 @@
         android:textColorHint="@color/black_500"
         android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/tv_resend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <TableRow
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
-        android:fontFamily="@font/roboto_regular"
-        android:text="Gửi lại mã"
-        android:textColor="@color/blue_500"
-        android:textSize="18sp" />
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_countdown_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Gửi lại mã sau "
+            android:layout_marginEnd="5dp"
+            android:textColor="@color/black_700"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_countdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:text="00:59"
+            android:layout_marginEnd="15dp"
+            android:textColor="@color/blue_500"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_resend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Gửi lại mã"
+            android:visibility="gone"
+            android:textColor="@color/blue_500"
+            android:textSize="18sp" />
+
+    </TableRow>
+
+
 
     <TableRow
         android:layout_width="match_parent"

@@ -55,9 +55,9 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, AccountVie
             @Override
             public void onClick(View view) {
                 if (TextUtils.isEmpty(binding.etUsername.getText())) {
-                    binding.etUsername.setError("Vui lòng điền tên đăng nhập");
+                    binding.etUsername.setError("Vui lòng nhập tên tài khoản");
                 } else if (TextUtils.isEmpty(binding.etPassword.getText())) {
-                    binding.etPassword.setError("Vui lòng điền mật khẩu");
+                    binding.etPassword.setError("Vui lòng nhập mật khẩu");
                 } else {
                     viewModel.login(
                             binding.etUsername.getText().toString(),

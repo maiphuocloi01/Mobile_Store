@@ -48,16 +48,16 @@ public class SignupFragment extends BaseFragment<FragmentSignupBinding, AccountV
             public void onClick(View view) {
 
                 if(TextUtils.isEmpty(binding.etEmail.getText())){
-                    binding.etEmail.setError("Vui lòng điền email");
+                    binding.etEmail.setError("Vui lòng nhập email");
                 }
                 else if(TextUtils.isEmpty(binding.etUsername.getText())){
-                    binding.etUsername.setError("Vui lòng điền tên tài khoản");
+                    binding.etUsername.setError("Vui lòng nhập tên tài khoản");
                 }
                 else if(TextUtils.isEmpty(binding.etPassword.getText())){
-                    binding.etPassword.setError("Vui lòng điền mật khẩu");
+                    binding.etPassword.setError("Vui lòng nhập mật khẩu");
                 }
                 else if(TextUtils.isEmpty(binding.etPasswordConfirm.getText())){
-                    binding.etPasswordConfirm.setError("Vui lòng điền xác nhận mật khẩu");
+                    binding.etPasswordConfirm.setError("Vui lòng xác nhận mật khẩu");
                 }
                 else if(!binding.etPassword.getText().toString().equals(binding.etPasswordConfirm.getText().toString())){
                     Toast.makeText(context, "Mật khẩu không khớp", Toast.LENGTH_SHORT).show();

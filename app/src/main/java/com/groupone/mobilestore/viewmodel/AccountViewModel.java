@@ -10,6 +10,7 @@ public class AccountViewModel extends BaseViewModel{
     public static final String KEY_LOGIN = "KEY_LOGIN";
     public static final String KEY_REGISTER = "KEY_REGISTER";
     public static final String KEY_CHECK_REGISTER = "KEY_CHECK_REGISTER";
+    public static final String KEY_CHECK_EMAIL_EXIST = "KEY_CHECK_EMAIL_EXIST";
     public static final String KEY_GET_BY_USERNAME = "KEY_GET_BY_USERNAME";
     public static final String KEY_SEND_OTP = "KEY_SEND_OTP";
 
@@ -19,6 +20,10 @@ public class AccountViewModel extends BaseViewModel{
 
     public void checkRegistrable(String email, String username, String password){
         getApi().checkRegistrable(new User(username, email)).enqueue(initHandleResponse(KEY_CHECK_REGISTER));
+    }
+
+    public void checkEmailExist(String email){
+        getApi().checkRegistrable(new User(email)).enqueue(initHandleResponse(KEY_CHECK_EMAIL_EXIST));
     }
 
     public void register(String username,String fullName, String email, String phoneNumber, String birthday, boolean gender, String avatar, String password){
