@@ -21,7 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public abstract class BaseViewModel extends ViewModel {
 
     private static final String TAG = BaseViewModel.class.getName();
-    private static final String BASE_URL = "http://www.nhom01.somee.com/";
+    private static final String BASE_URL = "https://www.nhom01.somee.com/";
     protected OnAPICallBack callBack;
 
     public void setCallBack(OnAPICallBack callBack) {

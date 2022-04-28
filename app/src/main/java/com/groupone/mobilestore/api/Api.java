@@ -27,6 +27,12 @@ public interface Api {
     @Headers("Content-type: application/json")
     Call<Integer> checkRegistrable(@Body User user);
 
+    @POST("Api/AccountController/ResetPassword")
+    Call<Boolean> resetPassword(@Body User user);
+
+    @POST("Api/AccountController/UpdateAccount")
+    Call<Boolean> updateAccount(@Body User user);
+
     @POST("Api/AccountController/Register")
     @Headers("Content-type: application/json")
     Call<Integer> register(@Body User user);

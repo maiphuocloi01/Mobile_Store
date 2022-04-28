@@ -25,6 +25,7 @@ import androidx.annotation.Nullable;
 
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentForgotPasswordBinding;
+import com.groupone.mobilestore.util.DialogUtils;
 import com.groupone.mobilestore.viewmodel.AccountViewModel;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
@@ -53,7 +54,7 @@ public class ForgotPasswordFragment extends BaseFragment<FragmentForgotPasswordB
                     viewModel.checkEmailExist(
                             binding.etEmail.getText().toString()
                     );
-
+                    DialogUtils.showLoadingDialog(context);
 
                 }
             }
@@ -169,6 +170,7 @@ public class ForgotPasswordFragment extends BaseFragment<FragmentForgotPasswordB
             } else if(response == 1){
                 Toast.makeText(context, "Email chưa đăng ký", Toast.LENGTH_SHORT).show();
             }
+            DialogUtils.hideLoadingDialog();
         }
         if (key.equals(KEY_SEND_OTP)) {
             otp = (String) data;
@@ -179,6 +181,9 @@ public class ForgotPasswordFragment extends BaseFragment<FragmentForgotPasswordB
 
     @Override
     public void apiError(String key, int code, Object data) {
+        if(key.equals(KEY_CHECK_EMAIL_EXIST)) {
+            DialogUtils.hideLoadingDialog();
+        }
         Toast.makeText(context, "Error: " + code + data.toString(), Toast.LENGTH_SHORT).show();
     }
 }

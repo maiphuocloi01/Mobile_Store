@@ -19,6 +19,7 @@ import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentLoginBinding;
 import com.groupone.mobilestore.model.Token;
 import com.groupone.mobilestore.util.CommonUtils;
+import com.groupone.mobilestore.util.DialogUtils;
 import com.groupone.mobilestore.viewmodel.AccountViewModel;
 
 import org.json.JSONException;
@@ -35,7 +36,6 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, AccountVie
     public static final String TAG = LoginFragment.class.getName();
     public static final String ACCESS_TOKEN = "ACCESS_TOKEN";
     public static final String USERNAME = "USERNAME";
-    ProgressDialog progressDialog;
 
     @Override
     protected Class<AccountViewModel> getClassVM() {
@@ -63,11 +63,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, AccountVie
                             binding.etUsername.getText().toString(),
                             binding.etPassword.getText().toString()
                     );
-                    progressDialog = new ProgressDialog(context);
-                    progressDialog.show();
-                    progressDialog.setCancelable(false);
-                    progressDialog.setContentView(R.layout.custom_progress_dialog);
-                    progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    DialogUtils.showLoadingDialog(context);
 
 //                new Handler().postDelayed(() -> {
 //                    progressDialog.dismiss();
@@ -98,7 +94,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, AccountVie
             Log.d(TAG, "apiSuccess: " + token.getAccessToken());
             CommonUtils.getInstance().savePref(ACCESS_TOKEN, token.getAccessToken());
             Toast.makeText(context, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-            progressDialog.dismiss();
+            DialogUtils.hideLoadingDialog();
             CommonUtils.getInstance().savePref(USERNAME, binding.etUsername.getText().toString());
             callBack.showFragment(PagerFragment.TAG, null, false);
         }
@@ -116,6 +112,6 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, AccountVie
         } else {
             Toast.makeText(context, "Error: " + code + ", " + data, Toast.LENGTH_SHORT).show();
         }
-        progressDialog.dismiss();
+        DialogUtils.hideLoadingDialog();
     }
 }

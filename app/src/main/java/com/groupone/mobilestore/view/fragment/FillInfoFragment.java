@@ -36,6 +36,7 @@ import androidx.annotation.Nullable;
 
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentFillInfoBinding;
+import com.groupone.mobilestore.util.DialogUtils;
 import com.groupone.mobilestore.viewmodel.AccountViewModel;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
@@ -146,6 +147,7 @@ public class FillInfoFragment extends BaseFragment<FragmentFillInfoBinding, Acco
                             null,
                             listInfo.get(2)
                     );
+                    DialogUtils.showLoadingDialog(context);
                     //callBack.showFragment(LoginFragment.TAG, null, false);
                 }
             }
@@ -229,12 +231,14 @@ public class FillInfoFragment extends BaseFragment<FragmentFillInfoBinding, Acco
                 Toast.makeText(context, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
                 callBack.showFragment(LoginFragment.TAG, null, false);
             }
+            DialogUtils.hideLoadingDialog();
         }
     }
 
     @Override
     public void apiError(String key, int code, Object data) {
         Log.d(TAG, "apiSuccess: " + data.toString());
+        DialogUtils.hideLoadingDialog();
         Toast.makeText(context, "Error: " + code + ", " + data, Toast.LENGTH_SHORT).show();
     }
 

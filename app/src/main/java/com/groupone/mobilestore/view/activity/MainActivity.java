@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements OnMainCallBack {
 
     public static final String KEY_LOGIN_WITH_TOKEN = "KEY_LOGIN_WITH_TOKEN";
     public static final String TAG = MainActivity.class.getName();
-    private static final String BASE_URL = "http://www.nhom01.somee.com/";
+    private static final String BASE_URL = "https://www.nhom01.somee.com/";
 
     public static void setWindowFlag(Activity activity, final int bits, boolean on) {
         Window win = activity.getWindow();
@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements OnMainCallBack {
     private void handleSuccess(String key, Object obj) {
         if (key.equals(KEY_LOGIN_WITH_TOKEN)) {
             String response = (String) obj;
-            Log.d("MainActivity", "apiSuccess: " + response);
+            Log.d(TAG, "apiSuccess: " + response);
             if (response.equals("")) {
                 Toast.makeText(this, "Phiên đăng nhập hết hạn", Toast.LENGTH_SHORT).show();
                 initViews();

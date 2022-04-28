@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -100,6 +101,7 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
 
         User user = (User) mData;
 
+        Log.d(TAG, user.toString());
         binding.etName.setText(user.getFullName());
         binding.etPhone.setText(user.getPhoneNumber());
         binding.etEmail.setText(user.getEmail());

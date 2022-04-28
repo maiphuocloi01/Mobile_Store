@@ -1,5 +1,7 @@
 package com.groupone.mobilestore.model;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -7,27 +9,44 @@ import java.io.Serializable;
 public class User implements Serializable {
     @SerializedName("Id")
     private int id;
+
     @SerializedName("UserName")
     private String userName;
+
     @SerializedName("FullName")
     private String fullName;
+
     @SerializedName("Email")
     private String email;
+
     @SerializedName("PhoneNumber")
     private String phoneNumber;
+
     @SerializedName("Gender")
     private boolean gender;
+
     @SerializedName("Birthday")
     private String birthday;
+
     @SerializedName("Avatar")
     private String avatar;
+
     @SerializedName("PassWord")
     private String password;
 
 
+    public User(String email) {
+        this.email = email;
+    }
+
     public User(String userName, String email) {
         this.userName = userName;
         this.email = email;
+    }
+
+    public User(int type1, String email, String password) {
+        this.email = email;
+        this.password = password;
     }
 
     public User(String userName, String fullName, String email, String phoneNumber, boolean gender, String birthday, String avatar, String password) {
@@ -39,10 +58,6 @@ public class User implements Serializable {
         this.birthday = birthday;
         this.avatar = avatar;
         this.password = password;
-    }
-
-    public User(String email) {
-        this.email = email;
     }
 
     public int getId() {
@@ -107,5 +122,28 @@ public class User implements Serializable {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", gender=" + gender +
+                ", birthday='" + birthday + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

@@ -13,6 +13,8 @@ public class AccountViewModel extends BaseViewModel{
     public static final String KEY_CHECK_EMAIL_EXIST = "KEY_CHECK_EMAIL_EXIST";
     public static final String KEY_GET_BY_USERNAME = "KEY_GET_BY_USERNAME";
     public static final String KEY_SEND_OTP = "KEY_SEND_OTP";
+    public static final String KEY_RESET_PASSWORD = "KEY_RESET_PASSWORD";
+    public static final String KEY_UPDATE_ACCOUNT = "KEY_UPDATE_ACCOUNT";
 
     public void login(String username, String password){
         getApi().login(username, password, "password").enqueue(initHandleResponse(KEY_LOGIN));
@@ -38,6 +40,17 @@ public class AccountViewModel extends BaseViewModel{
         getApi().sendOTP(new User(email)).enqueue(initHandleResponse(KEY_SEND_OTP));
     }
 
+    public void resetPassword(String email, String password){
+        Log.d(TAG, email + " " + password);
+        User myUser = new User(1, email, password);
+        Log.d(TAG, myUser.toString());
+        getApi().resetPassword(myUser).enqueue(initHandleResponse(KEY_RESET_PASSWORD));
+    }
+
+    public void updateAccount(String fullName, String email, String phoneNumber, String birthday, boolean gender, String avatar){
+        User myUser = new User(null, fullName, email, phoneNumber, gender, birthday, avatar,null);
+        getApi().resetPassword(myUser).enqueue(initHandleResponse(KEY_UPDATE_ACCOUNT));
+    }
 //    public void loginWithToken(String token){
 //        getApi().loginWithToken("Bearer" + token).enqueue(initHandleResponse(KEY_LOGIN_WITH_TOKEN));
 //    }

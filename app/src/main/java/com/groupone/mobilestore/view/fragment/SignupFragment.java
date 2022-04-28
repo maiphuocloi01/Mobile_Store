@@ -18,6 +18,7 @@ import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentSignupBinding;
 import com.groupone.mobilestore.model.Token;
 import com.groupone.mobilestore.util.CommonUtils;
+import com.groupone.mobilestore.util.DialogUtils;
 import com.groupone.mobilestore.viewmodel.AccountViewModel;
 
 import java.util.ArrayList;
@@ -26,7 +27,6 @@ import java.util.List;
 public class SignupFragment extends BaseFragment<FragmentSignupBinding, AccountViewModel> {
 
     public static final String TAG = SignupFragment.class.getName();
-    ProgressDialog progressDialog;
 
     @Override
     protected Class<AccountViewModel> getClassVM() {
@@ -74,11 +74,7 @@ public class SignupFragment extends BaseFragment<FragmentSignupBinding, AccountV
 //                    viewModel.setEmail(binding.etEmail.getText().toString());
 //                    viewModel.setUsername(binding.etUsername.getText().toString());
 //                    viewModel.setPassword(binding.etUsername.getText().toString());
-                    progressDialog = new ProgressDialog(context);
-                    progressDialog.show();
-                    progressDialog.setCancelable(false);
-                    progressDialog.setContentView(R.layout.custom_progress_dialog);
-                    progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    DialogUtils.showLoadingDialog(context);
                 }
 
             }
@@ -96,7 +92,7 @@ public class SignupFragment extends BaseFragment<FragmentSignupBinding, AccountV
         if(key.equals(KEY_CHECK_REGISTER)){
             int response = (int) data;
             Log.d(TAG, "apiSuccess: " + response);
-            progressDialog.dismiss();
+            DialogUtils.hideLoadingDialog();
             if(response == -1){
                 Toast.makeText(context, "Tên đăng nhập hoặc email đã tồn tại", Toast.LENGTH_SHORT).show();
             } else if(response == -2){
@@ -114,7 +110,7 @@ public class SignupFragment extends BaseFragment<FragmentSignupBinding, AccountV
     @Override
     public void apiError(String key, int code, Object data) {
 
-        progressDialog.dismiss();
+        DialogUtils.hideLoadingDialog();
         Toast.makeText(context, "Error: " + code + ", " + data, Toast.LENGTH_SHORT).show();
     }
 }
