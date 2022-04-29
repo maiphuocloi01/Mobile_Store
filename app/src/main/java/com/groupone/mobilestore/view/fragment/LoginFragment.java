@@ -110,7 +110,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, AccountVie
             Toast.makeText(context, errorResponse.getErrorDescription(), Toast.LENGTH_SHORT).show();
 
         } else {
-            Toast.makeText(context, "Error: " + code + ", " + data, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Không kết nối được máy chủ", Toast.LENGTH_SHORT).show();
         }
         DialogUtils.hideLoadingDialog();
     }

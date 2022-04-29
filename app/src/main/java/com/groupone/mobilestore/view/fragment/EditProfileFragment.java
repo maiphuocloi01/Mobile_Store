@@ -2,15 +2,22 @@ package com.groupone.mobilestore.view.fragment;
 
 import static com.groupone.mobilestore.util.NumberUtils.convertDateType1;
 import static com.groupone.mobilestore.util.NumberUtils.convertDateType2;
+import static com.groupone.mobilestore.viewmodel.AccountViewModel.KEY_UPDATE_ACCOUNT;
+import static com.groupone.mobilestore.viewmodel.AccountViewModel.KEY_UPLOAD_IMAGE;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
@@ -22,6 +29,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -29,25 +37,40 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 
 import com.bumptech.glide.Glide;
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentEditProfileBinding;
 import com.groupone.mobilestore.model.User;
-import com.groupone.mobilestore.viewmodel.CommonViewModel;
+import com.groupone.mobilestore.util.DialogUtils;
+import com.groupone.mobilestore.viewmodel.AccountViewModel;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding, CommonViewModel> {
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+
+public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding, AccountViewModel> {
 
     public static final String TAG = EditProfileFragment.class.getName();
-
+    // You can do the assignment inside onAttach or onCreate, i.e, before the activity is displayed
+    ActivityResultLauncher<Intent> someActivityResultLauncher;
     private int defaultYear = 2001;
     private int defaultMonth = 0;
     private int defaultDay = 1;
     private Object mData;
-    // You can do the assignment inside onAttach or onCreate, i.e, before the activity is displayed
-    ActivityResultLauncher<Intent> someActivityResultLauncher;
+    private String filePath = null;
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -58,12 +81,14 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == Activity.RESULT_OK) {
+
                             ContentResolver resolver = context.getContentResolver();
                             Intent data = result.getData();
-                            Bitmap bitmap = null;
 
+                            Bitmap bitmap = null;
                             try {
                                 if (data != null) {
+                                    filePath = getRealPathFromURI(data.getData());
                                     bitmap = MediaStore.Images.Media.getBitmap(resolver, data.getData());
                                 }
                             } catch (IOException e) {
@@ -76,15 +101,16 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
     }
 
 
-
     @Override
-    protected Class<CommonViewModel> getClassVM() {
-        return CommonViewModel.class;
+    protected Class<AccountViewModel> getClassVM() {
+        return AccountViewModel.class;
     }
 
     @Override
     protected void initViews() {
 
+
+        Log.d(TAG, "initViews: " + filePath);
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,6 +121,7 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
         binding.btChangeImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                verifyStoragePermissions(getActivity());
                 takeImageFromAlbumWithIntent();
             }
         });
@@ -108,7 +135,7 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
         binding.etBirthday.setText(user.getBirthday());
         binding.etBirthday.setCursorVisible(false);
         binding.etBirthday.setShowSoftInputOnFocus(false);
-        if(user.isGender()){
+        if (user.isGender()) {
             binding.rbFemale.setChecked(true);
         } else {
             binding.rbMale.setChecked(true);
@@ -118,7 +145,47 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
         binding.btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                callBack.backToPrev();
+                String newName = binding.etName.getText().toString();
+                String newPhone = binding.etPhone.getText().toString();
+                String newEmail = binding.etEmail.getText().toString();
+                String newBirthday = binding.etBirthday.getText().toString();
+                boolean newGender = binding.rbFemale.isChecked();
+                String imageFileName = null;
+
+
+                Log.d(TAG, "initViews: " + filePath);
+                if(!newName.equals(user.getFullName()) ||
+                        !newPhone.equals(user.getPhoneNumber()) ||
+                        !newEmail.equals(user.getEmail()) ||
+                        !newBirthday.equals(user.getBirthday()) ||
+                        newGender != user.isGender() ||
+                        filePath != null
+                ){
+                    DialogUtils.showLoadingDialog(context);
+
+                    if (filePath != null) {
+                        Log.d(TAG, filePath);
+                        File file = new File(filePath);
+                        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                        String suffix = file.getName().substring(file.getName().lastIndexOf("."));
+                        imageFileName = user.getUserName() + "_" + timeStamp + suffix;
+                        Log.d(TAG, file.toString());
+                        Log.d(TAG, file.getName());
+                        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
+                        MultipartBody.Part parts = MultipartBody.Part.createFormData("newimage", imageFileName, requestBody);
+
+                        RequestBody someData = RequestBody.create(MediaType.parse("text/plain"), "This is a new Image");
+                        viewModel.uploadImageAccount(parts, someData);
+
+                    }
+                    Log.d(TAG, "onClick: "+ imageFileName + " / " +  newName+ " / " + newBirthday+ " / " + newEmail+ " / " + newGender + " / " + newPhone);
+                    viewModel.updateAccount(newName, newEmail, newPhone, newBirthday, newGender, imageFileName);
+                    callBack.backToPrev();
+                } else {
+                    Toast.makeText(context, "Không có thông tin nào thay đổi", Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
 
@@ -138,6 +205,20 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
             }
         });
 
+    }
+
+    public static void verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+        }
     }
 
     private void showDatePickerDialog() {
@@ -195,6 +276,20 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
         binding.ivAvatar.setImageBitmap(bitmap);
     }
 
+    private String getRealPathFromURI(Uri contentURI) {
+        String result;
+        Cursor cursor = context.getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) {
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        return result;
+    }
+
     @Override
     protected FragmentEditProfileBinding initViewBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
         return FragmentEditProfileBinding.inflate(inflater, container, false);
@@ -202,12 +297,25 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
 
     @Override
     public void apiSuccess(String key, Object data) {
-
+        if (key.equals(KEY_UPLOAD_IMAGE)) {
+            ResponseBody res = (ResponseBody) data;
+            Log.d(TAG, res.toString());
+        } else if(key.equals(KEY_UPDATE_ACCOUNT)){
+            Boolean check = (Boolean) data;
+            if(check){
+                Toast.makeText(context, "Cập nhật thông tin thành công", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "Cập nhật thông tin thất bại", Toast.LENGTH_SHORT).show();
+            }
+        }
+        DialogUtils.hideLoadingDialog();
     }
 
     @Override
     public void apiError(String key, int code, Object data) {
-
+        Log.d(TAG, code + " " + data.toString());
+        DialogUtils.hideLoadingDialog();
+        Toast.makeText(context, "Không kết nối được máy chủ", Toast.LENGTH_SHORT).show();
     }
 
     @Override

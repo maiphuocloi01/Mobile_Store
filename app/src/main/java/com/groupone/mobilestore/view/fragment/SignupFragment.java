@@ -111,6 +111,6 @@ public class SignupFragment extends BaseFragment<FragmentSignupBinding, AccountV
     public void apiError(String key, int code, Object data) {
 
         DialogUtils.hideLoadingDialog();
-        Toast.makeText(context, "Error: " + code + ", " + data, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Không kết nối được máy chủ", Toast.LENGTH_SHORT).show();
     }
 }

@@ -184,6 +184,6 @@ public class ForgotPasswordFragment extends BaseFragment<FragmentForgotPasswordB
         if(key.equals(KEY_CHECK_EMAIL_EXIST)) {
             DialogUtils.hideLoadingDialog();
         }
-        Toast.makeText(context, "Error: " + code + data.toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Không kết nối được máy chủ", Toast.LENGTH_SHORT).show();
     }
 }

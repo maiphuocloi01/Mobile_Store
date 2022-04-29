@@ -4,6 +4,9 @@ import android.util.Log;
 
 import com.groupone.mobilestore.model.User;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+
 public class AccountViewModel extends BaseViewModel{
     private static final String TAG = AccountViewModel.class.getName();
 
@@ -15,6 +18,7 @@ public class AccountViewModel extends BaseViewModel{
     public static final String KEY_SEND_OTP = "KEY_SEND_OTP";
     public static final String KEY_RESET_PASSWORD = "KEY_RESET_PASSWORD";
     public static final String KEY_UPDATE_ACCOUNT = "KEY_UPDATE_ACCOUNT";
+    public static final String KEY_UPLOAD_IMAGE = "KEY_UPLOAD_IMAGE";
 
     public void login(String username, String password){
         getApi().login(username, password, "password").enqueue(initHandleResponse(KEY_LOGIN));
@@ -49,7 +53,11 @@ public class AccountViewModel extends BaseViewModel{
 
     public void updateAccount(String fullName, String email, String phoneNumber, String birthday, boolean gender, String avatar){
         User myUser = new User(null, fullName, email, phoneNumber, gender, birthday, avatar,null);
-        getApi().resetPassword(myUser).enqueue(initHandleResponse(KEY_UPDATE_ACCOUNT));
+        getApi().updateAccount(myUser).enqueue(initHandleResponse(KEY_UPDATE_ACCOUNT));
+    }
+
+    public void uploadImageAccount(MultipartBody.Part parts, RequestBody someData){
+        getApi().uploadImage(parts, someData).enqueue(initHandleResponse(KEY_UPLOAD_IMAGE));
     }
 //    public void loginWithToken(String token){
 //        getApi().loginWithToken("Bearer" + token).enqueue(initHandleResponse(KEY_LOGIN_WITH_TOKEN));
