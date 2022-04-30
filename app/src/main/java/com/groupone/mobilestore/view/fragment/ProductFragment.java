@@ -1,5 +1,7 @@
 package com.groupone.mobilestore.view.fragment;
 
+import static com.groupone.mobilestore.util.NumberUtils.convertPrice;
+
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +16,8 @@ import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentProductBinding;
 import com.groupone.mobilestore.model.Comment;
 import com.groupone.mobilestore.model.Information;
+import com.groupone.mobilestore.model.Product;
+import com.groupone.mobilestore.util.NumberUtils;
 import com.groupone.mobilestore.view.adapter.CommentAdapter;
 import com.groupone.mobilestore.view.adapter.InformationAdapter;
 import com.groupone.mobilestore.view.adapter.SliderAdapter;
@@ -33,6 +37,8 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Common
     SliderView sliderView;
     private SliderAdapter sliderAdapter;
     public boolean isFavorite = true;
+    private Object mData;
+    private Product product;
 
     @Override
     protected Class<CommonViewModel> getClassVM() {
@@ -48,6 +54,9 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Common
             }
         });
 
+        product = (Product) mData;
+        binding.tvName.setText(product.getName());
+        binding.tvPrice.setText(convertPrice(product.getPrice()));
 
         List<String> listVersion = new ArrayList<>();
         listVersion.add("128GB");
@@ -140,12 +149,12 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Common
     }
 
     public void renewItems(View view) {
-        List<Integer> sliderItemList = new ArrayList<>();
+        List<String> sliderItemList = new ArrayList<>();
         //dummy data
-        sliderItemList.add(R.drawable.img_iphone13);
-        sliderItemList.add(R.drawable.img_iphone13_2);
-        sliderItemList.add(R.drawable.img_iphone13_3);
-        sliderItemList.add(R.drawable.img_iphone13_4);
+        sliderItemList.add(product.getImage1());
+        sliderItemList.add(product.getImage2());
+        sliderItemList.add(product.getImage3());
+        sliderItemList.add(product.getImage4());
 
         sliderAdapter.renewItems(sliderItemList);
     }
@@ -163,5 +172,10 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Common
     @Override
     public void apiError(String key, int code, Object data) {
 
+    }
+
+    @Override
+    public void setData(Object data) {
+        this.mData = data;
     }
 }

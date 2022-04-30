@@ -16,13 +16,13 @@ import java.util.List;
 public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderViewHolder> {
 
     private Context context;
-    private List<Integer> mSliderItems = new ArrayList<>();
+    private List<String> mSliderItems = new ArrayList<>();
 
     public SliderAdapter(Context context) {
         this.context = context;
     }
 
-    public void renewItems(List<Integer> sliderItems) {
+    public void renewItems(List<String> sliderItems) {
         this.mSliderItems = sliderItems;
         notifyDataSetChanged();
     }
@@ -32,7 +32,7 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderViewHol
         notifyDataSetChanged();
     }
 
-    public void addItem(int sliderItem) {
+    public void addItem(String sliderItem) {
         this.mSliderItems.add(sliderItem);
         notifyDataSetChanged();
     }
@@ -45,12 +45,12 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderViewHol
 
     @Override
     public void onBindViewHolder(SliderViewHolder holder, int position) {
-        int item = mSliderItems.get(position);
-        /*Glide.with(viewHolder.itemView)
-                .load(item.getImageUrl())
+        String item = mSliderItems.get(position);
+        Glide.with(holder.itemView)
+                .load(item)
                 .fitCenter()
-                .into(viewHolder.imageViewBackground);*/
-        holder.imageViewBackground.setImageResource(item);
+                .into(holder.imageViewBackground);
+        //holder.imageViewBackground.setImageResource(item);
 
     }
 

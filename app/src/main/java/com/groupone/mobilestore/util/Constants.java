@@ -2,6 +2,8 @@ package com.groupone.mobilestore.util;
 
 public interface Constants {
     String BASE_URL = "https://www.nhom01.somee.com/";
+
+    //Constant Account
     String KEY_LOGIN = "KEY_LOGIN";
     String KEY_REGISTER = "KEY_REGISTER";
     String KEY_CHECK_REGISTER = "KEY_CHECK_REGISTER";
@@ -13,4 +15,7 @@ public interface Constants {
     String KEY_UPLOAD_IMAGE = "KEY_UPLOAD_IMAGE";
     String ACCESS_TOKEN = "ACCESS_TOKEN";
     String USERNAME = "USERNAME";
+
+    //Constant Product
+    String KEY_GET_TOP_SALE_PRODUCT = "KEY_GET_TOP_SALE_PRODUCT";
 }

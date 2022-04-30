@@ -1,11 +1,18 @@
 package com.groupone.mobilestore.model;
 
-public class Comment {
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+
+public class Comment implements Serializable {
+    @SerializedName("Id")
     private int id;
     private String fullName;
     private String createAt;
     private String type;
+    @SerializedName("Content")
     private String content;
+    @SerializedName("Rating")
     private int rating;
 
     public Comment(int id, String fullName, String createAt, String type, String content, int rating) {

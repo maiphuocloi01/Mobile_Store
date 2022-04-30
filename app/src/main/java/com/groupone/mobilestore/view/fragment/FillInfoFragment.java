@@ -2,14 +2,19 @@ package com.groupone.mobilestore.view.fragment;
 
 import static com.groupone.mobilestore.util.NumberUtils.convertDateType1;
 import static com.groupone.mobilestore.util.NumberUtils.convertDateType2;
+
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
@@ -30,6 +35,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentFillInfoBinding;
@@ -37,18 +43,50 @@ import com.groupone.mobilestore.util.Constants;
 import com.groupone.mobilestore.util.DialogUtils;
 import com.groupone.mobilestore.viewmodel.AccountViewModel;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 
 public class FillInfoFragment extends BaseFragment<FragmentFillInfoBinding, AccountViewModel> {
 
     public static final String TAG = FillInfoFragment.class.getName();
+
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
     // You can do the assignment inside onAttach or onCreate, i.e, before the activity is displayed
     ActivityResultLauncher<Intent> someActivityResultLauncher;
     private int defaultYear = 2000;
     private int defaultMonth = 0;
     private int defaultDay = 1;
     private Object mData;
+    private String filePath = null;
+
+    public static boolean verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -65,6 +103,7 @@ public class FillInfoFragment extends BaseFragment<FragmentFillInfoBinding, Acco
 
                             try {
                                 if (data != null) {
+                                    filePath = getRealPathFromURI(data.getData());
                                     bitmap = MediaStore.Images.Media.getBitmap(resolver, data.getData());
                                 }
                             } catch (IOException e) {
@@ -75,7 +114,6 @@ public class FillInfoFragment extends BaseFragment<FragmentFillInfoBinding, Acco
                     }
                 });
     }
-
 
     @Override
     protected Class<AccountViewModel> getClassVM() {
@@ -106,8 +144,6 @@ public class FillInfoFragment extends BaseFragment<FragmentFillInfoBinding, Acco
         binding.etBirthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //hideSoftInput(view);
-                //toggleSoftInput(context);
                 showDatePickerDialog();
             }
         });
@@ -115,6 +151,7 @@ public class FillInfoFragment extends BaseFragment<FragmentFillInfoBinding, Acco
         binding.btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String imageFileName = null;
                 if (TextUtils.isEmpty(binding.etName.getText())) {
                     binding.etName.setError("Không được bỏ trống");
 
@@ -127,11 +164,28 @@ public class FillInfoFragment extends BaseFragment<FragmentFillInfoBinding, Acco
                 } else if (!binding.rbMale.isChecked() && !binding.rbFemale.isChecked()) {
                     Toast.makeText(context, "Chọn giới tính", Toast.LENGTH_SHORT).show();
                 } else {
+
                     boolean gender = false;
                     List<String> listInfo = (List<String>) mData;
                     if (binding.rbFemale.isChecked()) {
                         gender = true;
                     }
+
+                    if (filePath != null) {
+                        Log.d(TAG, filePath);
+                        File file = new File(filePath);
+                        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                        String suffix = file.getName().substring(file.getName().lastIndexOf("."));
+                        imageFileName = listInfo.get(1) + "_" + timeStamp + suffix;
+                        Log.d(TAG, file.toString());
+                        Log.d(TAG, file.getName());
+                        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
+                        MultipartBody.Part parts = MultipartBody.Part.createFormData("newimage", imageFileName, requestBody);
+                        RequestBody someData = RequestBody.create(MediaType.parse("text/plain"), "This is a new Image");
+
+                        viewModel.uploadImageAccount(parts, someData);
+                    }
+
                     viewModel.register(
                             listInfo.get(1),
                             binding.etName.getText().toString(),
@@ -139,7 +193,7 @@ public class FillInfoFragment extends BaseFragment<FragmentFillInfoBinding, Acco
                             binding.etPhoneNumber.getText().toString(),
                             binding.etBirthday.getText().toString(),
                             gender,
-                            null,
+                            imageFileName,
                             listInfo.get(2)
                     );
                     DialogUtils.showLoadingDialog(context);
@@ -200,9 +254,13 @@ public class FillInfoFragment extends BaseFragment<FragmentFillInfoBinding, Acco
     }
 
     public void takeImageFromAlbumWithIntent() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        someActivityResultLauncher.launch(intent);
+        if (verifyStoragePermissions(getActivity())) {
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType("image/*");
+            someActivityResultLauncher.launch(intent);
+        } else {
+            Toast.makeText(context, "Bạn chưa có quyền truy cập", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void displayImage(Bitmap bitmap) {
@@ -216,7 +274,10 @@ public class FillInfoFragment extends BaseFragment<FragmentFillInfoBinding, Acco
 
     @Override
     public void apiSuccess(String key, Object data) {
-        if (key.equals(Constants.KEY_REGISTER)) {
+        if (key.equals(Constants.KEY_UPLOAD_IMAGE)) {
+            ResponseBody res = (ResponseBody) data;
+            Log.d(TAG, res.toString());
+        } else if (key.equals(Constants.KEY_REGISTER)) {
             int response = (int) data;
             Log.d(TAG, "apiSuccess: " + response);
             if (response == -1) {
@@ -232,13 +293,32 @@ public class FillInfoFragment extends BaseFragment<FragmentFillInfoBinding, Acco
 
     @Override
     public void apiError(String key, int code, Object data) {
-        Log.d(TAG, "apiSuccess: " + data.toString());
+        if (key.equals(Constants.KEY_UPLOAD_IMAGE)) {
+            Log.d(TAG, "apiError: " + key + data.toString());
+            Toast.makeText(context, "Error: " + key + code + ", " + data, Toast.LENGTH_SHORT).show();
+        } else if (key.equals(Constants.KEY_REGISTER)) {
+            Log.d(TAG, "apiError: " + key + data.toString());
+            Toast.makeText(context, "Error: " + key + code + ", " + data, Toast.LENGTH_SHORT).show();
+        }
         DialogUtils.hideLoadingDialog();
-        Toast.makeText(context, "Error: " + code + ", " + data, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void setData(Object data) {
         this.mData = data;
+    }
+
+    private String getRealPathFromURI(Uri contentURI) {
+        String result;
+        Cursor cursor = context.getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) {
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        return result;
     }
 }

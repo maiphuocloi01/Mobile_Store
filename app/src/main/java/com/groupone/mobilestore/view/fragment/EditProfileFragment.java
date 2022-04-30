@@ -2,6 +2,7 @@ package com.groupone.mobilestore.view.fragment;
 
 import static com.groupone.mobilestore.util.NumberUtils.convertDateType1;
 import static com.groupone.mobilestore.util.NumberUtils.convertDateType2;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
@@ -140,6 +141,10 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
 
         User user = (User) mData;
 
+        defaultDay = Integer.parseInt(user.getBirthday().substring(0,2));
+        defaultMonth = Integer.parseInt(user.getBirthday().substring(3,5)) - 1;
+        defaultYear = Integer.parseInt(user.getBirthday().substring(user.getBirthday().length() - 4));
+
         Log.d(TAG, user.toString());
         binding.etName.setText(user.getFullName());
         binding.etPhone.setText(user.getPhoneNumber());
@@ -273,7 +278,7 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
     }
 
     public void takeImageFromAlbumWithIntent() {
-        if(verifyStoragePermissions(getActivity())) {
+        if (verifyStoragePermissions(getActivity())) {
             Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType("image/*");
             someActivityResultLauncher.launch(intent);

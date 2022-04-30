@@ -2,10 +2,11 @@ package com.groupone.mobilestore.view.fragment;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,42 +16,40 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentHomeBinding;
 import com.groupone.mobilestore.model.Product;
+import com.groupone.mobilestore.util.Constants;
 import com.groupone.mobilestore.view.adapter.ProductAdapter;
-import com.groupone.mobilestore.viewmodel.CommonViewModel;
+import com.groupone.mobilestore.viewmodel.HomeViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends BaseFragment<FragmentHomeBinding, CommonViewModel> {
+public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewModel> {
 
     public static final String TAG = HomeFragment.class.getName();
 
     private PagerFragment parentFrag;
+    private List<Product> listProduct = new ArrayList<>();
 
     @Override
-    protected Class<CommonViewModel> getClassVM() {
-        return CommonViewModel.class;
+    protected Class<HomeViewModel> getClassVM() {
+        return HomeViewModel.class;
     }
 
     @Override
     protected void initViews() {
 
-        //binding.scrollView.scrollTo(0, 0);
-        //binding.scrollView.fullScroll(ScrollView.FOCUS_UP);
         binding.scrollView.smoothScrollTo(0, 0);
 
-        List<Product> listProduct = new ArrayList<>();
+        viewModel.getTopSaleProduct();
 
-        listProduct.add(new Product(1, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
+        /*listProduct.add(new Product(1, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
         listProduct.add(new Product(2, R.drawable.img_iphone13_2, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
         listProduct.add(new Product(3, R.drawable.img_iphone13_3, "iPhone 13 Pro Max Ultra Ultimate Super Plus", "128GB", 3.8, 34000000, 38));
         listProduct.add(new Product(4, R.drawable.img_iphone13_4, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
         listProduct.add(new Product(5, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
         listProduct.add(new Product(6, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
+*/
 
-        binding.rvProduct.setLayoutManager(new GridLayoutManager(context, 2));
-        ProductAdapter adapter = new ProductAdapter(context, listProduct);
-        binding.rvProduct.setAdapter(adapter);
 
         binding.rowSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,15 +60,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, CommonViewMo
                 }
             }
         });
-        adapter.getProductLD().observe(this, new Observer<Product>() {
-            @Override
-            public void onChanged(Product product) {
-                parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
-                if (parentFrag != null) {
-                    parentFrag.setActionShowFragment(ProductFragment.TAG, product, true);
-                }
-            }
-        });
+
 
         binding.btApple.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,12 +183,39 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, CommonViewMo
 
     @Override
     public void apiSuccess(String key, Object data) {
+        if(key.equals(Constants.KEY_GET_TOP_SALE_PRODUCT)){
+            Log.d(TAG, "apiSuccess: " + data.toString());
+            List<Product> products = (List<Product>) data;
+            listProduct = products;
 
+            binding.rvProduct.setLayoutManager(new GridLayoutManager(context, 2));
+            ProductAdapter adapter = new ProductAdapter(context, products);
+            binding.rvProduct.setAdapter(adapter);
+
+            adapter.getProductLD().observe(this, new Observer<Product>() {
+                @Override
+                public void onChanged(Product product) {
+                    parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
+                    if (parentFrag != null) {
+                        parentFrag.setActionShowFragment(ProductFragment.TAG, product, true);
+                    }
+                }
+            });
+
+            for (Product item: products){
+                Log.d(TAG, "Prodcut: " + item.getName());
+            }
+        }
     }
 
     @Override
     public void apiError(String key, int code, Object data) {
-
+        if(key.equals(Constants.KEY_GET_TOP_SALE_PRODUCT)){
+            if(code == 999) {
+                Log.d(TAG, "apiError: "+ data.toString());
+                Toast.makeText(context, "Không thể kết nối đến máy chủ", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 }

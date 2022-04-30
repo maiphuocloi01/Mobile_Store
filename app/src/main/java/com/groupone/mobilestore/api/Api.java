@@ -1,7 +1,10 @@
 package com.groupone.mobilestore.api;
 
+import com.groupone.mobilestore.model.Product;
 import com.groupone.mobilestore.model.Token;
 import com.groupone.mobilestore.model.User;
+
+import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -55,4 +58,8 @@ public interface Api {
     @POST("Api/AccountController/Login")
     @FormUrlEncoded
     Call<Token> login(@Field("username") String username, @Field("password") String password, @Field("grant_type") String type);
+
+    @GET("Api/ProductController/GetTopSaleProduct")
+    @Headers("Content-type: application/json")
+    Call<List<Product>> getTopSaleProduct();
 }

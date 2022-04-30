@@ -52,7 +52,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         holder.itemProductBinding.tvCountReview.setText(convertParentheses(product.getCountReview()));
 
         //Glide.with(context).load(product.getImage()).into(holder.itemProductBinding.ivProduct);
-        holder.itemProductBinding.ivProduct.setImageResource(product.getImage());
+        //holder.itemProductBinding.ivProduct.setImageResource(product.getImage1());
         holder.itemProductBinding.tvName.setTag(product);
     }
 

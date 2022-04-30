@@ -14,6 +14,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.groupone.mobilestore.databinding.LayoutItemProductBinding;
 import com.groupone.mobilestore.model.Product;
 
@@ -51,8 +52,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.itemProductBinding.tvRate.setText(String.valueOf(product.getRate()));
         holder.itemProductBinding.tvCountReview.setText(convertParentheses(product.getCountReview()));
 
-        //Glide.with(context).load(product.getImage()).into(holder.itemProductBinding.ivProduct);
-        holder.itemProductBinding.ivProduct.setImageResource(product.getImage());
+        Glide.with(context).load(product.getImage1()).into(holder.itemProductBinding.ivProduct);
+        //holder.itemProductBinding.ivProduct.setImageResource(product.getImage1());
         holder.itemProductBinding.tvName.setTag(product);
     }
 
