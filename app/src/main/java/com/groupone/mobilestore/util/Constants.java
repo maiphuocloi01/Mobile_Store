@@ -1,0 +1,16 @@
+package com.groupone.mobilestore.util;
+
+public interface Constants {
+    String BASE_URL = "https://www.nhom01.somee.com/";
+    String KEY_LOGIN = "KEY_LOGIN";
+    String KEY_REGISTER = "KEY_REGISTER";
+    String KEY_CHECK_REGISTER = "KEY_CHECK_REGISTER";
+    String KEY_CHECK_EMAIL_EXIST = "KEY_CHECK_EMAIL_EXIST";
+    String KEY_GET_BY_USERNAME = "KEY_GET_BY_USERNAME";
+    String KEY_SEND_OTP = "KEY_SEND_OTP";
+    String KEY_RESET_PASSWORD = "KEY_RESET_PASSWORD";
+    String KEY_UPDATE_ACCOUNT = "KEY_UPDATE_ACCOUNT";
+    String KEY_UPLOAD_IMAGE = "KEY_UPLOAD_IMAGE";
+    String ACCESS_TOKEN = "ACCESS_TOKEN";
+    String USERNAME = "USERNAME";
+}

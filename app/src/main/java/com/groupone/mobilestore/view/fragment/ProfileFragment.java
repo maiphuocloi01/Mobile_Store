@@ -1,8 +1,5 @@
 package com.groupone.mobilestore.view.fragment;
 
-import static com.groupone.mobilestore.view.fragment.LoginFragment.USERNAME;
-import static com.groupone.mobilestore.viewmodel.AccountViewModel.KEY_GET_BY_USERNAME;
-import static com.groupone.mobilestore.viewmodel.AccountViewModel.KEY_LOGIN;
 
 import android.app.Dialog;
 import android.graphics.Color;
@@ -24,16 +21,18 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.Glide;
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentProfileBinding;
-import com.groupone.mobilestore.model.Token;
 import com.groupone.mobilestore.model.User;
 import com.groupone.mobilestore.util.CommonUtils;
+import com.groupone.mobilestore.util.Constants;
 import com.groupone.mobilestore.viewmodel.AccountViewModel;
+
+import me.samlss.broccoli.Broccoli;
 
 public class ProfileFragment extends BaseFragment<FragmentProfileBinding, AccountViewModel> {
 
     public static final String TAG = ProfileFragment.class.getName();
-    public static final String ACCESS_TOKEN = "ACCESS_TOKEN";
     private User user;
+    private Broccoli mBroccoli;
 
     @Override
     protected Class<AccountViewModel> getClassVM() {
@@ -43,21 +42,26 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Accoun
     @Override
     protected void initViews() {
 
-        binding.rowEditProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.rowEditProfile.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
-                actionShowFragment(EditProfileFragment.TAG, user, true);
+        mBroccoli = new Broccoli();
+        mBroccoli.addPlaceholders(binding.ivAvatar, binding.tvName, binding.tvEmail,
+                binding.rowEditProfile, binding.rowFavorite, binding.rowPayment, binding.rowShipment, binding.rowTerm, binding.rowVersionInfo,
+                binding.tvTitle1, binding.tvTitle2, binding.ivIcon1, binding.ivIcon2, binding.ivIcon3, binding.ivIcon4,
+                binding.ivIcon5, binding.ivIcon6, binding.ivNext1, binding.ivNext2, binding.ivNext3, binding.ivNext4, binding.ivNext5, binding.ivNext6,
+                binding.tvFunc1, binding.tvFunc2, binding.tvFunc3, binding.tvFunc4, binding.tvFunc5, binding.tvFunc6, binding.btLogout
+        );
+        mBroccoli.show();
 
+        binding.rowEditProfile.setOnClickListener(view -> {
+            binding.rowEditProfile.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
+            if (user != null) {
+                actionShowFragment(EditProfileFragment.TAG, user, true);
             }
+
         });
 
-        binding.rowShipment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.rowShipment.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
-                actionShowFragment(AddressFragment.TAG, null, true);
-            }
+        binding.rowShipment.setOnClickListener(view -> {
+            binding.rowShipment.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
+            actionShowFragment(AddressFragment.TAG, null, true);
         });
 
         binding.rowPayment.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +103,7 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Accoun
             }
         });
 
-        String username = CommonUtils.getInstance().getPref(USERNAME);
+        String username = CommonUtils.getInstance().getPref(Constants.USERNAME);
         viewModel.getUserByUserName(username);
     }
 
@@ -134,7 +138,7 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Accoun
 
         btnConfirm.setOnClickListener(view -> {
             actionShowFragment(LoginFragment.TAG, null, false);
-            CommonUtils.getInstance().clearPref(ACCESS_TOKEN);
+            CommonUtils.getInstance().clearPref(Constants.ACCESS_TOKEN);
             dialog.dismiss();
         });
 
@@ -149,9 +153,10 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Accoun
 
     @Override
     public void apiSuccess(String key, Object data) {
-        if(key.equals(KEY_GET_BY_USERNAME)){
+        if (key.equals(Constants.KEY_GET_BY_USERNAME)) {
             user = (User) data;
             Log.d(TAG, "apiSuccess: " + user.getUserName());
+            mBroccoli.clearAllPlaceholders();
             binding.tvName.setText(user.getFullName());
             binding.tvEmail.setText(user.getEmail());
             Glide.with(context).load(user.getAvatar()).into(binding.ivAvatar);

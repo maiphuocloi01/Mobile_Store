@@ -1,6 +1,5 @@
 package com.groupone.mobilestore.view.fragment;
 
-import static com.groupone.mobilestore.viewmodel.AccountViewModel.KEY_RESET_PASSWORD;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.groupone.mobilestore.databinding.FragmentResetPasswordBinding;
+import com.groupone.mobilestore.util.Constants;
 import com.groupone.mobilestore.util.DialogUtils;
 import com.groupone.mobilestore.viewmodel.AccountViewModel;
 
@@ -55,7 +55,7 @@ public class ResetPasswordFragment extends BaseFragment<FragmentResetPasswordBin
 
     @Override
     public void apiSuccess(String key, Object data) {
-        if (key.equals(KEY_RESET_PASSWORD)) {
+        if (key.equals(Constants.KEY_RESET_PASSWORD)) {
             Boolean isSuccess = (Boolean) data;
             Log.d(TAG, isSuccess.toString());
             if (isSuccess) {

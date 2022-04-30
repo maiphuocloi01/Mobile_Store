@@ -73,8 +73,8 @@
                         app:sliderIndicatorOrientation="horizontal"
                         app:sliderIndicatorPadding="3dp"
                         app:sliderIndicatorRadius="2dp"
-                        app:sliderIndicatorSelectedColor="#5A5A5A"
-                        app:sliderIndicatorUnselectedColor="#FFF"
+                        app:sliderIndicatorSelectedColor="@color/blue_500"
+                        app:sliderIndicatorUnselectedColor="@color/black_200"
                         app:sliderScrollTimeInSec="1" />
 
                 </LinearLayout>

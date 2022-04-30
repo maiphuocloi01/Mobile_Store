@@ -1,7 +1,6 @@
 package com.groupone.mobilestore.view.fragment;
 
-import static com.groupone.mobilestore.viewmodel.AccountViewModel.KEY_CHECK_EMAIL_EXIST;
-import static com.groupone.mobilestore.viewmodel.AccountViewModel.KEY_SEND_OTP;
+import static com.groupone.mobilestore.util.Constants.KEY_CHECK_EMAIL_EXIST;
 
 import android.app.Dialog;
 import android.graphics.Color;
@@ -25,9 +24,9 @@ import androidx.annotation.Nullable;
 
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentForgotPasswordBinding;
+import com.groupone.mobilestore.util.Constants;
 import com.groupone.mobilestore.util.DialogUtils;
 import com.groupone.mobilestore.viewmodel.AccountViewModel;
-import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -131,7 +130,7 @@ public class ForgotPasswordFragment extends BaseFragment<FragmentForgotPasswordB
         dialog.show();
     }
 
-    private void countDownTimer(TextView tvCountdown, TextView tvCDTitle, TextView tvResend){
+    private void countDownTimer(TextView tvCountdown, TextView tvCDTitle, TextView tvResend) {
         long duration = TimeUnit.MINUTES.toMillis(1);
         new CountDownTimer(duration, 1000) {
             @Override
@@ -160,19 +159,19 @@ public class ForgotPasswordFragment extends BaseFragment<FragmentForgotPasswordB
 
     @Override
     public void apiSuccess(String key, Object data) {
-        if(key.equals(KEY_CHECK_EMAIL_EXIST)){
+        if (key.equals(KEY_CHECK_EMAIL_EXIST)) {
             int response = (int) data;
-            if (response == -1){
+            if (response == -1) {
                 sendOTP();
                 openSendOTPDialog();
-            } else if(response == -2){
+            } else if (response == -2) {
                 Toast.makeText(context, "Email không hợp lệ", Toast.LENGTH_SHORT).show();
-            } else if(response == 1){
+            } else if (response == 1) {
                 Toast.makeText(context, "Email chưa đăng ký", Toast.LENGTH_SHORT).show();
             }
             DialogUtils.hideLoadingDialog();
         }
-        if (key.equals(KEY_SEND_OTP)) {
+        if (key.equals(Constants.KEY_SEND_OTP)) {
             otp = (String) data;
             Log.d(TAG, otp);
             Toast.makeText(context, otp, Toast.LENGTH_SHORT).show();
@@ -181,7 +180,7 @@ public class ForgotPasswordFragment extends BaseFragment<FragmentForgotPasswordB
 
     @Override
     public void apiError(String key, int code, Object data) {
-        if(key.equals(KEY_CHECK_EMAIL_EXIST)) {
+        if (key.equals(KEY_CHECK_EMAIL_EXIST)) {
             DialogUtils.hideLoadingDialog();
         }
         Toast.makeText(context, "Không kết nối được máy chủ", Toast.LENGTH_SHORT).show();

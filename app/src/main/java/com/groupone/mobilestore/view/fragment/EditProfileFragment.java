@@ -2,9 +2,6 @@ package com.groupone.mobilestore.view.fragment;
 
 import static com.groupone.mobilestore.util.NumberUtils.convertDateType1;
 import static com.groupone.mobilestore.util.NumberUtils.convertDateType2;
-import static com.groupone.mobilestore.viewmodel.AccountViewModel.KEY_UPDATE_ACCOUNT;
-import static com.groupone.mobilestore.viewmodel.AccountViewModel.KEY_UPLOAD_IMAGE;
-
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
@@ -17,7 +14,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
@@ -43,6 +39,7 @@ import com.bumptech.glide.Glide;
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentEditProfileBinding;
 import com.groupone.mobilestore.model.User;
+import com.groupone.mobilestore.util.Constants;
 import com.groupone.mobilestore.util.DialogUtils;
 import com.groupone.mobilestore.viewmodel.AccountViewModel;
 
@@ -59,6 +56,11 @@ import okhttp3.ResponseBody;
 public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding, AccountViewModel> {
 
     public static final String TAG = EditProfileFragment.class.getName();
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
     // You can do the assignment inside onAttach or onCreate, i.e, before the activity is displayed
     ActivityResultLauncher<Intent> someActivityResultLauncher;
     private int defaultYear = 2001;
@@ -66,11 +68,23 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
     private int defaultDay = 1;
     private Object mData;
     private String filePath = null;
-    private static final int REQUEST_EXTERNAL_STORAGE = 1;
-    private static String[] PERMISSIONS_STORAGE = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-    };
+
+    public static boolean verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -100,7 +114,6 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
                 });
     }
 
-
     @Override
     protected Class<AccountViewModel> getClassVM() {
         return AccountViewModel.class;
@@ -121,7 +134,6 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
         binding.btChangeImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                verifyStoragePermissions(getActivity());
                 takeImageFromAlbumWithIntent();
             }
         });
@@ -140,7 +152,9 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
         } else {
             binding.rbMale.setChecked(true);
         }
-        Glide.with(context).load(user.getAvatar()).into(binding.ivAvatar);
+        if (filePath == null) {
+            Glide.with(context).load(user.getAvatar()).into(binding.ivAvatar);
+        }
 
         binding.btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,15 +166,21 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
                 boolean newGender = binding.rbFemale.isChecked();
                 String imageFileName = null;
 
-
-                Log.d(TAG, "initViews: " + filePath);
-                if(!newName.equals(user.getFullName()) ||
+                if (newName.equals("")) {
+                    binding.etName.setError("Vui lòng nhập thông tin");
+                } else if (newPhone.equals("")) {
+                    binding.etPhone.setError("Vui lòng nhập thông tin");
+                } else if (newEmail.equals("")) {
+                    binding.etEmail.setError("Vui lòng nhập thông tin");
+                } else if (newBirthday.equals("")) {
+                    binding.etBirthday.setError("Vui lòng nhập thông tin");
+                } else if (!newName.equals(user.getFullName()) ||
                         !newPhone.equals(user.getPhoneNumber()) ||
                         !newEmail.equals(user.getEmail()) ||
                         !newBirthday.equals(user.getBirthday()) ||
                         newGender != user.isGender() ||
                         filePath != null
-                ){
+                ) {
                     DialogUtils.showLoadingDialog(context);
 
                     if (filePath != null) {
@@ -178,7 +198,7 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
                         viewModel.uploadImageAccount(parts, someData);
 
                     }
-                    Log.d(TAG, "onClick: "+ imageFileName + " / " +  newName+ " / " + newBirthday+ " / " + newEmail+ " / " + newGender + " / " + newPhone);
+                    Log.d(TAG, "onClick: " + imageFileName + " / " + newName + " / " + newBirthday + " / " + newEmail + " / " + newGender + " / " + newPhone);
                     viewModel.updateAccount(newName, newEmail, newPhone, newBirthday, newGender, imageFileName);
                     callBack.backToPrev();
                 } else {
@@ -205,20 +225,6 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
             }
         });
 
-    }
-
-    public static void verifyStoragePermissions(Activity activity) {
-        // Check if we have write permission
-        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            // We don't have permission so prompt the user
-            ActivityCompat.requestPermissions(
-                    activity,
-                    PERMISSIONS_STORAGE,
-                    REQUEST_EXTERNAL_STORAGE
-            );
-        }
     }
 
     private void showDatePickerDialog() {
@@ -267,9 +273,13 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
     }
 
     public void takeImageFromAlbumWithIntent() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        someActivityResultLauncher.launch(intent);
+        if(verifyStoragePermissions(getActivity())) {
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType("image/*");
+            someActivityResultLauncher.launch(intent);
+        } else {
+            Toast.makeText(context, "Bạn chưa có quyền truy cập", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void displayImage(Bitmap bitmap) {
@@ -297,12 +307,12 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
 
     @Override
     public void apiSuccess(String key, Object data) {
-        if (key.equals(KEY_UPLOAD_IMAGE)) {
+        if (key.equals(Constants.KEY_UPLOAD_IMAGE)) {
             ResponseBody res = (ResponseBody) data;
             Log.d(TAG, res.toString());
-        } else if(key.equals(KEY_UPDATE_ACCOUNT)){
+        } else if (key.equals(Constants.KEY_UPDATE_ACCOUNT)) {
             Boolean check = (Boolean) data;
-            if(check){
+            if (check) {
                 Toast.makeText(context, "Cập nhật thông tin thành công", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(context, "Cập nhật thông tin thất bại", Toast.LENGTH_SHORT).show();

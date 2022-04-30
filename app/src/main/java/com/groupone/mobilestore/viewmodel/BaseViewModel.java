@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import com.groupone.mobilestore.api.Api;
+import com.groupone.mobilestore.util.Constants;
 import com.groupone.mobilestore.view.callback.OnAPICallBack;
 
 import java.util.concurrent.TimeUnit;
@@ -21,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public abstract class BaseViewModel extends ViewModel {
 
     private static final String TAG = BaseViewModel.class.getName();
-    private static final String BASE_URL = "https://www.nhom01.somee.com/";
+
     protected OnAPICallBack callBack;
 
     public void setCallBack(OnAPICallBack callBack) {
@@ -30,7 +31,7 @@ public abstract class BaseViewModel extends ViewModel {
 
     protected Api getApi() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(new OkHttpClient.Builder().callTimeout(30, TimeUnit.SECONDS).build())
                 .build();

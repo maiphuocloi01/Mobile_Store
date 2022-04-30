@@ -5,9 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:orientation="vertical"
-    android:scrollbars="none"
-    android:weightSum="10">
+    android:id="@+id/scroll_view"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,8 +24,8 @@
             android:gravity="center">
 
             <ImageView
-                android:layout_width="18.5dp"
-                android:layout_height="34.5dp"
+                android:layout_width="13.8dp"
+                android:layout_height="25.6dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_logo"
                 app:tint="@color/blue_500" />
@@ -38,7 +37,13 @@
                 android:fontFamily="@font/roboto_bold"
                 android:text="MobileStore"
                 android:textColor="@color/blue_500"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
+            <View android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <ImageView android:layout_height="28dp"
+                android:layout_width="28dp"
+                android:src="@drawable/ic_settings"/>
         </TableRow>
 
 
@@ -50,17 +55,17 @@
             android:fontFamily="@font/roboto_bold"
             android:text="Khám phá"
             android:textColor="@color/black_700"
-            android:textSize="36sp" />
+            android:textSize="28sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto_regular"
             android:text="Cửa hàng điện thoại di động"
             android:textColor="@color/black_500"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <!--        <EditText-->
         <!--            android:id="@+id/et_search"-->
@@ -101,7 +106,7 @@
                 android:fontFamily="@font/roboto_regular"
                 android:text="Bạn cần tìm gì ?"
                 android:textColor="@color/black_500"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
         </TableRow>
 
@@ -210,7 +215,7 @@
                 android:fontFamily="@font/roboto_bold"
                 android:text="Sản phẩm nổi bật"
                 android:textColor="@color/black_700"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <ImageView
                 android:layout_width="20dp"

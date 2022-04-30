@@ -59,6 +59,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentBottom="true"
+                    android:layout_marginVertical="10dp"
                     android:layout_marginStart="20dp"
                     android:src="@drawable/img_default_avt" />
 
@@ -103,6 +104,7 @@
             app:layout_anchorGravity="bottom">
 
             <TextView
+                android:id="@+id/tv_title1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="100dp"
@@ -121,6 +123,7 @@
                 android:weightSum="10">
 
                 <ImageView
+                    android:id="@+id/iv_icon1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="12dp"
@@ -130,6 +133,7 @@
                     app:tint="@color/blue_500" />
 
                 <TextView
+                    android:id="@+id/tv_func1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
@@ -140,6 +144,7 @@
                     android:textSize="18sp" />
 
                 <ImageView
+                    android:id="@+id/iv_next1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="12dp"
@@ -161,6 +166,7 @@
                 android:weightSum="10">
 
                 <ImageView
+                    android:id="@+id/iv_icon2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="12dp"
@@ -170,6 +176,7 @@
                     app:tint="@color/blue_500" />
 
                 <TextView
+                    android:id="@+id/tv_func2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
@@ -180,6 +187,7 @@
                     android:textSize="18sp" />
 
                 <ImageView
+                    android:id="@+id/iv_next2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="12dp"
@@ -201,6 +209,7 @@
                 android:weightSum="10">
 
                 <ImageView
+                    android:id="@+id/iv_icon3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="12dp"
@@ -210,6 +219,7 @@
                     app:tint="@color/blue_500" />
 
                 <TextView
+                    android:id="@+id/tv_func3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
@@ -220,6 +230,7 @@
                     android:textSize="18sp" />
 
                 <ImageView
+                    android:id="@+id/iv_next3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="12dp"
@@ -241,6 +252,7 @@
                 android:weightSum="10">
 
                 <ImageView
+                    android:id="@+id/iv_icon4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="12dp"
@@ -250,6 +262,7 @@
                     app:tint="@color/blue_500" />
 
                 <TextView
+                    android:id="@+id/tv_func4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
@@ -260,6 +273,7 @@
                     android:textSize="18sp" />
 
                 <ImageView
+                    android:id="@+id/iv_next4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="12dp"
@@ -272,6 +286,7 @@
             </TableRow>
 
             <TextView
+                android:id="@+id/tv_title2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -290,6 +305,7 @@
                 android:weightSum="10">
 
                 <ImageView
+                    android:id="@+id/iv_icon5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="12dp"
@@ -299,6 +315,7 @@
                     app:tint="@color/blue_500" />
 
                 <TextView
+                    android:id="@+id/tv_func5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
@@ -309,6 +326,7 @@
                     android:textSize="18sp" />
 
                 <ImageView
+                    android:id="@+id/iv_next5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="12dp"
@@ -330,6 +348,7 @@
                 android:weightSum="10">
 
                 <ImageView
+                    android:id="@+id/iv_icon6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="12dp"
@@ -339,6 +358,7 @@
                     app:tint="@color/blue_500" />
 
                 <TextView
+                    android:id="@+id/tv_func6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
@@ -349,6 +369,7 @@
                     android:textSize="18sp" />
 
                 <ImageView
+                    android:id="@+id/iv_next6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="12dp"

@@ -2,9 +2,6 @@ package com.groupone.mobilestore.view.fragment;
 
 import static com.groupone.mobilestore.util.NumberUtils.convertDateType1;
 import static com.groupone.mobilestore.util.NumberUtils.convertDateType2;
-import static com.groupone.mobilestore.viewmodel.AccountViewModel.KEY_CHECK_REGISTER;
-import static com.groupone.mobilestore.viewmodel.AccountViewModel.KEY_REGISTER;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentResolver;
@@ -36,9 +33,9 @@ import androidx.annotation.Nullable;
 
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentFillInfoBinding;
+import com.groupone.mobilestore.util.Constants;
 import com.groupone.mobilestore.util.DialogUtils;
 import com.groupone.mobilestore.viewmodel.AccountViewModel;
-import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
 import java.io.IOException;
 import java.util.List;
@@ -46,13 +43,12 @@ import java.util.List;
 public class FillInfoFragment extends BaseFragment<FragmentFillInfoBinding, AccountViewModel> {
 
     public static final String TAG = FillInfoFragment.class.getName();
-
+    // You can do the assignment inside onAttach or onCreate, i.e, before the activity is displayed
+    ActivityResultLauncher<Intent> someActivityResultLauncher;
     private int defaultYear = 2000;
     private int defaultMonth = 0;
     private int defaultDay = 1;
     private Object mData;
-    // You can do the assignment inside onAttach or onCreate, i.e, before the activity is displayed
-    ActivityResultLauncher<Intent> someActivityResultLauncher;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -79,7 +75,6 @@ public class FillInfoFragment extends BaseFragment<FragmentFillInfoBinding, Acco
                     }
                 });
     }
-
 
 
     @Override
@@ -120,21 +115,21 @@ public class FillInfoFragment extends BaseFragment<FragmentFillInfoBinding, Acco
         binding.btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(TextUtils.isEmpty(binding.etName.getText())){
+                if (TextUtils.isEmpty(binding.etName.getText())) {
                     binding.etName.setError("Không được bỏ trống");
 
-                } else if (TextUtils.isEmpty(binding.etPhoneNumber.getText())){
+                } else if (TextUtils.isEmpty(binding.etPhoneNumber.getText())) {
                     binding.etPhoneNumber.setError("Không được bỏ trống");
 
-                } else if (TextUtils.isEmpty(binding.etBirthday.getText())){
+                } else if (TextUtils.isEmpty(binding.etBirthday.getText())) {
                     binding.etBirthday.setError("Không được bỏ trống");
 
-                } else if(!binding.rbMale.isChecked() && !binding.rbFemale.isChecked()){
+                } else if (!binding.rbMale.isChecked() && !binding.rbFemale.isChecked()) {
                     Toast.makeText(context, "Chọn giới tính", Toast.LENGTH_SHORT).show();
                 } else {
                     boolean gender = false;
                     List<String> listInfo = (List<String>) mData;
-                    if (binding.rbFemale.isChecked()){
+                    if (binding.rbFemale.isChecked()) {
                         gender = true;
                     }
                     viewModel.register(
@@ -221,10 +216,10 @@ public class FillInfoFragment extends BaseFragment<FragmentFillInfoBinding, Acco
 
     @Override
     public void apiSuccess(String key, Object data) {
-        if(key.equals(KEY_REGISTER)){
+        if (key.equals(Constants.KEY_REGISTER)) {
             int response = (int) data;
             Log.d(TAG, "apiSuccess: " + response);
-            if(response == -1){
+            if (response == -1) {
                 Toast.makeText(context, "Đăng ký thất bại", Toast.LENGTH_SHORT).show();
                 callBack.backToPrev();
             } else {

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,6 +34,10 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, CommonViewMo
 
     @Override
     protected void initViews() {
+
+        //binding.scrollView.scrollTo(0, 0);
+        //binding.scrollView.fullScroll(ScrollView.FOCUS_UP);
+        binding.scrollView.smoothScrollTo(0, 0);
 
         List<Product> listProduct = new ArrayList<>();
 

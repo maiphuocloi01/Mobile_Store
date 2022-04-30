@@ -1,8 +1,5 @@
 package com.groupone.mobilestore.view.fragment;
 
-import static com.groupone.mobilestore.viewmodel.AccountViewModel.KEY_LOGIN;
-
-import android.app.ProgressDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,27 +12,21 @@ import androidx.annotation.Nullable;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentLoginBinding;
 import com.groupone.mobilestore.model.Token;
 import com.groupone.mobilestore.util.CommonUtils;
+import com.groupone.mobilestore.util.Constants;
 import com.groupone.mobilestore.util.DialogUtils;
 import com.groupone.mobilestore.viewmodel.AccountViewModel;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.lang.reflect.Type;
 
-import kotlin.io.TextStreamsKt;
-import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class LoginFragment extends BaseFragment<FragmentLoginBinding, AccountViewModel> {
 
     public static final String TAG = LoginFragment.class.getName();
-    public static final String ACCESS_TOKEN = "ACCESS_TOKEN";
-    public static final String USERNAME = "USERNAME";
+
 
     @Override
     protected Class<AccountViewModel> getClassVM() {
@@ -89,13 +80,13 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, AccountVie
 
     @Override
     public void apiSuccess(String key, Object data) {
-        if (key.equals(KEY_LOGIN)) {
+        if (key.equals(Constants.KEY_LOGIN)) {
             Token token = (Token) data;
             Log.d(TAG, "apiSuccess: " + token.getAccessToken());
-            CommonUtils.getInstance().savePref(ACCESS_TOKEN, token.getAccessToken());
+            CommonUtils.getInstance().savePref(Constants.ACCESS_TOKEN, token.getAccessToken());
             Toast.makeText(context, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
             DialogUtils.hideLoadingDialog();
-            CommonUtils.getInstance().savePref(USERNAME, binding.etUsername.getText().toString());
+            CommonUtils.getInstance().savePref(Constants.USERNAME, binding.etUsername.getText().toString());
             callBack.showFragment(PagerFragment.TAG, null, false);
         }
     }
@@ -105,8 +96,9 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, AccountVie
         if (code == 400) {
             ResponseBody res = (ResponseBody) data;
             Gson gson = new Gson();
-            Type type = new TypeToken<Token>() {}.getType();
-            Token errorResponse = gson.fromJson(res.charStream(),type);
+            Type type = new TypeToken<Token>() {
+            }.getType();
+            Token errorResponse = gson.fromJson(res.charStream(), type);
             Toast.makeText(context, errorResponse.getErrorDescription(), Toast.LENGTH_SHORT).show();
 
         } else {

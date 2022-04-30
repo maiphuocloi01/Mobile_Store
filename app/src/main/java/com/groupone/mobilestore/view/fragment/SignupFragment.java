@@ -1,9 +1,5 @@
 package com.groupone.mobilestore.view.fragment;
 
-import static com.groupone.mobilestore.viewmodel.AccountViewModel.KEY_CHECK_REGISTER;
-import static com.groupone.mobilestore.viewmodel.AccountViewModel.KEY_LOGIN;
-
-import android.app.ProgressDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +14,7 @@ import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentSignupBinding;
 import com.groupone.mobilestore.model.Token;
 import com.groupone.mobilestore.util.CommonUtils;
+import com.groupone.mobilestore.util.Constants;
 import com.groupone.mobilestore.util.DialogUtils;
 import com.groupone.mobilestore.viewmodel.AccountViewModel;
 
@@ -89,7 +86,7 @@ public class SignupFragment extends BaseFragment<FragmentSignupBinding, AccountV
 
     @Override
     public void apiSuccess(String key, Object data) {
-        if(key.equals(KEY_CHECK_REGISTER)){
+        if(key.equals(Constants.KEY_CHECK_REGISTER)){
             int response = (int) data;
             Log.d(TAG, "apiSuccess: " + response);
             DialogUtils.hideLoadingDialog();

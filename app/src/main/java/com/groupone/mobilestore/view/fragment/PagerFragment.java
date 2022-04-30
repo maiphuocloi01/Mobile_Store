@@ -1,7 +1,11 @@
 package com.groupone.mobilestore.view.fragment;
 
+import static com.groupone.mobilestore.viewmodel.PagerViewModel.KEY_LOGIN_WITH_TOKEN;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,6 +14,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentPagerBinding;
+import com.groupone.mobilestore.util.CommonUtils;
+import com.groupone.mobilestore.util.Constants;
 import com.groupone.mobilestore.viewmodel.PagerViewModel;
 
 public class PagerFragment extends BaseFragment<FragmentPagerBinding, PagerViewModel> {
@@ -19,11 +25,25 @@ public class PagerFragment extends BaseFragment<FragmentPagerBinding, PagerViewM
     @Override
     public void apiSuccess(String key, Object data) {
 
+        if (key.equals(KEY_LOGIN_WITH_TOKEN)) {
+            String response = (String) data;
+            Log.d(TAG, "apiSuccess: " + response);
+            if (response.equals("")) {
+                Toast.makeText(context, "Phiên đăng nhập hết hạn", Toast.LENGTH_SHORT).show();
+                callBack.showFragment(LoginFragment.TAG, null, false);
+            }
+//            else {
+//                goToHome();
+//            }
+        }
     }
 
     @Override
     public void apiError(String key, int code, Object data) {
-
+        if (code == 999){
+            Toast.makeText(context, "Không thể kết nối đến máy chủ", Toast.LENGTH_SHORT).show();
+            callBack.showFragment(LoginFragment.TAG, null, false);
+        }
     }
 
     @Override
@@ -38,6 +58,8 @@ public class PagerFragment extends BaseFragment<FragmentPagerBinding, PagerViewM
 
 //        MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter(this);
 //        binding.vpHome.setAdapter(myViewPagerAdapter);
+
+        viewModel.loginWithToken(CommonUtils.getInstance().getPref(Constants.ACCESS_TOKEN));
 
         if (viewModel.getFragment() == null) {
             loadFragment(new HomeFragment());
