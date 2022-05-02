@@ -30,6 +30,7 @@ public class PagerFragment extends BaseFragment<FragmentPagerBinding, PagerViewM
             Log.d(TAG, "apiSuccess: " + response);
             if (response.equals("")) {
                 Toast.makeText(context, "Phiên đăng nhập hết hạn", Toast.LENGTH_SHORT).show();
+                CommonUtils.getInstance().clearPref(Constants.ACCESS_TOKEN);
                 callBack.showFragment(LoginFragment.TAG, null, false);
             }
 //            else {

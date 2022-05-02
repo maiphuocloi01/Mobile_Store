@@ -43,19 +43,12 @@ public class ForgotPasswordFragment extends BaseFragment<FragmentForgotPasswordB
 
     @Override
     protected void initViews() {
-        binding.btSendOtp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (TextUtils.isEmpty(binding.etEmail.getText())) {
-                    binding.etEmail.setError("Bạn chưa nhập email");
-                } else {
-
-                    viewModel.checkEmailExist(
-                            binding.etEmail.getText().toString()
-                    );
-                    DialogUtils.showLoadingDialog(context);
-
-                }
+        binding.btSendOtp.setOnClickListener(view -> {
+            if (TextUtils.isEmpty(binding.etEmail.getText())) {
+                binding.etEmail.setError("Vui lòng nhập email");
+            } else {
+                viewModel.checkEmailExist(binding.etEmail.getText().toString());
+                DialogUtils.showLoadingDialog(context);
             }
         });
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
@@ -101,15 +94,12 @@ public class ForgotPasswordFragment extends BaseFragment<FragmentForgotPasswordB
 
         countDownTimer(tvCountdown, tvCDTitle, tvResend);
 
-        tvResend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendOTP();
-                tvCountdown.setVisibility(View.VISIBLE);
-                tvCDTitle.setVisibility(View.VISIBLE);
-                tvResend.setVisibility(View.GONE);
-                countDownTimer(tvCountdown, tvCDTitle, tvResend);
-            }
+        tvResend.setOnClickListener(view -> {
+            sendOTP();
+            tvCountdown.setVisibility(View.VISIBLE);
+            tvCDTitle.setVisibility(View.VISIBLE);
+            tvResend.setVisibility(View.GONE);
+            countDownTimer(tvCountdown, tvCDTitle, tvResend);
         });
 
         btnCancel.setOnClickListener(view -> dialog.dismiss());

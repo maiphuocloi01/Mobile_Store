@@ -2,7 +2,6 @@ package com.groupone.mobilestore.view.fragment;
 
 import static com.groupone.mobilestore.util.NumberUtils.convertPrice;
 
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +9,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.groupone.mobilestore.R;
@@ -17,7 +17,8 @@ import com.groupone.mobilestore.databinding.FragmentProductBinding;
 import com.groupone.mobilestore.model.Comment;
 import com.groupone.mobilestore.model.Information;
 import com.groupone.mobilestore.model.Product;
-import com.groupone.mobilestore.util.NumberUtils;
+import com.groupone.mobilestore.model.ProductDetail;
+import com.groupone.mobilestore.model.ProductVersion;
 import com.groupone.mobilestore.view.adapter.CommentAdapter;
 import com.groupone.mobilestore.view.adapter.InformationAdapter;
 import com.groupone.mobilestore.view.adapter.SliderAdapter;
@@ -29,14 +30,15 @@ import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ProductFragment extends BaseFragment<FragmentProductBinding, CommonViewModel> {
 
     public static final String TAG = ProductFragment.class.getName();
+    public boolean isFavorite = true;
     SliderView sliderView;
     private SliderAdapter sliderAdapter;
-    public boolean isFavorite = true;
     private Object mData;
     private Product product;
 
@@ -57,37 +59,61 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Common
         product = (Product) mData;
         binding.tvName.setText(product.getName());
         binding.tvPrice.setText(convertPrice(product.getPrice()));
+        binding.tvDescription.setText(product.getDescription());
+        binding.tvRating.setText(String.valueOf(product.getRate()));
+        binding.ratingBar.setRating(product.getRate());
+        binding.tvCountReview.setText(product.getComments().size() + " đánh giá");
+
+        List<ProductVersion> versionList = product.getProductVersions();
 
         List<String> listVersion = new ArrayList<>();
-        listVersion.add("128GB");
-        listVersion.add("256GB");
-        listVersion.add("512GB");
-        listVersion.add("1TB");
-
+        for (ProductVersion item : versionList) {
+            listVersion.add(item.getVersionName());
+        }
         binding.rvVersion.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        VersionAdapter adapterVersion = new VersionAdapter(context, listVersion);
+        VersionAdapter adapterVersion = new VersionAdapter(context);
         binding.rvVersion.setAdapter(adapterVersion);
+        adapterVersion.renewItems(listVersion);
 
-        List<String> listColor = new ArrayList<>();
-        listColor.add("Xanh");
-        listColor.add("Xám");
-        listColor.add("Vàng");
-        listColor.add("Bạc");
+
+
+        List<String> listColor = new ArrayList<String>(Arrays.asList(versionList.get(0).getColor().split("\\|")));
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+//            List<String> items = Stream.of(versionList.get(0).getColor().split("\\|"))
+//                    .map(String::trim)
+//                    .collect(Collectors.toList());
+//        }
+//        listColor.add("Xanh");
+//        listColor.add("Xám");
+//        listColor.add("Vàng");
+//        listColor.add("Bạc");
+
 
         binding.rvColor.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        VersionAdapter adapterColor = new VersionAdapter(context, listColor);
+        VersionAdapter adapterColor = new VersionAdapter(context);
         binding.rvColor.setAdapter(adapterColor);
+        adapterColor.renewItems(listColor);
+
+        adapterVersion.getIndexLD().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer index) {
+                binding.tvPrice.setText(convertPrice(product.getProductVersions().get(index).getPrice()));
+                List<String> listColor1 = new ArrayList<String>(Arrays.asList(versionList.get(index).getColor().split("\\|")));
+                adapterColor.renewItems(listColor1);
+            }
+        });
 
         List<Information> listInfo = new ArrayList<>();
-        listInfo.add(new Information(1, "Màn hình", "OLED6.7\", Super Retina XDR"));
-        listInfo.add(new Information(2, "Hệ điều hành", "iOS 15"));
-        listInfo.add(new Information(3, "Camera sau", "3 camera 12 MP"));
-        listInfo.add(new Information(4, "Camera trước", "12 MP"));
-        listInfo.add(new Information(5, "Chip", "Apple A15 Bionic"));
-        listInfo.add(new Information(6, "RAM", "6 GB"));
-        listInfo.add(new Information(7, "Bộ nhớ trong", "128 GB"));
-        listInfo.add(new Information(8, "SIM", "1 Nano SIM & 1 eSIM, Hỗ trợ 5G"));
-        listInfo.add(new Information(9, "Pin, Sạc", "4352 mAh, 20 W"));
+        ProductDetail detailList = product.getProductDetails().get(0);
+        listInfo.add(new Information(1, "Màn hình", detailList.getScreen()));
+        listInfo.add(new Information(2, "Hệ điều hành", detailList.getOs()));
+        listInfo.add(new Information(3, "Camera sau", detailList.getBackCamera()));
+        listInfo.add(new Information(4, "Camera trước", detailList.getFrontCamera()));
+        listInfo.add(new Information(5, "Chip", detailList.getChip()));
+        listInfo.add(new Information(6, "RAM", detailList.getRam()));
+        listInfo.add(new Information(7, "Bộ nhớ trong", detailList.getMemory()));
+        listInfo.add(new Information(8, "SIM", detailList.getSim()));
+        listInfo.add(new Information(9, "Pin, Sạc", detailList.getBattery()));
 
 
         binding.rvInfo.setLayoutManager(new LinearLayoutManager(context));
@@ -132,12 +158,11 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Common
         });
 
 
-
         binding.ivFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(isFavorite){
+                if (isFavorite) {
                     binding.ivFavorite.setImageResource(R.drawable.ic_favorite);
                     isFavorite = false;
                 } else {

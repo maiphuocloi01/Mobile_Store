@@ -6,10 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.LayoutItemVersionBinding;
+import com.groupone.mobilestore.model.Cart;
 
 import java.util.List;
 
@@ -18,11 +21,31 @@ public class VersionAdapter extends RecyclerView.Adapter<VersionAdapter.VersionV
     private Context context;
     private List<String> listVersion;
     private int row_index = 0;
+    private MutableLiveData<Integer> indexLD = new MutableLiveData<>();
 
-    public VersionAdapter(Context context, List<String> listVersion) {
-        this.context = context;
-        this.listVersion = listVersion;
+    public LiveData<Integer> getIndexLD() {
+        return indexLD;
     }
+
+    public VersionAdapter(Context context) {
+        this.context = context;
+    }
+
+    public void renewItems(List<String> listVersion) {
+        this.listVersion = listVersion;
+        notifyDataSetChanged();
+    }
+
+    public void deleteItem(int position) {
+        this.listVersion.remove(position);
+        notifyDataSetChanged();
+    }
+
+    public void addItem(String version) {
+        this.listVersion.add(version);
+        notifyDataSetChanged();
+    }
+
 
     @NonNull
     @Override
@@ -37,6 +60,7 @@ public class VersionAdapter extends RecyclerView.Adapter<VersionAdapter.VersionV
         holder.binding.tvVersion.setText(item);
         holder.binding.getRoot().setOnClickListener(view -> {
             row_index=holder.getAdapterPosition();
+            indexLD.postValue(row_index);
             notifyDataSetChanged();
         });
         if(row_index==position){

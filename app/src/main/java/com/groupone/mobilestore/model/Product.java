@@ -28,7 +28,7 @@ public class Product implements Serializable {
 
     private String type;
     @SerializedName("Rating")
-    private double rate;
+    private float rate;
     @SerializedName("Price")
     private long price;
     @SerializedName("SellCount")
@@ -50,7 +50,7 @@ public class Product implements Serializable {
     @SerializedName("Comments")
     private List<Comment> comments;
 
-    public Product(int id, String image1, String name, String type, double rate, long price, int countReview) {
+    public Product(int id, String image1, String name, String type, float rate, long price, int countReview) {
         this.id = id;
         this.image1 = image1;
         this.name = name;
@@ -84,11 +84,11 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public double getRate() {
+    public float getRate() {
         return rate;
     }
 
-    public void setRate(double rate) {
+    public void setRate(float rate) {
         this.rate = rate;
     }
 
