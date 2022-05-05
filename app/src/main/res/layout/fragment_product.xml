@@ -246,8 +246,7 @@
                     android:id="@+id/rv_rating"
                     android:layout_marginTop="10dp"
                     android:nestedScrollingEnabled="false"
-                    tools:listitem="@layout/layout_item_review"
-                    tools:itemCount="3"/>
+                    tools:listitem="@layout/layout_item_review" />
 
                 <TextView
                     android:id="@+id/tv_expanded"

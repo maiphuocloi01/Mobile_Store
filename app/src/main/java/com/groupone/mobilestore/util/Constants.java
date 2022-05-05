@@ -1,7 +1,9 @@
 package com.groupone.mobilestore.util;
 
+import java.text.Normalizer;
+
 public interface Constants {
-    String BASE_URL = "https://www.nhom01.somee.com/";
+    String BASE_URL = "https://nhom01nt118.azurewebsites.net/";
 
     //Constant Account
     String KEY_LOGIN = "KEY_LOGIN";
@@ -18,4 +20,5 @@ public interface Constants {
 
     //Constant Product
     String KEY_GET_TOP_SALE_PRODUCT = "KEY_GET_TOP_SALE_PRODUCT";
+
 }

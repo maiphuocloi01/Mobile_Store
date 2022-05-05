@@ -38,7 +38,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     @Override
     protected void initViews() {
 
-        binding.scrollView.smoothScrollTo(0, 0);
+        //binding.scrollView.smoothScrollTo(0, 0);
 
         viewModel.getTopSaleProduct();
 
@@ -166,7 +166,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                 ArrayList<String> listName = new ArrayList<>();
                 listName.add("Realme");
                 Bundle bundle = new Bundle();
-                bundle.putStringArrayList("filter", listName);
+                bundle.putStringArrayList("search", listName);
                 parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
                 if (parentFrag != null) {
                     parentFrag.setActionShowFragment(SearchResultFragment.TAG, bundle, true);
@@ -184,13 +184,15 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     @Override
     public void apiSuccess(String key, Object data) {
         if(key.equals(Constants.KEY_GET_TOP_SALE_PRODUCT)){
-            Log.d(TAG, "apiSuccess: " + data.toString());
+            //Log.d(TAG, "apiSuccess: " + data.toString());
             List<Product> products = (List<Product>) data;
             listProduct = products;
 
             binding.rvProduct.setLayoutManager(new GridLayoutManager(context, 2));
             ProductAdapter adapter = new ProductAdapter(context, products);
             binding.rvProduct.setAdapter(adapter);
+            //binding.rvProduct.setFocusable(false);
+            //binding.rvProduct.setNestedScrollingEnabled(false);
 
             adapter.getProductLD().observe(this, new Observer<Product>() {
                 @Override
@@ -202,9 +204,9 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                 }
             });
 
-            for (Product item: products){
-                Log.d(TAG, "Prodcut: " + item.getName());
-            }
+//            for (Product item: products){
+//                Log.d(TAG, "Prodcut: " + item.getName());
+//            }
         }
     }
 

@@ -35,6 +35,19 @@ public class DeliveredFragment extends BaseFragment<FragmentDeliveredBinding, Co
         Shipment shipment = new Shipment(1, "Mai Phước Lợi", "0911920503", "Linh Trung, Thủ Đức, Hồ Chí Minh", "KTX Khu A, Khu phố 6", 1, true);
         listOrder.add(new Order(1, "iPhone 13 Pro Max", R.drawable.img_iphone13, "01-01-2022 12:56", 1, 1, 34020000, 40000, "", "128GB, Xám", shipment));
         listOrder.add(new Order(1, "iPhone 13 Pro", R.drawable.img_iphone13_2, "01-01-2022 12:56", 1, 2, 29040000, 40000, "", "128GB, Vàng đồng", shipment));
+        listOrder.add(new Order(1, "iPhone 13 Pro", R.drawable.img_iphone13_2, "01-01-2022 12:56", 1, 2, 29040000, 40000, "", "128GB, Vàng đồng", shipment));
+        listOrder.add(new Order(1, "iPhone 13 Pro", R.drawable.img_iphone13_2, "01-01-2022 12:56", 1, 2, 29040000, 40000, "", "128GB, Vàng đồng", shipment));
+        listOrder.add(new Order(1, "iPhone 13 Pro", R.drawable.img_iphone13_2, "01-01-2022 12:56", 1, 2, 29040000, 40000, "", "128GB, Vàng đồng", shipment));
+        listOrder.add(new Order(1, "iPhone 13 Pro", R.drawable.img_iphone13_2, "01-01-2022 12:56", 1, 2, 29040000, 40000, "", "128GB, Vàng đồng", shipment));
+        listOrder.add(new Order(1, "iPhone 13 Pro", R.drawable.img_iphone13_2, "01-01-2022 12:56", 1, 2, 29040000, 40000, "", "128GB, Vàng đồng", shipment));
+        listOrder.add(new Order(1, "iPhone 13 Pro", R.drawable.img_iphone13_2, "01-01-2022 12:56", 1, 2, 29040000, 40000, "", "128GB, Vàng đồng", shipment));
+        listOrder.add(new Order(1, "iPhone 13 Pro", R.drawable.img_iphone13_2, "01-01-2022 12:56", 1, 2, 29040000, 40000, "", "128GB, Vàng đồng", shipment));
+        listOrder.add(new Order(1, "iPhone 13 Pro", R.drawable.img_iphone13_2, "01-01-2022 12:56", 1, 2, 29040000, 40000, "", "128GB, Vàng đồng", shipment));
+        listOrder.add(new Order(1, "iPhone 13 Pro", R.drawable.img_iphone13_2, "01-01-2022 12:56", 1, 2, 29040000, 40000, "", "128GB, Vàng đồng", shipment));
+        listOrder.add(new Order(1, "iPhone 13 Pro", R.drawable.img_iphone13_2, "01-01-2022 12:56", 1, 2, 29040000, 40000, "", "128GB, Vàng đồng", shipment));
+        listOrder.add(new Order(1, "iPhone 13 Pro", R.drawable.img_iphone13_2, "01-01-2022 12:56", 1, 2, 29040000, 40000, "", "128GB, Vàng đồng", shipment));
+        listOrder.add(new Order(1, "iPhone 13 Pro", R.drawable.img_iphone13_2, "01-01-2022 12:56", 1, 2, 29040000, 40000, "", "128GB, Vàng đồng", shipment));
+        listOrder.add(new Order(1, "iPhone 13 Pro", R.drawable.img_iphone13_2, "01-01-2022 12:56", 1, 2, 29040000, 40000, "", "128GB, Vàng đồng", shipment));
 
         binding.rvDelivered.setLayoutManager(new LinearLayoutManager(context));
         adapter = new OrderAdapter(context, listOrder, this);

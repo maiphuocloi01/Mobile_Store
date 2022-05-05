@@ -3,6 +3,7 @@ package com.groupone.mobilestore.view.fragment;
 import static com.groupone.mobilestore.util.IMEUtils.hideSoftInput;
 import static com.groupone.mobilestore.util.IMEUtils.showSoftInput;
 
+import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,7 +80,9 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, CommonVi
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     hideSoftInput(binding.etSearch);
-                    callBack.showFragment(SearchResultFragment.TAG, null, false);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("search", binding.etSearch.getText().toString());
+                    callBack.showFragment(SearchResultFragment.TAG, bundle, false);
                     return true;
                 }
                 return false;
