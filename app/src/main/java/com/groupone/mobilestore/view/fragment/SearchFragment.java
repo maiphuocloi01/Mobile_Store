@@ -81,7 +81,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, CommonVi
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     hideSoftInput(binding.etSearch);
                     Bundle bundle = new Bundle();
-                    bundle.putString("search", binding.etSearch.getText().toString());
+                    bundle.putString("search", binding.etSearch.getText().toString().trim());
                     callBack.showFragment(SearchResultFragment.TAG, bundle, false);
                     return true;
                 }

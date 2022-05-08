@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.groupone.mobilestore.MyApplication;
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentHomeBinding;
 import com.groupone.mobilestore.model.Product;
@@ -40,7 +41,25 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
         //binding.scrollView.smoothScrollTo(0, 0);
 
-        viewModel.getTopSaleProduct();
+        binding.rvProduct.setLayoutManager(new GridLayoutManager(context, 2));
+        if(MyApplication.getInstance().getStorage().listProduct == null){
+            viewModel.getTopSaleProduct();
+        }
+        else{
+            List<Product> productsStorage = MyApplication.getInstance().getStorage().listProduct;
+            ProductAdapter adapter = new ProductAdapter(context, productsStorage);
+            binding.rvProduct.setAdapter(adapter);
+            adapter.getProductLD().observe(this, new Observer<Product>() {
+                @Override
+                public void onChanged(Product product) {
+                    parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
+                    if (parentFrag != null) {
+                        parentFrag.setActionShowFragment(ProductFragment.TAG, product, true);
+                    }
+                }
+            });
+        }
+
 
         /*listProduct.add(new Product(1, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
         listProduct.add(new Product(2, R.drawable.img_iphone13_2, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
@@ -188,7 +207,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
             List<Product> products = (List<Product>) data;
             listProduct = products;
 
-            binding.rvProduct.setLayoutManager(new GridLayoutManager(context, 2));
+            MyApplication.getInstance().getStorage().listProduct = products;
+
             ProductAdapter adapter = new ProductAdapter(context, products);
             binding.rvProduct.setAdapter(adapter);
             //binding.rvProduct.setFocusable(false);

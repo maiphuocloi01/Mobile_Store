@@ -90,13 +90,41 @@
         tools:itemCount="3"
         android:layout_marginTop="15dp"/>
 
+    <LinearLayout
+        android:id="@+id/layout_empty_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_marginBottom="65dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/ic_empty_search" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Không tìm thấy sản phẩm nào"
+            android:textColor="@color/black_700"
+            android:textSize="16sp" />
+
+
+    </LinearLayout>
+
     <TextView
+        android:id="@+id/tv_count_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_marginHorizontal="20dp"
         android:fontFamily="@font/roboto_regular"
-        android:text="Tìm thấy 15 kết quả"
         android:textColor="@color/black_500"
         android:textSize="18sp" />
 

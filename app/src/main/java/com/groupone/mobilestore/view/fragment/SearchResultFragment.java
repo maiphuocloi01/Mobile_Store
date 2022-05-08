@@ -1,10 +1,15 @@
 package com.groupone.mobilestore.view.fragment;
 
+import static com.groupone.mobilestore.util.IMEUtils.hideSoftInput;
+
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,13 +17,14 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.groupone.mobilestore.MyApplication;
 import com.groupone.mobilestore.databinding.FragmentSearchResultBinding;
 import com.groupone.mobilestore.model.Product;
 import com.groupone.mobilestore.util.Constants;
 import com.groupone.mobilestore.util.StringConvert;
+import com.groupone.mobilestore.util.ViewUtils;
 import com.groupone.mobilestore.view.adapter.FilterAdapter;
 import com.groupone.mobilestore.view.adapter.ProductAdapter;
-import com.groupone.mobilestore.viewmodel.CommonViewModel;
 import com.groupone.mobilestore.viewmodel.HomeViewModel;
 
 import java.util.ArrayList;
@@ -28,9 +34,7 @@ public class SearchResultFragment extends BaseFragment<FragmentSearchResultBindi
 
     public static final String TAG = SearchResultFragment.class.getName();
     private Object mData;
-    private String textSearch = "";
-    private List<Product> listProduct = new ArrayList<>();
-
+    private List<Product> listProduct = MyApplication.getInstance().getStorage().listProduct;
 
     @Override
     protected Class<HomeViewModel> getClassVM() {
@@ -40,7 +44,9 @@ public class SearchResultFragment extends BaseFragment<FragmentSearchResultBindi
     @Override
     protected void initViews() {
 
-        viewModel.getTopSaleProduct();
+        if (listProduct == null) {
+            viewModel.getTopSaleProduct();
+        }
         Bundle newData = (Bundle) mData;
         if (newData != null) {
             //List<String> listFilter = (List<String>) mData;
@@ -48,13 +54,7 @@ public class SearchResultFragment extends BaseFragment<FragmentSearchResultBindi
             if (newData.getStringArrayList("filter") != null) {
                 listFilter = newData.getStringArrayList("filter");
             }
-
-            textSearch = newData.getString("search");
-            Log.d(TAG, "initViews: " + textSearch);
-//        for(int i = 0; i<listFilter.size(); i++){
-//            Log.d(TAG, listFilter.get(i));
-//        }
-            binding.etSearch.setText(textSearch);
+            binding.etSearch.setText(newData.getString("search"));
             binding.rvFilter.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             FilterAdapter adapter = new FilterAdapter(context, listFilter);
             binding.rvFilter.setAdapter(adapter);
@@ -74,8 +74,29 @@ public class SearchResultFragment extends BaseFragment<FragmentSearchResultBindi
             }
         });
 
+        binding.etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    hideSoftInput(binding.etSearch);
+                    Log.d(TAG, "onEditorAction: " + listProduct.size());
+                    searchProduct(v.getText().toString().trim());
+                    return true;
+                }
+                return false;
+            }
+        });
+
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: ");
+        searchProduct(binding.etSearch.getText().toString().trim());
+    }
+
 
     @Override
     public void setData(Object data) {
@@ -91,34 +112,40 @@ public class SearchResultFragment extends BaseFragment<FragmentSearchResultBindi
     public void apiSuccess(String key, Object data) {
         if (key.equals(Constants.KEY_GET_TOP_SALE_PRODUCT)) {
             //Log.d(TAG, "apiSuccess: " + data.toString());
-            List<Product> products = (List<Product>) data;
-            //listProduct = products;
-            List<Product> productSearch = new ArrayList<>();
-            if(products.size() > 0 && textSearch != null){
-                for (Product item: products){
-                    if(StringConvert.removeDiacriticalMarks(item.getName()).toLowerCase().contains(textSearch.toLowerCase())){
-                        productSearch.add(item);
-                    }
+            listProduct = (List<Product>) data;
+            MyApplication.getInstance().getStorage().listProduct = listProduct;
+        }
+    }
+
+    private void searchProduct(String strSearch) {
+        List<Product> productSearch = new ArrayList<>();
+        Log.d(TAG, "searchProduct: " + strSearch);
+        if (listProduct.size() > 0 && !strSearch.equals("")) {
+            for (Product item : listProduct) {
+                if (StringConvert.removeDiacriticalMarks(item.getName()).toLowerCase().contains(strSearch.toLowerCase())) {
+                    productSearch.add(item);
                 }
             }
+
+        }
+        if (productSearch.size() > 0) {
+            Log.d(TAG, "productSearch: " + productSearch.size());
+            ViewUtils.show(binding.tvCountResult);
+            ViewUtils.gone(binding.layoutEmptySearch);
+            binding.tvCountResult.setText("Tìm thấy " + productSearch.size() + " kết quả");
             binding.rvProduct.setLayoutManager(new GridLayoutManager(context, 2));
             ProductAdapter adapter = new ProductAdapter(context, productSearch);
             binding.rvProduct.setAdapter(adapter);
-            //binding.rvProduct.setFocusable(false);
-            //binding.rvProduct.setNestedScrollingEnabled(false);
-
             adapter.getProductLD().observe(this, new Observer<Product>() {
                 @Override
                 public void onChanged(Product product) {
-//                    parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
-//                    if (parentFrag != null) {
-//                        parentFrag.setActionShowFragment(ProductFragment.TAG, product, true);
-//                    }
                     callBack.showFragment(ProductFragment.TAG, product, true);
                 }
             });
+        } else {
+            ViewUtils.gone(binding.tvCountResult);
+            ViewUtils.show(binding.layoutEmptySearch);
         }
-
 
     }
 

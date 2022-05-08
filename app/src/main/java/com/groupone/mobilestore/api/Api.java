@@ -49,6 +49,10 @@ public interface Api {
     @Headers("Content-type: application/json")
     Call<Integer> register(@Body User user);
 
+    @POST("Api/ShoppingCartController/AddShoppingCart")
+    @Headers("Content-type: application/json")
+    Call<Integer> addShoppingCart(@Body User user);
+
     @GET("Api/AccountController/LoginWithToken")
     Call<String> loginWithToken(@Header("Authorization") String auth);
 

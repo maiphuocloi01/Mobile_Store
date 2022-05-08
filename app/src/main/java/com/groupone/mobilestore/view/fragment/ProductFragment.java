@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -169,6 +170,13 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Common
                     binding.ivFavorite.setImageResource(R.drawable.ic_favorite_border);
                     isFavorite = true;
                 }
+            }
+        });
+
+        binding.btnAddCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "Thêm thành công", Toast.LENGTH_SHORT).show();
             }
         });
     }
