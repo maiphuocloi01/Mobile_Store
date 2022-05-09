@@ -57,5 +57,4 @@ public class AccountViewModel extends BaseViewModel {
         getApi().uploadImage(parts, someData).enqueue(initHandleResponse(Constants.KEY_UPLOAD_IMAGE));
     }
 
-
 }

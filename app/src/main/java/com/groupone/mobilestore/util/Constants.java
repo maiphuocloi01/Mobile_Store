@@ -21,4 +21,7 @@ public interface Constants {
     //Constant Product
     String KEY_GET_TOP_SALE_PRODUCT = "KEY_GET_TOP_SALE_PRODUCT";
 
+
+    String KEY_ADD_SHOPPING_CART = "KEY_ADD_SHOPPING_CART";
+
 }

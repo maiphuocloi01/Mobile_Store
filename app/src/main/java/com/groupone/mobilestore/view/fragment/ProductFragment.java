@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.groupone.mobilestore.MyApplication;
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentProductBinding;
 import com.groupone.mobilestore.model.Comment;
@@ -20,11 +21,14 @@ import com.groupone.mobilestore.model.Information;
 import com.groupone.mobilestore.model.Product;
 import com.groupone.mobilestore.model.ProductDetail;
 import com.groupone.mobilestore.model.ProductVersion;
+import com.groupone.mobilestore.model.ShoppingCart;
+import com.groupone.mobilestore.model.User;
+import com.groupone.mobilestore.util.Constants;
 import com.groupone.mobilestore.view.adapter.CommentAdapter;
 import com.groupone.mobilestore.view.adapter.InformationAdapter;
 import com.groupone.mobilestore.view.adapter.SliderAdapter;
 import com.groupone.mobilestore.view.adapter.VersionAdapter;
-import com.groupone.mobilestore.viewmodel.CommonViewModel;
+import com.groupone.mobilestore.viewmodel.ProductViewModel;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController;
 import com.smarteist.autoimageslider.SliderAnimations;
@@ -34,7 +38,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ProductFragment extends BaseFragment<FragmentProductBinding, CommonViewModel> {
+public class ProductFragment extends BaseFragment<FragmentProductBinding, ProductViewModel> {
 
     public static final String TAG = ProductFragment.class.getName();
     public boolean isFavorite = true;
@@ -42,10 +46,13 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Common
     private SliderAdapter sliderAdapter;
     private Object mData;
     private Product product;
+    private String currentVersion;
+    private String currentColor;
+    private long currentPrice;
 
     @Override
-    protected Class<CommonViewModel> getClassVM() {
-        return CommonViewModel.class;
+    protected Class<ProductViewModel> getClassVM() {
+        return ProductViewModel.class;
     }
 
     @Override
@@ -65,7 +72,10 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Common
         binding.ratingBar.setRating(product.getRate());
         binding.tvCountReview.setText(product.getComments().size() + " đánh giá");
 
+
         List<ProductVersion> versionList = product.getProductVersions();
+        currentVersion = versionList.get(0).getVersionName();
+        currentPrice = product.getPrice();
 
         List<String> listVersion = new ArrayList<>();
         for (ProductVersion item : versionList) {
@@ -77,8 +87,8 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Common
         adapterVersion.renewItems(listVersion);
 
 
-
         List<String> listColor = new ArrayList<String>(Arrays.asList(versionList.get(0).getColor().split("\\|")));
+        currentColor = listColor.get(0);
 //        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
 //            List<String> items = Stream.of(versionList.get(0).getColor().split("\\|"))
 //                    .map(String::trim)
@@ -99,8 +109,17 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Common
             @Override
             public void onChanged(Integer index) {
                 binding.tvPrice.setText(convertPrice(product.getProductVersions().get(index).getPrice()));
+                currentVersion = product.getProductVersions().get(index).getVersionName();
+                currentPrice = product.getProductVersions().get(index).getPrice();
                 List<String> listColor1 = new ArrayList<String>(Arrays.asList(versionList.get(index).getColor().split("\\|")));
                 adapterColor.renewItems(listColor1);
+            }
+        });
+
+        adapterColor.getIndexLD().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer index) {
+                currentColor = listColor.get(index);
             }
         });
 
@@ -176,6 +195,9 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Common
         binding.btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                User user = MyApplication.getInstance().getStorage().user;
+                ShoppingCart cart = new ShoppingCart(user.getId(), product.getId(), currentPrice,   currentVersion + ", " + currentColor);
+                viewModel.addShoppingCart(cart);
                 Toast.makeText(context, "Thêm thành công", Toast.LENGTH_SHORT).show();
             }
         });
@@ -199,7 +221,14 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Common
 
     @Override
     public void apiSuccess(String key, Object data) {
-
+        if (key.equals(Constants.KEY_ADD_SHOPPING_CART)){
+            int response = (int) data;
+            if(response == -1){
+                Toast.makeText(context, "Thêm vào giỏ hàng thất bại", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override

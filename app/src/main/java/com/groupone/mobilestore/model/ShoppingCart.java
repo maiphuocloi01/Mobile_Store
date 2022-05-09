@@ -21,8 +21,7 @@ public class ShoppingCart implements Serializable {
     private boolean isSelected = false;
     private String image;
 
-    public ShoppingCart(int id, int accountId, int productId, int quantity, long price, String typeProduct) {
-        this.id = id;
+    public ShoppingCart(int accountId, int productId, long price, String typeProduct) {
         this.accountId = accountId;
         this.productId = productId;
         this.quantity = quantity;

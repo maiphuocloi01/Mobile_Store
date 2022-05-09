@@ -2,6 +2,7 @@ package com.groupone.mobilestore.view.fragment;
 
 import static com.groupone.mobilestore.viewmodel.PagerViewModel.KEY_LOGIN_WITH_TOKEN;
 
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -12,11 +13,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.groupone.mobilestore.MyApplication;
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentPagerBinding;
+import com.groupone.mobilestore.model.User;
 import com.groupone.mobilestore.util.CommonUtils;
 import com.groupone.mobilestore.util.Constants;
 import com.groupone.mobilestore.viewmodel.PagerViewModel;
+
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 public class PagerFragment extends BaseFragment<FragmentPagerBinding, PagerViewModel> {
 
@@ -32,10 +38,16 @@ public class PagerFragment extends BaseFragment<FragmentPagerBinding, PagerViewM
                 Toast.makeText(context, "Phiên đăng nhập hết hạn", Toast.LENGTH_SHORT).show();
                 CommonUtils.getInstance().clearPref(Constants.ACCESS_TOKEN);
                 callBack.showFragment(LoginFragment.TAG, null, false);
+            } else {
+                String username = CommonUtils.getInstance().getPref(Constants.USERNAME);
+                viewModel.getUserByUserName(username);
             }
 //            else {
 //                goToHome();
 //            }
+        }
+        if (key.equals(Constants.KEY_GET_BY_USERNAME)){
+            MyApplication.getInstance().getStorage().user = (User) data;
         }
     }
 
@@ -130,6 +142,7 @@ public class PagerFragment extends BaseFragment<FragmentPagerBinding, PagerViewM
 
     public void setActionShowFragment(String tag, Object data, boolean isBack) {
         callBack.showFragment(tag, data, isBack);
+
     }
 
     @Override

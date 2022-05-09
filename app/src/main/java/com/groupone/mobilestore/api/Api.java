@@ -1,6 +1,7 @@
 package com.groupone.mobilestore.api;
 
 import com.groupone.mobilestore.model.Product;
+import com.groupone.mobilestore.model.ShoppingCart;
 import com.groupone.mobilestore.model.Token;
 import com.groupone.mobilestore.model.User;
 
@@ -23,6 +24,7 @@ import retrofit2.http.Path;
 
 public interface Api {
 
+    //Account API
     @GET("Api/AccountController/GetAccountById/{Id}")
     @Headers("Content-type: application/json")
     Call<User> getUserById(@Path("Id") int id);
@@ -49,10 +51,6 @@ public interface Api {
     @Headers("Content-type: application/json")
     Call<Integer> register(@Body User user);
 
-    @POST("Api/ShoppingCartController/AddShoppingCart")
-    @Headers("Content-type: application/json")
-    Call<Integer> addShoppingCart(@Body User user);
-
     @GET("Api/AccountController/LoginWithToken")
     Call<String> loginWithToken(@Header("Authorization") String auth);
 
@@ -63,7 +61,15 @@ public interface Api {
     @FormUrlEncoded
     Call<Token> login(@Field("username") String username, @Field("password") String password, @Field("grant_type") String type);
 
+
+    //Product API
     @GET("Api/ProductController/GetTopSaleProduct")
     @Headers("Content-type: application/json")
     Call<List<Product>> getTopSaleProduct();
+
+
+    //Shopping Cart API
+    @POST("Api/ShoppingCartController/AddShoppingCart")
+    @Headers("Content-type: application/json")
+    Call<Integer> addShoppingCart(@Body ShoppingCart cart);
 }

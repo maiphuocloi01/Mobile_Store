@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
+import com.groupone.mobilestore.MyApplication;
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentProfileBinding;
 import com.groupone.mobilestore.model.User;
@@ -31,8 +32,8 @@ import me.samlss.broccoli.Broccoli;
 public class ProfileFragment extends BaseFragment<FragmentProfileBinding, AccountViewModel> {
 
     public static final String TAG = ProfileFragment.class.getName();
-    private User user;
-    private Broccoli mBroccoli;
+    private User user = MyApplication.getInstance().getStorage().user;
+    //private Broccoli mBroccoli;
 
     @Override
     protected Class<AccountViewModel> getClassVM() {
@@ -42,21 +43,24 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Accoun
     @Override
     protected void initViews() {
 
-        mBroccoli = new Broccoli();
-        mBroccoli.addPlaceholders(binding.ivAvatar, binding.tvName, binding.tvEmail,
-                binding.rowEditProfile, binding.rowFavorite, binding.rowPayment, binding.rowShipment, binding.rowTerm, binding.rowVersionInfo,
-                binding.tvTitle1, binding.tvTitle2, binding.ivIcon1, binding.ivIcon2, binding.ivIcon3, binding.ivIcon4,
-                binding.ivIcon5, binding.ivIcon6, binding.ivNext1, binding.ivNext2, binding.ivNext3, binding.ivNext4, binding.ivNext5, binding.ivNext6,
-                binding.tvFunc1, binding.tvFunc2, binding.tvFunc3, binding.tvFunc4, binding.tvFunc5, binding.tvFunc6, binding.btLogout
-        );
-        mBroccoli.show();
+//        mBroccoli = new Broccoli();
+//        mBroccoli.addPlaceholders(binding.ivAvatar, binding.tvName, binding.tvEmail,
+//                binding.rowEditProfile, binding.rowFavorite, binding.rowPayment, binding.rowShipment, binding.rowTerm, binding.rowVersionInfo,
+//                binding.tvTitle1, binding.tvTitle2, binding.ivIcon1, binding.ivIcon2, binding.ivIcon3, binding.ivIcon4,
+//                binding.ivIcon5, binding.ivIcon6, binding.ivNext1, binding.ivNext2, binding.ivNext3, binding.ivNext4, binding.ivNext5, binding.ivNext6,
+//                binding.tvFunc1, binding.tvFunc2, binding.tvFunc3, binding.tvFunc4, binding.tvFunc5, binding.tvFunc6, binding.btLogout
+//        );
+//        mBroccoli.show();
+
+        binding.tvName.setText(user.getFullName());
+        binding.tvEmail.setText(user.getEmail());
+        Glide.with(context).load(user.getAvatar()).into(binding.ivAvatar);
 
         binding.rowEditProfile.setOnClickListener(view -> {
             binding.rowEditProfile.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
             if (user != null) {
                 actionShowFragment(EditProfileFragment.TAG, user, true);
             }
-
         });
 
         binding.rowShipment.setOnClickListener(view -> {
@@ -103,8 +107,8 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Accoun
             }
         });
 
-        String username = CommonUtils.getInstance().getPref(Constants.USERNAME);
-        viewModel.getUserByUserName(username);
+        //String username = CommonUtils.getInstance().getPref(Constants.USERNAME);
+        //viewModel.getUserByUserName(username);
     }
 
     private void actionShowFragment(String tag, Object data, boolean isBack) {
@@ -139,6 +143,7 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Accoun
         btnConfirm.setOnClickListener(view -> {
             actionShowFragment(LoginFragment.TAG, null, false);
             CommonUtils.getInstance().clearPref(Constants.ACCESS_TOKEN);
+            CommonUtils.getInstance().clearPref(Constants.USERNAME);
             dialog.dismiss();
         });
 
@@ -153,14 +158,12 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Accoun
 
     @Override
     public void apiSuccess(String key, Object data) {
-        if (key.equals(Constants.KEY_GET_BY_USERNAME)) {
-            user = (User) data;
-            Log.d(TAG, "apiSuccess: " + user.getUserName());
-            mBroccoli.clearAllPlaceholders();
-            binding.tvName.setText(user.getFullName());
-            binding.tvEmail.setText(user.getEmail());
-            Glide.with(context).load(user.getAvatar()).into(binding.ivAvatar);
-        }
+//        if (key.equals(Constants.KEY_GET_BY_USERNAME)) {
+//            user = (User) data;
+//            Log.d(TAG, "apiSuccess: " + user.getUserName());
+//            //mBroccoli.clearAllPlaceholders();
+//
+//        }
     }
 
     @Override
@@ -168,5 +171,15 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Accoun
         Log.d(TAG, "error: " + code + data);
         Toast.makeText(context, "Error: " + code + ", " + data, Toast.LENGTH_SHORT).show();
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        user = MyApplication.getInstance().getStorage().user;
+        Log.d(TAG, "onResume: " + user.getFullName());
+        binding.tvName.setText(user.getFullName());
+        binding.tvEmail.setText(user.getEmail());
+        Glide.with(context).load(user.getAvatar()).into(binding.ivAvatar);
     }
 }

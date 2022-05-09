@@ -37,6 +37,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 
 import com.bumptech.glide.Glide;
+import com.groupone.mobilestore.MyApplication;
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentEditProfileBinding;
 import com.groupone.mobilestore.model.User;
@@ -205,7 +206,8 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
                     }
                     Log.d(TAG, "onClick: " + imageFileName + " / " + newName + " / " + newBirthday + " / " + newEmail + " / " + newGender + " / " + newPhone);
                     viewModel.updateAccount(newName, newEmail, newPhone, newBirthday, newGender, imageFileName);
-                    callBack.backToPrev();
+                    viewModel.getUserByUserName(user.getUserName());
+
                 } else {
                     Toast.makeText(context, "Không có thông tin nào thay đổi", Toast.LENGTH_SHORT).show();
                 }
@@ -322,6 +324,10 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
             } else {
                 Toast.makeText(context, "Cập nhật thông tin thất bại", Toast.LENGTH_SHORT).show();
             }
+        }
+        if(key.equals(Constants.KEY_GET_BY_USERNAME)){
+            MyApplication.getInstance().getStorage().user = (User) data;
+            callBack.backToPrev();
         }
         DialogUtils.hideLoadingDialog();
     }
