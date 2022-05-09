@@ -70,6 +70,7 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
     private int defaultDay = 1;
     private Object mData;
     private String filePath = null;
+    private User user;
 
     public static boolean verifyStoragePermissions(Activity activity) {
         // Check if we have write permission
@@ -140,7 +141,7 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
             }
         });
 
-        User user = (User) mData;
+        user = (User) mData;
 
         defaultDay = Integer.parseInt(user.getBirthday().substring(0,2));
         defaultMonth = Integer.parseInt(user.getBirthday().substring(3,5)) - 1;
@@ -206,7 +207,7 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
                     }
                     Log.d(TAG, "onClick: " + imageFileName + " / " + newName + " / " + newBirthday + " / " + newEmail + " / " + newGender + " / " + newPhone);
                     viewModel.updateAccount(newName, newEmail, newPhone, newBirthday, newGender, imageFileName);
-                    viewModel.getUserByUserName(user.getUserName());
+
 
                 } else {
                     Toast.makeText(context, "Không có thông tin nào thay đổi", Toast.LENGTH_SHORT).show();
@@ -321,12 +322,15 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
             Boolean check = (Boolean) data;
             if (check) {
                 Toast.makeText(context, "Cập nhật thông tin thành công", Toast.LENGTH_SHORT).show();
+                viewModel.getUserByUserName(user.getUserName());
             } else {
                 Toast.makeText(context, "Cập nhật thông tin thất bại", Toast.LENGTH_SHORT).show();
             }
+
         }
-        if(key.equals(Constants.KEY_GET_BY_USERNAME)){
+        else if(key.equals(Constants.KEY_GET_BY_USERNAME)){
             MyApplication.getInstance().getStorage().user = (User) data;
+            Log.d(TAG, "apiSuccess: " + ((User) data).toString());
             callBack.backToPrev();
         }
         DialogUtils.hideLoadingDialog();

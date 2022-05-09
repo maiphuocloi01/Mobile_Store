@@ -177,7 +177,7 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Accoun
     public void onResume() {
         super.onResume();
         user = MyApplication.getInstance().getStorage().user;
-        Log.d(TAG, "onResume: " + user.getFullName());
+        //Log.d(TAG, "onResume: " + MyApplication.getInstance().getStorage().user.getFullName());
         binding.tvName.setText(user.getFullName());
         binding.tvEmail.setText(user.getEmail());
         Glide.with(context).load(user.getAvatar()).into(binding.ivAvatar);

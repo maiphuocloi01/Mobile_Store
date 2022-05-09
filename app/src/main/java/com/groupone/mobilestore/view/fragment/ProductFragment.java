@@ -198,7 +198,6 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
                 User user = MyApplication.getInstance().getStorage().user;
                 ShoppingCart cart = new ShoppingCart(user.getId(), product.getId(), currentPrice,   currentVersion + ", " + currentColor);
                 viewModel.addShoppingCart(cart);
-                Toast.makeText(context, "Thêm thành công", Toast.LENGTH_SHORT).show();
             }
         });
     }
