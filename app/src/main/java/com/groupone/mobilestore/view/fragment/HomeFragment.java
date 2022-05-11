@@ -185,7 +185,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                 ArrayList<String> listName = new ArrayList<>();
                 listName.add("Realme");
                 Bundle bundle = new Bundle();
-                bundle.putStringArrayList("search", listName);
+                bundle.putStringArrayList("filter", listName);
                 parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
                 if (parentFrag != null) {
                     parentFrag.setActionShowFragment(SearchResultFragment.TAG, bundle, true);

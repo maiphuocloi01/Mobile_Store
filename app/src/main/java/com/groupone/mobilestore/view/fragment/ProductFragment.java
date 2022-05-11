@@ -42,13 +42,14 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
 
     public static final String TAG = ProductFragment.class.getName();
     public boolean isFavorite = true;
-    SliderView sliderView;
+    private SliderView sliderView;
     private SliderAdapter sliderAdapter;
     private Object mData;
     private Product product;
     private String currentVersion;
     private String currentColor;
     private long currentPrice;
+    private final User user = MyApplication.getInstance().getStorage().user;
 
     @Override
     protected Class<ProductViewModel> getClassVM() {
@@ -195,7 +196,8 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
         binding.btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                User user = MyApplication.getInstance().getStorage().user;
+
+                Log.d(TAG, "onClick: " + product.getId());
                 ShoppingCart cart = new ShoppingCart(user.getId(), product.getId(), currentPrice,   currentVersion + ", " + currentColor);
                 viewModel.addShoppingCart(cart);
             }
@@ -226,7 +228,10 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
                 Toast.makeText(context, "Thêm vào giỏ hàng thất bại", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(context, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show();
+                viewModel.getShoppingCartByAccountId(user.getId());
             }
+        } else if (key.equals(Constants.KEY_GET_SHOPPING_CART_BY_ACCOUNT)){
+            MyApplication.getInstance().getStorage().listCart = (List<ShoppingCart>) data;
         }
     }
 

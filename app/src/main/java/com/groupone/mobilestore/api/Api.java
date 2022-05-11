@@ -12,6 +12,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -72,4 +73,12 @@ public interface Api {
     @POST("Api/ShoppingCartController/AddShoppingCart")
     @Headers("Content-type: application/json")
     Call<Integer> addShoppingCart(@Body ShoppingCart cart);
+
+    @GET("Api/ShoppingCartController/GetShoppingCartByAccountId/{Id}")
+    @Headers("Content-type: application/json")
+    Call<List<ShoppingCart>> getShoppingCartByAccountId(@Path("Id") int id);
+
+    @DELETE("Api/ShoppingCartController/DeleteShoppingCartById/{Id}")
+    @Headers("Content-type: application/json")
+    Call<Boolean> deleteItemCartById(@Path("Id") int id);
 }

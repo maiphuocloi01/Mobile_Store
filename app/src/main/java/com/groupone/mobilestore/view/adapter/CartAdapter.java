@@ -15,11 +15,16 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.groupone.mobilestore.MyApplication;
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.LayoutItemCartBinding;
 import com.groupone.mobilestore.model.Cart;
+import com.groupone.mobilestore.model.Product;
+import com.groupone.mobilestore.model.ShoppingCart;
 import com.groupone.mobilestore.view.fragment.HomeFragment;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
@@ -27,15 +32,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     private static final String TAG = HomeFragment.TAG;
 
     private Context context;
-    private List<Cart> listItem;
+    private List<ShoppingCart> listItem;
 
-    private MutableLiveData<List<Cart>> listCartLD = new MutableLiveData<>();
+    private MutableLiveData<List<ShoppingCart>> listCartLD = new MutableLiveData<>();
 
-    public LiveData<List<Cart>> getListCartLD() {
+    public LiveData<List<ShoppingCart>> getListCartLD() {
         return listCartLD;
     }
 
-    public CartAdapter(Context context, List<Cart> listItem) {
+    public CartAdapter(Context context, List<ShoppingCart> listItem) {
         this.context = context;
         this.listItem = listItem;
     }
@@ -50,13 +55,23 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
-        Cart item = listItem.get(position);
-        holder.binding.tvName.setText(item.getName());
-        holder.binding.tvPrice.setText(convertPrice(item.getPrice()));
-        holder.binding.tvType.setText(item.getType() + ", " + item.getColor());
-        holder.binding.tvQty.setText(item.getQty() + "");
-        holder.binding.ivProduct.setImageResource(item.getImage());
-        holder.binding.tvName.setTag(item);
+        ShoppingCart item = listItem.get(position);
+        List<Product> productList = MyApplication.getInstance().getStorage().listProduct;
+//        HashMap<Integer, Product> products = new HashMap<>();
+//        Product currentProduct = products.get(item.getProductId());
+
+        for (Product product : productList){
+            if(product.getId() == item.getProductId()){
+                Glide.with(context).load(product.getImage1()).into(holder.binding.ivProduct);
+                holder.binding.tvPrice.setText(convertPrice(item.getPrice()));
+                holder.binding.tvType.setText(item.getTypeProduct());
+                holder.binding.tvQty.setText(String.valueOf(item.getQuantity()));
+                holder.binding.tvName.setText(product.getName());
+                holder.binding.tvName.setTag(item);
+                break;
+            }
+        }
+
     }
 
     @Override
@@ -74,7 +89,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             //Listen select item in shopping cart
             binding.ivChoose.setOnClickListener(view -> {
                 binding.ivChoose.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
-                Cart item = (Cart) binding.tvName.getTag();
+                ShoppingCart item = (ShoppingCart) binding.tvName.getTag();
                 int index = listItem.indexOf(item);
                 if (!item.isSelected()) {
                     binding.ivChoose.setImageResource(R.drawable.ic_checked);
@@ -92,11 +107,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             });
 
             binding.ivSubtract.setOnClickListener(view -> {
-                Cart item = (Cart) binding.tvName.getTag();
+                ShoppingCart item = (ShoppingCart) binding.tvName.getTag();
                 int index = listItem.indexOf(item);
-                if(item.getQty() > 1){
-                    item.setQty(item.getQty() - 1);
-                    Log.d(TAG, "onClick: " + item.getQty());
+                if(item.getQuantity() > 1){
+                    item.setQuantity(item.getQuantity() - 1);
+                    Log.d(TAG, "onClick: " + item.getQuantity());
                     notifyDataSetChanged();
                     changeListCartListener(item, index, false);
 
@@ -108,25 +123,25 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             });
 
             binding.ivPlus.setOnClickListener(view -> {
-                Cart item = (Cart) binding.tvName.getTag();
+                ShoppingCart item = (ShoppingCart) binding.tvName.getTag();
                 int index = listItem.indexOf(item);
-                item.setQty(item.getQty() + 1);
+                item.setQuantity(item.getQuantity() + 1);
                 notifyDataSetChanged();
                 binding.ivPlus.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
-                Log.d(TAG, "onClick: " + item.getQty());
+                Log.d(TAG, "onClick: " + item.getQuantity());
                 changeListCartListener(item, index, false);
             });
 
             binding.ivDelete.setOnClickListener(view -> {
                 binding.ivDelete.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
-                Cart item = (Cart) binding.tvName.getTag();
+                ShoppingCart item = (ShoppingCart) binding.tvName.getTag();
                 int index = listItem.indexOf(item);
                 doDeleteItem(item);
                 changeListCartListener(item, index, true);
             });
         }
 
-        private void doDeleteItem(Cart item) {
+        private void doDeleteItem(ShoppingCart item) {
             //Toast.makeText(context, "Delete successfully", Toast.LENGTH_SHORT).show();
             //changeListCardListener(item, index);
             if (item.isSelected()){
@@ -139,7 +154,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             notifyDataSetChanged();
         }
 
-        private void changeListCartListener(Cart cart, int index, boolean isDelete){
+        private void changeListCartListener(ShoppingCart cart, int index, boolean isDelete){
             if (!isDelete) {
                 listItem.set(index, cart);
             }

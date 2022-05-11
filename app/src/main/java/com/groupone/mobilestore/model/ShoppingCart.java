@@ -24,7 +24,6 @@ public class ShoppingCart implements Serializable {
     public ShoppingCart(int accountId, int productId, long price, String typeProduct) {
         this.accountId = accountId;
         this.productId = productId;
-        this.quantity = quantity;
         this.price = price;
         this.typeProduct = typeProduct;
     }
