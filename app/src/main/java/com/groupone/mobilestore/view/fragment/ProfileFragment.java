@@ -52,9 +52,11 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Accoun
 //        );
 //        mBroccoli.show();
 
-        binding.tvName.setText(user.getFullName());
-        binding.tvEmail.setText(user.getEmail());
-        Glide.with(context).load(user.getAvatar()).into(binding.ivAvatar);
+        if(user != null) {
+            binding.tvName.setText(user.getFullName());
+            binding.tvEmail.setText(user.getEmail());
+            Glide.with(context).load(user.getAvatar()).into(binding.ivAvatar);
+        }
 
         binding.rowEditProfile.setOnClickListener(view -> {
             binding.rowEditProfile.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
@@ -178,8 +180,10 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Accoun
         super.onResume();
         user = MyApplication.getInstance().getStorage().user;
         //Log.d(TAG, "onResume: " + MyApplication.getInstance().getStorage().user.getFullName());
-        binding.tvName.setText(user.getFullName());
-        binding.tvEmail.setText(user.getEmail());
-        Glide.with(context).load(user.getAvatar()).into(binding.ivAvatar);
+        if(user != null) {
+            binding.tvName.setText(user.getFullName());
+            binding.tvEmail.setText(user.getEmail());
+            Glide.with(context).load(user.getAvatar()).into(binding.ivAvatar);
+        }
     }
 }

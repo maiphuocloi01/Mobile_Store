@@ -119,14 +119,16 @@ public class SearchResultFragment extends BaseFragment<FragmentSearchResultBindi
 
     private void searchProduct(String strSearch) {
         List<Product> productSearch = new ArrayList<>();
-        Log.d(TAG, "searchProduct: " + strSearch);
-        if (listProduct.size() > 0 && !strSearch.equals("")) {
-            for (Product item : listProduct) {
-                if (StringConvert.removeDiacriticalMarks(item.getName()).toLowerCase().contains(strSearch.toLowerCase())) {
-                    productSearch.add(item);
+        if (listProduct != null) {
+            Log.d(TAG, "searchProduct: " + strSearch);
+            if (listProduct.size() > 0 && !strSearch.equals("")) {
+                for (Product item : listProduct) {
+                    if (StringConvert.removeDiacriticalMarks(item.getName()).toLowerCase().contains(strSearch.toLowerCase())) {
+                        productSearch.add(item);
+                    }
                 }
-            }
 
+            }
         }
         if (productSearch.size() > 0) {
             Log.d(TAG, "productSearch: " + productSearch.size());
