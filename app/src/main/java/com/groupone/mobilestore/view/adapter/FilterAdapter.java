@@ -11,7 +11,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.groupone.mobilestore.databinding.LayoutItemFilterBinding;
-import com.groupone.mobilestore.model.Cart;
 
 import java.util.List;
 

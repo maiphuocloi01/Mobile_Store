@@ -61,15 +61,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         }
 
 
-        /*listProduct.add(new Product(1, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
-        listProduct.add(new Product(2, R.drawable.img_iphone13_2, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
-        listProduct.add(new Product(3, R.drawable.img_iphone13_3, "iPhone 13 Pro Max Ultra Ultimate Super Plus", "128GB", 3.8, 34000000, 38));
-        listProduct.add(new Product(4, R.drawable.img_iphone13_4, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
-        listProduct.add(new Product(5, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
-        listProduct.add(new Product(6, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
-*/
-
-
         binding.rowSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -189,6 +180,16 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                 parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
                 if (parentFrag != null) {
                     parentFrag.setActionShowFragment(SearchResultFragment.TAG, bundle, true);
+                }
+            }
+        });
+
+        binding.btNews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
+                if (parentFrag != null) {
+                    parentFrag.setActionShowFragment(PostFragment.TAG, null, true);
                 }
             }
         });

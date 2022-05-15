@@ -20,4 +20,13 @@ public class DialogUtils {
     public static void hideLoadingDialog(){
         progressDialog.dismiss();
     }
+
+
+    public static void showLoadDataDialog(Context context){
+        progressDialog = new ProgressDialog(context);
+        progressDialog.show();
+        progressDialog.setCancelable(false);
+        progressDialog.setContentView(R.layout.custom_load_data_dialog);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+    }
 }

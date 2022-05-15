@@ -19,6 +19,7 @@ import com.groupone.mobilestore.databinding.FragmentPagerBinding;
 import com.groupone.mobilestore.model.User;
 import com.groupone.mobilestore.util.CommonUtils;
 import com.groupone.mobilestore.util.Constants;
+import com.groupone.mobilestore.util.DialogUtils;
 import com.groupone.mobilestore.viewmodel.PagerViewModel;
 
 import java.util.logging.Handler;
@@ -48,6 +49,7 @@ public class PagerFragment extends BaseFragment<FragmentPagerBinding, PagerViewM
         }
         if (key.equals(Constants.KEY_GET_BY_USERNAME)){
             MyApplication.getInstance().getStorage().user = (User) data;
+            DialogUtils.hideLoadingDialog();
         }
     }
 
@@ -71,8 +73,10 @@ public class PagerFragment extends BaseFragment<FragmentPagerBinding, PagerViewM
 
 //        MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter(this);
 //        binding.vpHome.setAdapter(myViewPagerAdapter);
-
-        viewModel.loginWithToken(CommonUtils.getInstance().getPref(Constants.ACCESS_TOKEN));
+        if(MyApplication.getInstance().getStorage().user == null) {
+            DialogUtils.showLoadDataDialog(context);
+            viewModel.loginWithToken(CommonUtils.getInstance().getPref(Constants.ACCESS_TOKEN));
+        }
 
         if (viewModel.getFragment() == null) {
             loadFragment(new HomeFragment());

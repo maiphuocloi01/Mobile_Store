@@ -1,16 +1,31 @@
 package com.groupone.mobilestore.model;
 
-public class Shipment {
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+
+public class Shipment implements Serializable {
+
+    @SerializedName("Id")
     private int id;
+    @SerializedName("AccountId")
+    private int accountId;
+    @SerializedName("FullName")
     private String fullName;
+    @SerializedName("PhoneNumber")
     private String phoneNumber;
+    @SerializedName("Address")
     private String address;
+    @SerializedName("Street")
     private String street;
-    private int typeAddress;
+    @SerializedName("TypeAddress")
+    private boolean typeAddress;
+    @SerializedName("IsDefault")
     private boolean isDefault;
 
-    public Shipment(int id, String fullName, String phoneNumber, String address, String street, int typeAddress, boolean isDefault) {
+    public Shipment(int id, int accountId, String fullName, String phoneNumber, String address, String street, boolean typeAddress, boolean isDefault) {
         this.id = id;
+        this.accountId = accountId;
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.address = address;
@@ -19,11 +34,28 @@ public class Shipment {
         this.isDefault = isDefault;
     }
 
-    public int getTypeAddress() {
+    public Shipment(int accountId, String fullName, String phoneNumber, String address, String street, boolean typeAddress, boolean isDefault) {
+        this.accountId = accountId;
+        this.fullName = fullName;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.street = street;
+        this.typeAddress = typeAddress;
+    }
+
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
+
+    public boolean isTypeAddress() {
         return typeAddress;
     }
 
-    public void setTypeAddress(int typeAddress) {
+    public void setTypeAddress(boolean typeAddress) {
         this.typeAddress = typeAddress;
     }
 

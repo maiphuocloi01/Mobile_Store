@@ -2,6 +2,7 @@ package com.groupone.mobilestore.view.adapter;
 
 import static com.groupone.mobilestore.util.NumberUtils.convertPrice;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,7 +45,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull OrderViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Order item = listOrder.get(position);
         holder.binding.tvName.setText(item.getProductName());
         holder.binding.tvPrice.setText(convertPrice(item.getTotalPrice()));
@@ -55,7 +56,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             holder.binding.btOrder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(context, "Đánh giá", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "Đánh giá", Toast.LENGTH_SHORT).show();
                     callback.gotoReview(position);
                 }
             });
@@ -64,7 +65,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             holder.binding.btOrder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(context, "Mua lại", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "Mua lại", Toast.LENGTH_SHORT).show();
                     callback.gotoRepurchase(position);
                 }
             });

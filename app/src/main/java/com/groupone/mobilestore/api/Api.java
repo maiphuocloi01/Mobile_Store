@@ -1,6 +1,7 @@
 package com.groupone.mobilestore.api;
 
 import com.groupone.mobilestore.model.Product;
+import com.groupone.mobilestore.model.Shipment;
 import com.groupone.mobilestore.model.ShoppingCart;
 import com.groupone.mobilestore.model.Token;
 import com.groupone.mobilestore.model.User;
@@ -39,9 +40,11 @@ public interface Api {
     Call<Integer> checkRegistrable(@Body User user);
 
     @POST("Api/AccountController/ResetPassword")
+    @Headers("Content-type: application/json")
     Call<Boolean> resetPassword(@Body User user);
 
     @POST("Api/AccountController/UpdateAccount")
+    @Headers("Content-type: application/json")
     Call<Boolean> updateAccount(@Body User user);
 
     @Multipart
@@ -53,9 +56,11 @@ public interface Api {
     Call<Integer> register(@Body User user);
 
     @GET("Api/AccountController/LoginWithToken")
+    @Headers("Content-type: application/json")
     Call<String> loginWithToken(@Header("Authorization") String auth);
 
     @POST("Api/AccountController/SendOTP")
+    @Headers("Content-type: application/json")
     Call<String> sendOTP(@Body User user);
 
     @POST("Api/AccountController/Login")
@@ -78,7 +83,32 @@ public interface Api {
     @Headers("Content-type: application/json")
     Call<List<ShoppingCart>> getShoppingCartByAccountId(@Path("Id") int id);
 
+    @GET("Api/ShoppingCartController/UpdateQuantityShoppingCart/{Id}/{quantity}")
+    @Headers("Content-type: application/json")
+    Call<Boolean> updateQuantity(@Path("Id") int id, @Path("quantity") int quantity);
+
     @DELETE("Api/ShoppingCartController/DeleteShoppingCartById/{Id}")
     @Headers("Content-type: application/json")
     Call<Boolean> deleteItemCartById(@Path("Id") int id);
+
+    //Shipment API
+    @POST("Api/ShipmentController/AddShipment")
+    @Headers("Content-type: application/json")
+    Call<Integer> addShipment(@Body Shipment shipment);
+
+    @GET("Api/ShipmentController/GetShipmentByAccountId/{Id}")
+    @Headers("Content-type: application/json")
+    Call<List<Shipment>> getShipmentByAccountId(@Path("Id") int id);
+
+    @GET("Api/ShipmentController/GetShipmentById/{Id}")
+    @Headers("Content-type: application/json")
+    Call<Shipment> getShipmentById(@Path("Id") int id);
+
+    @POST("Api/ShipmentController/UpdateShipment")
+    @Headers("Content-type: application/json")
+    Call<Boolean> updateShipment(@Body Shipment shipment);
+
+    @DELETE("Api/ShipmentController/DeleteShipmentById/{Id}")
+    @Headers("Content-type: application/json")
+    Call<Boolean> deleteShipmentById(@Path("Id") int id);
 }

@@ -11,6 +11,10 @@ public class CartViewModel extends BaseViewModel{
         getApi().getShoppingCartByAccountId(id).enqueue(initHandleResponse(Constants.KEY_GET_SHOPPING_CART_BY_ACCOUNT));
     }
 
+    public void updateQuantity(int id, int quantity){
+        getApi().updateQuantity(id, quantity).enqueue(initHandleResponse(Constants.KEY_UPDATE_QUANTITY));
+    }
+
     public void deleteItemCartById(int id){
         getApi().deleteItemCartById(id).enqueue(initHandleResponse(Constants.KEY_DELETE_CART));
     }

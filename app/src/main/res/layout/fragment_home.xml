@@ -51,10 +51,11 @@
                     android:layout_weight="1" />
 
                 <ImageView
+                    android:id="@+id/bt_news"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_settings"
-                    app:tint="@color/black_500" />
+                    android:src="@drawable/ic_newspaper"
+                    app:tint="@color/blue_500" />
             </TableRow>
 
 
@@ -246,7 +247,7 @@
                 android:layout_marginTop="10dp"
                 android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="1"
+                app:spanCount="2"
                 tools:listitem="@layout/layout_item_product" />
 
             <View

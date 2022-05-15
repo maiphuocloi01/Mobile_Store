@@ -1,35 +1,44 @@
 package com.groupone.mobilestore.view.fragment;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.groupone.mobilestore.MyApplication;
 import com.groupone.mobilestore.databinding.FragmentAddAddressBinding;
 import com.groupone.mobilestore.model.City;
 import com.groupone.mobilestore.model.District;
+import com.groupone.mobilestore.model.Shipment;
+import com.groupone.mobilestore.model.User;
 import com.groupone.mobilestore.model.Ward;
+import com.groupone.mobilestore.util.Constants;
+import com.groupone.mobilestore.util.DialogUtils;
 import com.groupone.mobilestore.view.adapter.CityAdapter;
 import com.groupone.mobilestore.view.adapter.DistrictAdapter;
 import com.groupone.mobilestore.view.adapter.WardAdapter;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
+import com.groupone.mobilestore.viewmodel.ShipmentViewModel;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class AddAddressFragment extends BaseFragment<FragmentAddAddressBinding, CommonViewModel> {
+public class AddAddressFragment extends BaseFragment<FragmentAddAddressBinding, ShipmentViewModel> {
 
     public static final String TAG = AddAddressFragment.class.getName();
-    List<City> cities;
-    List<District> districts;
-    List<Ward> wards;
+    private List<City> cities;
+    private List<District> districts;
+    private List<Ward> wards;
+    private final User user = MyApplication.getInstance().getStorage().user;
 
     private static String getJsonFromAssets(Context context, String fileName) {
         String jsonString;
@@ -48,18 +57,14 @@ public class AddAddressFragment extends BaseFragment<FragmentAddAddressBinding, 
     }
 
     @Override
-    protected Class<CommonViewModel> getClassVM() {
-        return CommonViewModel.class;
+    protected Class<ShipmentViewModel> getClassVM() {
+        return ShipmentViewModel.class;
     }
 
     @Override
     protected void initViews() {
 
-//        List<City> cities;
-//        List<District> districts;
-//        List<Ward> wards;
         String jsonFileString = getJsonFromAssets(context, "address.json");
-        //Log.i("data", jsonFileString);
         Gson gson = new Gson();
         Type listUserType = new TypeToken<List<City>>() {
         }.getType();
@@ -101,8 +106,6 @@ public class AddAddressFragment extends BaseFragment<FragmentAddAddressBinding, 
             }
         });
 
-
-
         binding.etDistrict.setCursorVisible(false);
         binding.etDistrict.setShowSoftInputOnFocus(false);
         binding.etDistrict.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -127,7 +130,6 @@ public class AddAddressFragment extends BaseFragment<FragmentAddAddressBinding, 
                 }
             }
         });
-
 
         binding.etWard.setCursorVisible(false);
         binding.etWard.setShowSoftInputOnFocus(false);
@@ -156,6 +158,52 @@ public class AddAddressFragment extends BaseFragment<FragmentAddAddressBinding, 
                         binding.etCity.setError("Bạn cần nhập mục này trước");
                     }
                     binding.etDistrict.setError("Bạn cần nhập mục này trước");
+                }
+            }
+        });
+
+        binding.btSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (TextUtils.isEmpty(binding.etName.getText())) {
+                    binding.etName.setError("Không được bỏ trống");
+
+                } else if (TextUtils.isEmpty(binding.etPhone.getText())) {
+                    binding.etPhone.setError("Không được bỏ trống");
+
+                } else if (TextUtils.isEmpty(binding.etCity.getText())) {
+                    binding.etCity.setError("Không được bỏ trống");
+
+                } else if (TextUtils.isEmpty(binding.etDistrict.getText())) {
+                    binding.etDistrict.setError("Không được bỏ trống");
+
+                } else if (TextUtils.isEmpty(binding.etWard.getText())) {
+                    binding.etWard.setError("Không được bỏ trống");
+
+                } else if (TextUtils.isEmpty(binding.etStreet.getText())) {
+                    binding.etStreet.setError("Không được bỏ trống");
+
+                } else if (!binding.rbHome.isChecked() && !binding.rbOffice.isChecked()) {
+                    Toast.makeText(context, "Chọn loại địa chỉ", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    String ward = binding.etWard.getText().toString().trim();
+                    String district = binding.etDistrict.getText().toString().trim();
+                    String city = binding.etCity.getText().toString().trim();
+                    boolean typeAddress = false;
+                    if (binding.rbOffice.isChecked()) {
+                        typeAddress = true;
+                    }
+                    Shipment shipment = new Shipment(user.getId(),
+                            binding.etName.getText().toString().trim(),
+                            binding.etPhone.getText().toString().trim(),
+                            String.format(ward + ", " + district + ", " + city),
+                            binding.etStreet.getText().toString().trim(),
+                            typeAddress,
+                            false
+                            );
+                    viewModel.addShipment(shipment);
+                    DialogUtils.showLoadingDialog(context);
                 }
             }
         });
@@ -213,7 +261,19 @@ public class AddAddressFragment extends BaseFragment<FragmentAddAddressBinding, 
 
     @Override
     public void apiSuccess(String key, Object data) {
-
+        if(key.equals(Constants.KEY_ADD_SHIPMENT)){
+            int response = (int) data;
+            if(response == -1){
+                Toast.makeText(context, "Thêm địa chỉ thất bại", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "Thêm địa chỉ thành công", Toast.LENGTH_SHORT).show();
+                viewModel.getShipmentByAccountId(user.getId());
+            }
+        } else if(key.equals(Constants.KEY_GET_SHIPMENT_BY_ACCOUNT)){
+            MyApplication.getInstance().getStorage().listShipment = (List<Shipment>) data;
+            DialogUtils.hideLoadingDialog();
+            callBack.backToPrev();
+        }
     }
 
     @Override

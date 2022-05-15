@@ -51,9 +51,9 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
             inv(holder.binding.tvDefault);
         }
 
-        if (address.getTypeAddress() == 1) {
+        if (!address.isTypeAddress()) {
             holder.binding.tvTypeAddress.setText("Nhà riêng");
-        } else if (address.getTypeAddress() == 2) {
+        } else {
             holder.binding.tvTypeAddress.setText("Văn phòng");
         }
 

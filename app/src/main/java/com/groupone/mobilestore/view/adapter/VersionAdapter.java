@@ -2,7 +2,6 @@ package com.groupone.mobilestore.view.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.LayoutItemVersionBinding;
-import com.groupone.mobilestore.model.Cart;
 
 import java.util.List;
 

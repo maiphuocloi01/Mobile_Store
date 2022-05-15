@@ -17,26 +17,21 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.groupone.mobilestore.MyApplication;
-import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentCartBinding;
-import com.groupone.mobilestore.model.Cart;
-import com.groupone.mobilestore.model.Product;
 import com.groupone.mobilestore.model.ShoppingCart;
 import com.groupone.mobilestore.model.User;
 import com.groupone.mobilestore.util.Constants;
 import com.groupone.mobilestore.view.adapter.CartAdapter;
-import com.groupone.mobilestore.view.adapter.ProductAdapter;
 import com.groupone.mobilestore.viewmodel.CartViewModel;
-import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewModel> {
+public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewModel> implements CartAdapter.CartCallBack {
 
     public static final String TAG = CartFragment.class.getName();
 
     private final User user = MyApplication.getInstance().getStorage().user;
+    private List<ShoppingCart> cartList;
 
     @Override
     protected Class<CartViewModel> getClassVM() {
@@ -47,21 +42,26 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     protected void initViews() {
 
         binding.rvCart.setLayoutManager(new LinearLayoutManager(context));
-        if(MyApplication.getInstance().getStorage().listCart == null){
+        if (MyApplication.getInstance().getStorage().listCart == null) {
             Log.d(TAG, "initViews: " + user.getId());
             viewModel.getShoppingCartByAccountId(user.getId());
-        }
-        else{
+        } else {
             Log.d(TAG, "get data storage ");
-            List<ShoppingCart> listCart = MyApplication.getInstance().getStorage().listCart;
-            initShoppingCart(listCart);
+            cartList = MyApplication.getInstance().getStorage().listCart;
+            if (cartList.size() != 0) {
+                removeSelected(cartList);
+                initShoppingCart(cartList);
+            } else {
+                gone(binding.layoutCart);
+                show(binding.layoutEmptyCart);
+            }
         }
 
 
     }
 
-    private void initShoppingCart(List<ShoppingCart> shoppingCartList){
-        CartAdapter cartAdapter = new CartAdapter(context, shoppingCartList);
+    private void initShoppingCart(List<ShoppingCart> shoppingCartList) {
+        CartAdapter cartAdapter = new CartAdapter(context, shoppingCartList, this);
         binding.rvCart.setAdapter(cartAdapter);
         binding.tvTotalCount.setText(convertParentheses(shoppingCartList.size()));
         cartAdapter.getListCartLD().observe(this, new Observer<List<ShoppingCart>>() {
@@ -74,13 +74,6 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
                     binding.tvTotalCost.setText(convertPrice(0));
                     gone(binding.layoutCart);
                     show(binding.layoutEmptyCart);
-                    binding.btPayment.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Toast.makeText(context, "Không có sản phẩm nào trong giỏ hàng!", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    return;
                 }
                 showPayment(carts);
             }
@@ -101,8 +94,8 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
         binding.btPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for(ShoppingCart item: carts){
-                    if(item.isSelected()){
+                for (ShoppingCart item : carts) {
+                    if (item.isSelected()) {
                         actionShowFragment(PaymentFragment.TAG, null, true);
                     }
                 }
@@ -112,6 +105,12 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
         binding.tvProductCost.setText(convertPrice(productCost));
         binding.tvShipCost.setText(convertPrice(shipCost));
         binding.tvTotalCost.setText(convertPrice(productCost + shipCost));
+    }
+
+    private void removeSelected(List<ShoppingCart> carts){
+        for(ShoppingCart cart : carts){
+            cart.setSelected(false);
+        }
     }
 
     private void actionShowFragment(String tag, Object data, boolean isBack) {
@@ -129,23 +128,51 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     @Override
     public void apiSuccess(String key, Object data) {
 
-        if(key.equals(Constants.KEY_GET_SHOPPING_CART_BY_ACCOUNT)){
+        if (key.equals(Constants.KEY_GET_SHOPPING_CART_BY_ACCOUNT)) {
             Log.d(TAG, "apiSuccess: " + data.toString());
-            List<ShoppingCart> cartList = (List<ShoppingCart>) data;
+            cartList = (List<ShoppingCart>) data;
 
             MyApplication.getInstance().getStorage().listCart = cartList;
+            if (cartList.size() != 0) {
+                removeSelected(cartList);
+                initShoppingCart(cartList);
+            } else {
+                gone(binding.layoutCart);
+                show(binding.layoutEmptyCart);
+            }
 
-            initShoppingCart(cartList);
+        } else if (key.equals(Constants.KEY_DELETE_CART)) {
+            if ((boolean) data) {
+                Log.d(TAG, "KEY_DELETE_CART: thành công");
+            } else {
+                Log.d(TAG, "KEY_DELETE_CART: thất bại");
+            }
+        } else if (key.equals(Constants.KEY_UPDATE_QUANTITY)) {
+            if ((boolean) data) {
+                Log.d(TAG, "KEY_UPDATE_QUANTITY: thành công");
+            } else {
+                Log.d(TAG, "KEY_DELETE_CART: thất bại");
+            }
         }
     }
 
     @Override
     public void apiError(String key, int code, Object data) {
-        if(key.equals(Constants.KEY_GET_SHOPPING_CART_BY_ACCOUNT)){
-            if(code == 999) {
-                Log.d(TAG, "apiError: "+ data.toString());
-                Toast.makeText(context, "Không thể kết nối đến máy chủ", Toast.LENGTH_SHORT).show();
-            }
+
+        if (code == 999) {
+            Log.d(TAG, "apiError: " + data.toString());
+            Toast.makeText(context, "Không thể kết nối đến máy chủ", Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+    @Override
+    public void updateQuantity(int id, int quantity) {
+        viewModel.updateQuantity(id, quantity);
+    }
+
+    @Override
+    public void deleteItemCart(int id) {
+        viewModel.deleteItemCartById(id);
     }
 }

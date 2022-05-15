@@ -24,6 +24,7 @@ import com.groupone.mobilestore.model.ProductVersion;
 import com.groupone.mobilestore.model.ShoppingCart;
 import com.groupone.mobilestore.model.User;
 import com.groupone.mobilestore.util.Constants;
+import com.groupone.mobilestore.util.DialogUtils;
 import com.groupone.mobilestore.view.adapter.CommentAdapter;
 import com.groupone.mobilestore.view.adapter.InformationAdapter;
 import com.groupone.mobilestore.view.adapter.SliderAdapter;
@@ -200,6 +201,7 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
                 Log.d(TAG, "onClick: " + product.getId());
                 ShoppingCart cart = new ShoppingCart(user.getId(), product.getId(), currentPrice,   currentVersion + ", " + currentColor);
                 viewModel.addShoppingCart(cart);
+                DialogUtils.showLoadingDialog(context);
             }
         });
     }
@@ -228,6 +230,7 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
                 Toast.makeText(context, "Thêm vào giỏ hàng thất bại", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(context, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show();
+                DialogUtils.hideLoadingDialog();
                 viewModel.getShoppingCartByAccountId(user.getId());
             }
         } else if (key.equals(Constants.KEY_GET_SHOPPING_CART_BY_ACCOUNT)){
@@ -237,7 +240,8 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
 
     @Override
     public void apiError(String key, int code, Object data) {
-
+        Toast.makeText(context, "Không kết nối được máy chủ", Toast.LENGTH_SHORT).show();
+        DialogUtils.hideLoadingDialog();
     }
 
     @Override
