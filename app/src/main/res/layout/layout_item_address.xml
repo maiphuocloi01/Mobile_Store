@@ -39,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_weight="1"
+                android:visibility="invisible"
                 android:fontFamily="@font/roboto_regular"
                 android:text="(Mặc định)"
                 android:layout_marginEnd="10dp"
