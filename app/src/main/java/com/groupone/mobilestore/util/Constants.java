@@ -35,5 +35,8 @@ public interface Constants {
     String KEY_UPDATE_SHIPMENT = "KEY_UPDATE_SHIPMENT";
     String KEY_DELETE_SHIPMENT = "KEY_DELETE_SHIPMENT";
 
+    //Post
+    String KEY_ALL_POST = "KEY_ALL_POST";
+
 
 }

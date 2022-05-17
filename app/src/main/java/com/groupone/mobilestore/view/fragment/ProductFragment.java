@@ -50,6 +50,7 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
     private String currentVersion;
     private String currentColor;
     private long currentPrice;
+    private List<String> listColor = new ArrayList<>();
     private final User user = MyApplication.getInstance().getStorage().user;
 
     @Override
@@ -89,7 +90,7 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
         adapterVersion.renewItems(listVersion);
 
 
-        List<String> listColor = new ArrayList<String>(Arrays.asList(versionList.get(0).getColor().split("\\|")));
+        listColor = new ArrayList<String>(Arrays.asList(versionList.get(0).getColor().split("\\|")));
         currentColor = listColor.get(0);
 //        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
 //            List<String> items = Stream.of(versionList.get(0).getColor().split("\\|"))
@@ -113,8 +114,8 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
                 binding.tvPrice.setText(convertPrice(product.getProductVersions().get(index).getPrice()));
                 currentVersion = product.getProductVersions().get(index).getVersionName();
                 currentPrice = product.getProductVersions().get(index).getPrice();
-                List<String> listColor1 = new ArrayList<String>(Arrays.asList(versionList.get(index).getColor().split("\\|")));
-                adapterColor.renewItems(listColor1);
+                listColor = new ArrayList<String>(Arrays.asList(versionList.get(index).getColor().split("\\|")));
+                adapterColor.renewItems(listColor);
             }
         });
 

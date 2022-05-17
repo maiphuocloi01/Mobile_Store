@@ -1,5 +1,6 @@
 package com.groupone.mobilestore.api;
 
+import com.groupone.mobilestore.model.Post;
 import com.groupone.mobilestore.model.Product;
 import com.groupone.mobilestore.model.Shipment;
 import com.groupone.mobilestore.model.ShoppingCart;
@@ -111,4 +112,12 @@ public interface Api {
     @DELETE("Api/ShipmentController/DeleteShipmentById/{Id}")
     @Headers("Content-type: application/json")
     Call<Boolean> deleteShipmentById(@Path("Id") int id);
+
+
+    //Post
+    @GET("Api/PostController/GetAllPost")
+    @Headers("Content-type: application/json")
+    Call<List<Post>> getAllPost();
+
+
 }
