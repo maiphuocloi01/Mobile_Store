@@ -92,7 +92,7 @@ public class AddressFragment extends BaseFragment<FragmentAddressBinding, Shipme
 
     @Override
     public void gotoEditAddress(Shipment shipment) {
-        callBack.showFragment(EditAddressFragment.TAG, null, true);
+        callBack.showFragment(EditAddressFragment.TAG, shipment, true);
     }
 
     @Override

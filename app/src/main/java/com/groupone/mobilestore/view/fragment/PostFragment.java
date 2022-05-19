@@ -1,5 +1,7 @@
 package com.groupone.mobilestore.view.fragment;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,6 +72,7 @@ public class PostFragment extends BaseFragment<FragmentPostBinding, PostViewMode
 
     @Override
     public void gotoArticle(String link) {
-
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+        startActivity(browserIntent);
     }
 }
