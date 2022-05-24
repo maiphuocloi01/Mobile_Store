@@ -43,6 +43,7 @@ public class Shipment implements Serializable {
         this.typeAddress = typeAddress;
     }
 
+
     public int getAccountId() {
         return accountId;
     }

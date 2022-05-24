@@ -265,6 +265,7 @@ public class AddAddressFragment extends BaseFragment<FragmentAddAddressBinding, 
             int response = (int) data;
             if(response == -1){
                 Toast.makeText(context, "Thêm địa chỉ thất bại", Toast.LENGTH_SHORT).show();
+                DialogUtils.hideLoadingDialog();
             } else {
                 Toast.makeText(context, "Thêm địa chỉ thành công", Toast.LENGTH_SHORT).show();
                 viewModel.getShipmentByAccountId(user.getId());

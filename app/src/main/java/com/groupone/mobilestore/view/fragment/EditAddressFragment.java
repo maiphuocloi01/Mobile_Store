@@ -1,10 +1,12 @@
 package com.groupone.mobilestore.view.fragment;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,10 +20,13 @@ import com.groupone.mobilestore.model.District;
 import com.groupone.mobilestore.model.Shipment;
 import com.groupone.mobilestore.model.User;
 import com.groupone.mobilestore.model.Ward;
+import com.groupone.mobilestore.util.Constants;
+import com.groupone.mobilestore.util.DialogUtils;
 import com.groupone.mobilestore.view.adapter.CityAdapter;
 import com.groupone.mobilestore.view.adapter.DistrictAdapter;
 import com.groupone.mobilestore.view.adapter.WardAdapter;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
+import com.groupone.mobilestore.viewmodel.ShipmentViewModel;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,7 +35,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class EditAddressFragment extends BaseFragment<FragmentEditAddressBinding, CommonViewModel> {
+public class EditAddressFragment extends BaseFragment<FragmentEditAddressBinding, ShipmentViewModel> {
 
     public static final String TAG = EditAddressFragment.class.getName();
     private Object mData;
@@ -57,8 +62,8 @@ public class EditAddressFragment extends BaseFragment<FragmentEditAddressBinding
     }
 
     @Override
-    protected Class<CommonViewModel> getClassVM() {
-        return CommonViewModel.class;
+    protected Class<ShipmentViewModel> getClassVM() {
+        return ShipmentViewModel.class;
     }
 
     @Override
@@ -183,6 +188,72 @@ public class EditAddressFragment extends BaseFragment<FragmentEditAddressBinding
             }
         });
 
+        binding.btSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String newName = binding.etName.getText().toString();
+                String newPhone = binding.etPhone.getText().toString();
+                String newCity = binding.etCity.getText().toString();
+                String newDistrict = binding.etDistrict.getText().toString();
+                String newWard = binding.etWard.getText().toString();
+                String newStreet = binding.etStreet.getText().toString();
+                boolean newType = binding.rbOffice.isChecked();
+
+                if (TextUtils.isEmpty(binding.etName.getText())) {
+                    binding.etName.setError("Không được bỏ trống");
+
+                } else if (TextUtils.isEmpty(binding.etPhone.getText())) {
+                    binding.etPhone.setError("Không được bỏ trống");
+
+                } else if (TextUtils.isEmpty(binding.etCity.getText())) {
+                    binding.etCity.setError("Không được bỏ trống");
+
+                } else if (TextUtils.isEmpty(binding.etDistrict.getText())) {
+                    binding.etDistrict.setError("Không được bỏ trống");
+
+                } else if (TextUtils.isEmpty(binding.etWard.getText())) {
+                    binding.etWard.setError("Không được bỏ trống");
+
+                } else if (TextUtils.isEmpty(binding.etStreet.getText())) {
+                    binding.etStreet.setError("Không được bỏ trống");
+
+                } else if (!binding.rbHome.isChecked() && !binding.rbOffice.isChecked()) {
+                    Toast.makeText(context, "Chọn loại địa chỉ", Toast.LENGTH_SHORT).show();
+                } else if (!newName.equals(shipment.getFullName()) ||
+                        !newPhone.equals(shipment.getPhoneNumber()) ||
+                        !newStreet.equals(shipment.getStreet()) ||
+                        !newCity.equals(listAddress.get(2).trim()) ||
+                        !newDistrict.equals(listAddress.get(1).trim()) ||
+                        !newWard.equals(listAddress.get(0).trim()) ||
+                        newType != shipment.isTypeAddress()
+                ) {
+
+                    String ward = binding.etWard.getText().toString().trim();
+                    String district = binding.etDistrict.getText().toString().trim();
+                    String city = binding.etCity.getText().toString().trim();
+                    boolean typeAddress = false;
+                    if (binding.rbOffice.isChecked()) {
+                        typeAddress = true;
+                    }
+                    Shipment updateShipment = new Shipment(shipment.getId(),
+                            user.getId(),
+                            binding.etName.getText().toString().trim(),
+                            binding.etPhone.getText().toString().trim(),
+                            String.format(ward + ", " + district + ", " + city),
+                            binding.etStreet.getText().toString().trim(),
+                            typeAddress,
+                            false
+                    );
+                    viewModel.updateShipment(updateShipment);
+                    DialogUtils.showLoadingDialog(context);
+                }
+                else {
+                    Toast.makeText(context, "Không có thông tin nào thay đổi", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 
     @Override
@@ -230,7 +301,20 @@ public class EditAddressFragment extends BaseFragment<FragmentEditAddressBinding
 
     @Override
     public void apiSuccess(String key, Object data) {
-
+        if(key.equals(Constants.KEY_UPDATE_SHIPMENT)){
+            boolean response = (boolean) data;
+            if(!response){
+                Toast.makeText(context, "Sửa địa chỉ thất bại", Toast.LENGTH_SHORT).show();
+                DialogUtils.hideLoadingDialog();
+            } else {
+                Toast.makeText(context, "Sửa địa chỉ thành công", Toast.LENGTH_SHORT).show();
+                viewModel.getShipmentByAccountId(user.getId());
+            }
+        } else if(key.equals(Constants.KEY_GET_SHIPMENT_BY_ACCOUNT)){
+            MyApplication.getInstance().getStorage().listShipment = (List<Shipment>) data;
+            DialogUtils.hideLoadingDialog();
+            callBack.backToPrev();
+        }
     }
 
     @Override
