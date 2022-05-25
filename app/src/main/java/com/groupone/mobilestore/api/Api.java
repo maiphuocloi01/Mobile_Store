@@ -1,5 +1,6 @@
 package com.groupone.mobilestore.api;
 
+import com.groupone.mobilestore.model.Favorite;
 import com.groupone.mobilestore.model.Post;
 import com.groupone.mobilestore.model.Product;
 import com.groupone.mobilestore.model.Shipment;
@@ -119,5 +120,22 @@ public interface Api {
     @Headers("Content-type: application/json")
     Call<List<Post>> getAllPost();
 
+
+    //Favorite
+    @GET("Api/AccountController/GetFavoriteProductByAccountId/{Id}")
+    @Headers("Content-type: application/json")
+    Call<List<Favorite>> getFavoriteProductByAccountId(@Path("Id") int id);
+
+    @POST("Api/AccountController/AddFavoriteProduct")
+    @Headers("Content-type: application/json")
+    Call<Integer> addFavorite(@Body Favorite favorite);
+
+    @DELETE("Api/AccountController/DeleteFavoriteProductById/{Id}")
+    @Headers("Content-type: application/json")
+    Call<Boolean> deleteFavoriteById(@Path("Id") int id);
+
+    @DELETE("Api/AccountController/DeleteFavoriteProductById/{AccountId}/{ProductId}")
+    @Headers("Content-type: application/json")
+    Call<Boolean> deleteFavoriteByAccountId(@Path("AccountId") int accountId, @Path("ProductId") int productId);
 
 }

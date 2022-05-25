@@ -17,6 +17,7 @@ import com.groupone.mobilestore.MyApplication;
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentProductBinding;
 import com.groupone.mobilestore.model.Comment;
+import com.groupone.mobilestore.model.Favorite;
 import com.groupone.mobilestore.model.Information;
 import com.groupone.mobilestore.model.Product;
 import com.groupone.mobilestore.model.ProductDetail;
@@ -42,7 +43,7 @@ import java.util.List;
 public class ProductFragment extends BaseFragment<FragmentProductBinding, ProductViewModel> {
 
     public static final String TAG = ProductFragment.class.getName();
-    public boolean isFavorite = true;
+    public boolean isFavorite = false;
     private SliderView sliderView;
     private SliderAdapter sliderAdapter;
     private Object mData;
@@ -52,6 +53,7 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
     private long currentPrice;
     private List<String> listColor = new ArrayList<>();
     private final User user = MyApplication.getInstance().getStorage().user;
+    private List<Favorite> favoriteList = MyApplication.getInstance().getStorage().listFavorite;
 
     @Override
     protected Class<ProductViewModel> getClassVM() {
@@ -60,6 +62,7 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
 
     @Override
     protected void initViews() {
+
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,7 +77,19 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
         binding.tvRating.setText(String.valueOf(product.getRate()));
         binding.ratingBar.setRating(product.getRate());
         binding.tvCountReview.setText(product.getComments().size() + " đánh giá");
+        Log.d(TAG, "favoriteList: " + favoriteList.size());
 
+        if(favoriteList != null){
+
+            for (Favorite item: favoriteList){
+                Log.d(TAG, "item: " + item.getProductId());
+                if (item.getProductId() == product.getId()){
+                    Log.d(TAG, "ivFavorite: ");
+                    binding.ivFavorite.setImageResource(R.drawable.ic_favorite);
+                    isFavorite = true;
+                }
+            }
+        }
 
         List<ProductVersion> versionList = product.getProductVersions();
         currentVersion = versionList.get(0).getVersionName();
@@ -181,17 +196,22 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
         });
 
 
+
         binding.ivFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (isFavorite) {
+                if (!isFavorite) {
                     binding.ivFavorite.setImageResource(R.drawable.ic_favorite);
-                    isFavorite = false;
+                    Favorite favorite = new Favorite(user.getId(), product.getId());
+                    viewModel.addFavorite(favorite);
+                    isFavorite = true;
                 } else {
                     binding.ivFavorite.setImageResource(R.drawable.ic_favorite_border);
-                    isFavorite = true;
+                    viewModel.deleteFavorite(user.getId(), product.getId());
+                    isFavorite = false;
                 }
+                viewModel.getFavoriteProduct(user.getId());
             }
         });
 
@@ -236,6 +256,27 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
             }
         } else if (key.equals(Constants.KEY_GET_SHOPPING_CART_BY_ACCOUNT)){
             MyApplication.getInstance().getStorage().listCart = (List<ShoppingCart>) data;
+        } else if (key.equals(Constants.KEY_ADD_FAVORITE)){
+            int response = (int) data;
+            Log.d(TAG, "like: " + response);
+            if(response == -1){
+                Toast.makeText(context, "Thích thất bại", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(context, "Thích thành công", Toast.LENGTH_SHORT).show();
+                isFavorite = true;
+            }
+        } else if (key.equals(Constants.KEY_DELETE_FAVORITE_BY_ACCOUNT)){
+            boolean response = (boolean) data;
+            Log.d(TAG, "like: " + response);
+            if(!response){
+                Toast.makeText(context, "Bỏ thích thất bại", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(context, "Bỏ thích thành công", Toast.LENGTH_SHORT).show();
+                isFavorite = false;
+            }
+        } else if (key.equals(Constants.KEY_GET_FAVORITE)) {
+            List<Favorite> favorites = (List<Favorite>) data;
+            MyApplication.getInstance().getStorage().listFavorite = favorites;
         }
     }
 

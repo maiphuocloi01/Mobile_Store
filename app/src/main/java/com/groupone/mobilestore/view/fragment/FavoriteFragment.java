@@ -9,41 +9,64 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.groupone.mobilestore.MyApplication;
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentFavoriteBinding;
+import com.groupone.mobilestore.model.Favorite;
 import com.groupone.mobilestore.model.Product;
+import com.groupone.mobilestore.model.User;
+import com.groupone.mobilestore.util.Constants;
 import com.groupone.mobilestore.view.adapter.ProductAdapter;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
+import com.groupone.mobilestore.viewmodel.FavoriteViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavoriteFragment extends BaseFragment<FragmentFavoriteBinding, CommonViewModel>{
+public class FavoriteFragment extends BaseFragment<FragmentFavoriteBinding, FavoriteViewModel>{
 
     public static final String TAG = FavoriteFragment.class.getName();
-
+    private User user = MyApplication.getInstance().getStorage().user;
+    private List<Favorite> favoriteList = MyApplication.getInstance().getStorage().listFavorite;
+    private List<Product> listProduct = new ArrayList<>();
+    private List<Product> products = MyApplication.getInstance().getStorage().listProduct;
     @Override
-    protected Class<CommonViewModel> getClassVM() {
-        return CommonViewModel.class;
+    protected Class<FavoriteViewModel> getClassVM() {
+        return FavoriteViewModel.class;
     }
 
     @Override
     protected void initViews() {
 
-        List<Product> listProduct = new ArrayList<>();
+        if (favoriteList == null) {
+            viewModel.getFavoriteProduct(user.getId());
+        } else {
+            for (Favorite item: favoriteList){
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                    Product findProduct = (Product) products.stream()
+                            .filter(product -> item.getProductId() == product.getId())
+                            .findAny()
+                            .orElse(null);
+                    if (findProduct != null){
+                        listProduct.add(findProduct);
+                    }
+                }
+//                for(Product findProduct: products){
+//                    if(findProduct.getId() == item.getProductId()){
+//                        listProduct.add(findProduct);
+//                        break;
+//                    }
+//                }
+            }
+        }
+        if(listProduct != null) {
+            binding.rvFavor.setLayoutManager(new LinearLayoutManager(context));
+            ProductAdapter adapter = new ProductAdapter(context, listProduct);
+            binding.rvFavor.setAdapter(adapter);
 
-//        listProduct.add(new Product(1, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
-//        listProduct.add(new Product(2, R.drawable.img_iphone13_2, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
-//        listProduct.add(new Product(3, R.drawable.img_iphone13_3, "iPhone 13 Pro Max Ultra Ultimate Super Plus", "128GB", 3.8, 34000000, 38));
-//        listProduct.add(new Product(4, R.drawable.img_iphone13_4, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
-//        listProduct.add(new Product(5, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
-//        listProduct.add(new Product(6, R.drawable.img_iphone13, "iPhone 13 Pro Max", "128GB", 3.8, 34000000, 38));
+            binding.tvCount.setText(listProduct.size() + " sản phẩm");
 
-        binding.rvFavor.setLayoutManager(new LinearLayoutManager(context));
-        ProductAdapter adapter = new ProductAdapter(context, listProduct);
-        binding.rvFavor.setAdapter(adapter);
-
-        binding.tvCount.setText(listProduct.size() + " sản phẩm");
+        }
 
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +84,11 @@ public class FavoriteFragment extends BaseFragment<FragmentFavoriteBinding, Comm
 
     @Override
     public void apiSuccess(String key, Object data) {
-
+        if (key.equals(Constants.KEY_GET_FAVORITE)) {
+            List<Favorite> favorites = (List<Favorite>) data;
+            favoriteList = favorites;
+            MyApplication.getInstance().getStorage().listFavorite = favorites;
+        }
     }
 
     @Override

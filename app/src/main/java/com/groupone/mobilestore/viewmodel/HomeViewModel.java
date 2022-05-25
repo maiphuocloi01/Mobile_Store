@@ -9,4 +9,6 @@ public class HomeViewModel extends BaseViewModel{
     public void getTopSaleProduct(){
         getApi().getTopSaleProduct().enqueue(initHandleResponse(Constants.KEY_GET_TOP_SALE_PRODUCT));
     }
+
+
 }

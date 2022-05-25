@@ -44,7 +44,6 @@ public class EditAddressFragment extends BaseFragment<FragmentEditAddressBinding
     private List<Ward> wards;
     private final User user = MyApplication.getInstance().getStorage().user;
 
-
     private static String getJsonFromAssets(Context context, String fileName) {
         String jsonString;
         try {

@@ -38,5 +38,10 @@ public interface Constants {
     //Post
     String KEY_ALL_POST = "KEY_ALL_POST";
 
+    //Favorite
+    String KEY_ADD_FAVORITE = "KEY_ADD_FAVORITE";
+    String KEY_DELETE_FAVORITE = "KEY_DELETE_FAVORITE";
+    String KEY_DELETE_FAVORITE_BY_ACCOUNT = "KEY_DELETE_FAVORITE_BY_ACCOUNT";
+    String KEY_GET_FAVORITE = "KEY_GET_FAVORITE";
 
 }

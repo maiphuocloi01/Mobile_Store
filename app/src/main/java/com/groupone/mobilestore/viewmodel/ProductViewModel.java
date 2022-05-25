@@ -1,5 +1,6 @@
 package com.groupone.mobilestore.viewmodel;
 
+import com.groupone.mobilestore.model.Favorite;
 import com.groupone.mobilestore.model.ShoppingCart;
 import com.groupone.mobilestore.util.Constants;
 
@@ -14,5 +15,17 @@ public class ProductViewModel extends BaseViewModel{
 
     public void getShoppingCartByAccountId(int id){
         getApi().getShoppingCartByAccountId(id).enqueue(initHandleResponse(Constants.KEY_GET_SHOPPING_CART_BY_ACCOUNT));
+    }
+
+    public void addFavorite(Favorite favorite){
+        getApi().addFavorite(favorite).enqueue(initHandleResponse(Constants.KEY_ADD_FAVORITE));
+    }
+
+    public void deleteFavorite(int accountId, int productId){
+        getApi().deleteFavoriteByAccountId(accountId, productId).enqueue(initHandleResponse(Constants.KEY_DELETE_FAVORITE_BY_ACCOUNT));
+    }
+
+    public void getFavoriteProduct(int id){
+        getApi().getFavoriteProductByAccountId(id).enqueue(initHandleResponse(Constants.KEY_GET_FAVORITE));
     }
 }

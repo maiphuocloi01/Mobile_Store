@@ -59,7 +59,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public int getItemCount() {
-        return listProduct.size();
+        if (listProduct != null) {
+            return listProduct.size();
+        }
+        return 0;
     }
 
     private void clickItemProduct(Product product) {

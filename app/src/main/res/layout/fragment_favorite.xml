@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_regular"
-            android:text="6 sản phẩm"
+            android:text="0 sản phẩm"
             android:id="@+id/tv_count"
             android:textColor="@color/black_500"
             android:textSize="20sp" />

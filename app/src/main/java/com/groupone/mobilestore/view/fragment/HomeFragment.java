@@ -14,9 +14,10 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.groupone.mobilestore.MyApplication;
-import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentHomeBinding;
+import com.groupone.mobilestore.model.Favorite;
 import com.groupone.mobilestore.model.Product;
+import com.groupone.mobilestore.model.User;
 import com.groupone.mobilestore.util.Constants;
 import com.groupone.mobilestore.view.adapter.ProductAdapter;
 import com.groupone.mobilestore.viewmodel.HomeViewModel;
@@ -30,6 +31,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     private PagerFragment parentFrag;
     private List<Product> listProduct = new ArrayList<>();
+    private User user = MyApplication.getInstance().getStorage().user;
 
     @Override
     protected Class<HomeViewModel> getClassVM() {
@@ -39,13 +41,12 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     @Override
     protected void initViews() {
 
-        //binding.scrollView.smoothScrollTo(0, 0);
+        binding.scrollView.smoothScrollTo(0, 0);
 
         binding.rvProduct.setLayoutManager(new GridLayoutManager(context, 2));
-        if(MyApplication.getInstance().getStorage().listProduct == null){
+        if (MyApplication.getInstance().getStorage().listProduct == null) {
             viewModel.getTopSaleProduct();
-        }
-        else{
+        } else {
             List<Product> productsStorage = MyApplication.getInstance().getStorage().listProduct;
             ProductAdapter adapter = new ProductAdapter(context, productsStorage);
             binding.rvProduct.setAdapter(adapter);
@@ -59,7 +60,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                 }
             });
         }
-
 
         binding.rowSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -203,7 +203,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     @Override
     public void apiSuccess(String key, Object data) {
-        if(key.equals(Constants.KEY_GET_TOP_SALE_PRODUCT)){
+        if (key.equals(Constants.KEY_GET_TOP_SALE_PRODUCT)) {
             //Log.d(TAG, "apiSuccess: " + data.toString());
             List<Product> products = (List<Product>) data;
             listProduct = products;
@@ -225,6 +225,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                 }
             });
 
+
 //            for (Product item: products){
 //                Log.d(TAG, "Prodcut: " + item.getName());
 //            }
@@ -233,11 +234,9 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     @Override
     public void apiError(String key, int code, Object data) {
-        if(key.equals(Constants.KEY_GET_TOP_SALE_PRODUCT)){
-            if(code == 999) {
-                Log.d(TAG, "apiError: "+ data.toString());
-                Toast.makeText(context, "Không thể kết nối đến máy chủ", Toast.LENGTH_SHORT).show();
-            }
+        if (code == 999) {
+            Log.d(TAG, "apiError: " + data.toString());
+            Toast.makeText(context, "Không thể kết nối đến máy chủ", Toast.LENGTH_SHORT).show();
         }
     }
 

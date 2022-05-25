@@ -2,7 +2,6 @@ package com.groupone.mobilestore.view.fragment;
 
 import static com.groupone.mobilestore.viewmodel.PagerViewModel.KEY_LOGIN_WITH_TOKEN;
 
-import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -16,14 +15,14 @@ import androidx.fragment.app.FragmentTransaction;
 import com.groupone.mobilestore.MyApplication;
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentPagerBinding;
+import com.groupone.mobilestore.model.Favorite;
 import com.groupone.mobilestore.model.User;
 import com.groupone.mobilestore.util.CommonUtils;
 import com.groupone.mobilestore.util.Constants;
 import com.groupone.mobilestore.util.DialogUtils;
 import com.groupone.mobilestore.viewmodel.PagerViewModel;
 
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
+import java.util.List;
 
 public class PagerFragment extends BaseFragment<FragmentPagerBinding, PagerViewModel> {
 
@@ -46,16 +45,20 @@ public class PagerFragment extends BaseFragment<FragmentPagerBinding, PagerViewM
 //            else {
 //                goToHome();
 //            }
-        }
-        if (key.equals(Constants.KEY_GET_BY_USERNAME)){
+        } else if (key.equals(Constants.KEY_GET_BY_USERNAME)) {
             MyApplication.getInstance().getStorage().user = (User) data;
+            viewModel.getFavoriteProduct(MyApplication.getInstance().getStorage().user.getId());
+
+        } else if (key.equals(Constants.KEY_GET_FAVORITE)) {
+            List<Favorite> favorites = (List<Favorite>) data;
+            MyApplication.getInstance().getStorage().listFavorite = favorites;
             DialogUtils.hideLoadingDialog();
         }
     }
 
     @Override
     public void apiError(String key, int code, Object data) {
-        if (code == 999){
+        if (code == 999) {
             Toast.makeText(context, "Không thể kết nối đến máy chủ", Toast.LENGTH_SHORT).show();
             callBack.showFragment(LoginFragment.TAG, null, false);
         }
@@ -73,7 +76,7 @@ public class PagerFragment extends BaseFragment<FragmentPagerBinding, PagerViewM
 
 //        MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter(this);
 //        binding.vpHome.setAdapter(myViewPagerAdapter);
-        if(MyApplication.getInstance().getStorage().user == null) {
+        if (MyApplication.getInstance().getStorage().user == null) {
             DialogUtils.showLoadDataDialog(context);
             viewModel.loginWithToken(CommonUtils.getInstance().getPref(Constants.ACCESS_TOKEN));
         }

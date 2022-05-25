@@ -26,4 +26,8 @@ public class PagerViewModel extends BaseViewModel{
         getApi().getUserByUserName(username).enqueue(initHandleResponse(Constants.KEY_GET_BY_USERNAME));
     }
 
+    public void getFavoriteProduct(int id){
+        getApi().getFavoriteProductByAccountId(id).enqueue(initHandleResponse(Constants.KEY_GET_FAVORITE));
+    }
+
 }
