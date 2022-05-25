@@ -71,7 +71,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
             }
         });
 
-
         binding.btApple.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

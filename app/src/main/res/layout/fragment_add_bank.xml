@@ -53,7 +53,22 @@
             android:textColor="@color/black_700"
             android:textSize="18sp" />
 
-        <com.google.android.material.textfield.TextInputLayout
+        <EditText
+            android:id="@+id/et_bank_type"
+            app:errorEnabled="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/text_input_selector"
+            android:drawableRight="@drawable/ic_arrow_down"
+            android:fontFamily="@font/roboto_regular"
+            android:hint="Chọn ngân hàng"
+            android:inputType="text"
+            android:padding="15dp"
+            android:textColorHint="@color/black_500"
+            android:textSize="18sp" />
+
+        <!--<com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -74,7 +89,7 @@
                 android:padding="15dp"
                 android:textColorHint="@color/black_500"
                 android:textSize="18sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>-->
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"

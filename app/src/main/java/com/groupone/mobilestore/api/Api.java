@@ -1,5 +1,6 @@
 package com.groupone.mobilestore.api;
 
+import com.groupone.mobilestore.model.Bank;
 import com.groupone.mobilestore.model.Favorite;
 import com.groupone.mobilestore.model.Post;
 import com.groupone.mobilestore.model.Product;
@@ -114,6 +115,10 @@ public interface Api {
     @Headers("Content-type: application/json")
     Call<Boolean> deleteShipmentById(@Path("Id") int id);
 
+    //Bank
+    @POST("Api/BankController/CreateBank")
+    @Headers("Content-type: application/json")
+    Call<Integer> addBank(@Body Bank bank);
 
     //Post
     @GET("Api/PostController/GetAllPost")

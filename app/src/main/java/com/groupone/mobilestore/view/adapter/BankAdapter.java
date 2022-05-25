@@ -51,6 +51,12 @@ public class BankAdapter extends RecyclerView.Adapter<BankAdapter.BankViewHolder
             holder.binding.ivLogo.setImageResource(R.drawable.ic_visa);
         } else if(item.getBrand().equals("Vietcombank")){
             holder.binding.ivLogo.setImageResource(R.drawable.ic_vietcombank);
+        } else if(item.getBrand().equals("BIDV")){
+            holder.binding.ivLogo.setImageResource(R.drawable.ic_bidv);
+        } else if(item.getBrand().equals("Techcombank")){
+            holder.binding.ivLogo.setImageResource(R.drawable.ic_techcombank);
+        } else if(item.getBrand().equals("Vietinbank")){
+            holder.binding.ivLogo.setImageResource(R.drawable.ic_viettinbank);
         }
 
     }

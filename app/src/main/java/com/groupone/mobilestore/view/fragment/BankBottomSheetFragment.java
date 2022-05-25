@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,22 +15,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.groupone.mobilestore.R;
-import com.groupone.mobilestore.databinding.LayoutBottomSheetCityBinding;
-import com.groupone.mobilestore.model.City;
-import com.groupone.mobilestore.model.District;
-import com.groupone.mobilestore.view.adapter.CityAdapter;
-import com.groupone.mobilestore.view.adapter.DistrictAdapter;
+import com.groupone.mobilestore.view.adapter.BankBrandAdapter;
 
 import java.util.List;
 
-public class CityBottomSheetFragment extends BottomSheetDialogFragment {
-
-    private List<City> cityList;
-    private CityAdapter.CityCallback callback;
+public class BankBottomSheetFragment extends BottomSheetDialogFragment {
 
 
-    public CityBottomSheetFragment(List<City> cityList, CityAdapter.CityCallback callback) {
-        this.cityList = cityList;
+    private List<String> listBank;
+    private BankBrandAdapter.BankCallback callback;
+
+    public BankBottomSheetFragment(List<String> listBank, BankBrandAdapter.BankCallback callback) {
+        this.listBank = listBank;
         this.callback = callback;
     }
 
@@ -41,13 +38,17 @@ public class CityBottomSheetFragment extends BottomSheetDialogFragment {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_bottom_sheet_city, null);
         bottomSheetDialog.setContentView(view);
 
+
         RecyclerView rvCity = view.findViewById(R.id.rv_city);
+        TextView tvTitle = view.findViewById(R.id.tv_title);
+
+        tvTitle.setText("Chọn ngân hàng");
         rvCity.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        CityAdapter adapter = new CityAdapter(getContext(), cityList, new CityAdapter.CityCallback() {
+        BankBrandAdapter adapter = new BankBrandAdapter(getContext(), listBank, new BankBrandAdapter.BankCallback() {
             @Override
-            public void chooseCity(int index, City city) {
-                callback.chooseCity(index, city);
+            public void chooseBank(int position, String name) {
+                callback.chooseBank(position, name);
                 dismiss();
             }
         });
