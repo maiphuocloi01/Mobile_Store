@@ -1,5 +1,6 @@
 package com.groupone.mobilestore;
 
+import com.groupone.mobilestore.model.Bank;
 import com.groupone.mobilestore.model.Favorite;
 import com.groupone.mobilestore.model.Product;
 import com.groupone.mobilestore.model.Shipment;
@@ -14,4 +15,5 @@ public class Storage {
     public List<Shipment> listShipment;
     public User user;
     public List<Favorite> listFavorite;
+    //public List<Bank> listBank;
 }

@@ -107,8 +107,8 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
         binding.tvTotalCost.setText(convertPrice(productCost + shipCost));
     }
 
-    private void removeSelected(List<ShoppingCart> carts){
-        for(ShoppingCart cart : carts){
+    private void removeSelected(List<ShoppingCart> carts) {
+        for (ShoppingCart cart : carts) {
             cart.setSelected(false);
         }
     }
@@ -158,12 +158,10 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
 
     @Override
     public void apiError(String key, int code, Object data) {
-
         if (code == 999) {
             Log.d(TAG, "apiError: " + data.toString());
             Toast.makeText(context, "Không thể kết nối đến máy chủ", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     @Override

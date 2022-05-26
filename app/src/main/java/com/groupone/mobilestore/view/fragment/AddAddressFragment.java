@@ -2,6 +2,7 @@ package com.groupone.mobilestore.view.fragment;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -279,6 +280,9 @@ public class AddAddressFragment extends BaseFragment<FragmentAddAddressBinding, 
 
     @Override
     public void apiError(String key, int code, Object data) {
-
+        if (code == 999) {
+            Log.d(TAG, "apiError: " + data.toString());
+            Toast.makeText(context, "Không thể kết nối đến máy chủ", Toast.LENGTH_SHORT).show();
+        }
     }
 }

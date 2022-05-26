@@ -120,6 +120,14 @@ public interface Api {
     @Headers("Content-type: application/json")
     Call<Integer> addBank(@Body Bank bank);
 
+    @GET("Api/BankController/GetAllBankByAccountId/{Id}")
+    @Headers("Content-type: application/json")
+    Call<List<Bank>> getBankByAccountId(@Path("Id") int id);
+
+    @DELETE("Api/BankController/DeleteBank/{Id}")
+    @Headers("Content-type: application/json")
+    Call<Boolean> deleteBankById(@Path("Id") int id);
+
     //Post
     @GET("Api/PostController/GetAllPost")
     @Headers("Content-type: application/json")

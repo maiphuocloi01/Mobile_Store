@@ -30,12 +30,12 @@ public class Bank implements Serializable {
         this.brand = brand;
     }
 
-    public Bank(int accountId, String name, String cardNumber, String brand) {
-        this.accountId = accountId;
-        this.name = name;
-        this.cardNumber = cardNumber;
-        this.brand = brand;
-    }
+//    public Bank(int accountId, String name, String cardNumber, String brand) {
+//        this.accountId = accountId;
+//        this.name = name;
+//        this.cardNumber = cardNumber;
+//        this.brand = brand;
+//    }
 
     public Bank(String name, String cardNumber, String expiredDate, int CVV, String brand, int accountId) {
         this.name = name;

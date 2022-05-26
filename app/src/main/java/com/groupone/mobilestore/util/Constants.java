@@ -44,4 +44,9 @@ public interface Constants {
     String KEY_DELETE_FAVORITE_BY_ACCOUNT = "KEY_DELETE_FAVORITE_BY_ACCOUNT";
     String KEY_GET_FAVORITE = "KEY_GET_FAVORITE";
 
+    //Bank
+    String KEY_ADD_BANK = "KEY_ADD_BANK";
+    String KEY_DELETE_BANK = "KEY_DELETE_BANK";
+    String KEY_GET_BANK = "KEY_GET_BANK";
+
 }

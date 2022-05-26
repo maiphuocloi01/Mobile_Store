@@ -203,7 +203,7 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
 
                 if (!isFavorite) {
                     binding.ivFavorite.setImageResource(R.drawable.ic_favorite);
-                    Favorite favorite = new Favorite(user.getId(), product.getId());
+                    Favorite favorite = new Favorite(product.getId(), user.getId());
                     viewModel.addFavorite(favorite);
                     isFavorite = true;
                 } else {
@@ -211,7 +211,6 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
                     viewModel.deleteFavorite(user.getId(), product.getId());
                     isFavorite = false;
                 }
-                viewModel.getFavoriteProduct(user.getId());
             }
         });
 
@@ -265,6 +264,7 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
                 Toast.makeText(context, "Thích thành công", Toast.LENGTH_SHORT).show();
                 isFavorite = true;
             }
+            viewModel.getFavoriteProduct(user.getId());
         } else if (key.equals(Constants.KEY_DELETE_FAVORITE_BY_ACCOUNT)){
             boolean response = (boolean) data;
             Log.d(TAG, "like: " + response);
@@ -274,6 +274,7 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
                 Toast.makeText(context, "Bỏ thích thành công", Toast.LENGTH_SHORT).show();
                 isFavorite = false;
             }
+            viewModel.getFavoriteProduct(user.getId());
         } else if (key.equals(Constants.KEY_GET_FAVORITE)) {
             List<Favorite> favorites = (List<Favorite>) data;
             MyApplication.getInstance().getStorage().listFavorite = favorites;
