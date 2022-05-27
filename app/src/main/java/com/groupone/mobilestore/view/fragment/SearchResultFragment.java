@@ -51,12 +51,20 @@ public class SearchResultFragment extends BaseFragment<FragmentSearchResultBindi
         if (newData != null) {
             //List<String> listFilter = (List<String>) mData;
             List<String> listFilter = new ArrayList<>();
+            List<String> listFilterBrand = new ArrayList<>();
             if (newData.getStringArrayList("filter") != null) {
                 listFilter = newData.getStringArrayList("filter");
             }
+            if (newData.getStringArrayList("filterBrand") != null) {
+                listFilterBrand = newData.getStringArrayList("filterBrand");
+                Log.d(TAG, "listFilterBrand: " + listFilterBrand.size());
+                filterProductByBrand(listFilterBrand);
+            }
             binding.etSearch.setText(newData.getString("search"));
             binding.rvFilter.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-            FilterAdapter adapter = new FilterAdapter(context, listFilter);
+            FilterAdapter adapter = new FilterAdapter(context);
+            adapter.renewItems(listFilter);
+            adapter.addItems(listFilterBrand);
             binding.rvFilter.setAdapter(adapter);
         }
 
@@ -117,38 +125,73 @@ public class SearchResultFragment extends BaseFragment<FragmentSearchResultBindi
         }
     }
 
-    private void searchProduct(String strSearch) {
+    private void filterProductByBrand(List<String> listFilterBrand){
         List<Product> productSearch = new ArrayList<>();
         if (listProduct != null) {
-            Log.d(TAG, "searchProduct: " + strSearch);
-            if (listProduct.size() > 0 && !strSearch.equals("")) {
-                for (Product item : listProduct) {
-                    if (StringConvert.removeDiacriticalMarks(item.getName()).toLowerCase().contains(strSearch.toLowerCase())) {
-                        productSearch.add(item);
+            if (listProduct.size() > 0 && listFilterBrand.size() > 0) {
+                for(String filter: listFilterBrand) {
+                    for (Product item : listProduct) {
+                        if (item.getBrand().equalsIgnoreCase(filter)) {
+                            productSearch.add(item);
+                        }
                     }
                 }
 
             }
         }
         if (productSearch.size() > 0) {
-            Log.d(TAG, "productSearch: " + productSearch.size());
+            Log.d(TAG, "productSearch by filter: " + productSearch.size());
             ViewUtils.show(binding.tvCountResult);
             ViewUtils.gone(binding.layoutEmptySearch);
             binding.tvCountResult.setText("Tìm thấy " + productSearch.size() + " kết quả");
             binding.rvProduct.setLayoutManager(new GridLayoutManager(context, 2));
-            ProductAdapter adapter = new ProductAdapter(context, productSearch);
-            binding.rvProduct.setAdapter(adapter);
-            adapter.getProductLD().observe(this, new Observer<Product>() {
-                @Override
-                public void onChanged(Product product) {
-                    callBack.showFragment(ProductFragment.TAG, product, true);
-                }
-            });
+            initProductView(productSearch);
         } else {
             ViewUtils.gone(binding.tvCountResult);
             ViewUtils.show(binding.layoutEmptySearch);
         }
 
+    }
+
+    private void searchProduct(String strSearch) {
+        if(!strSearch.equals("")) {
+            List<Product> productSearch = new ArrayList<>();
+            if (listProduct != null) {
+                Log.d(TAG, "searchProduct: " + strSearch);
+                if (listProduct.size() > 0 && !strSearch.equals("")) {
+                    for (Product item : listProduct) {
+                        if (StringConvert.removeDiacriticalMarks(item.getName()).toLowerCase().contains(strSearch.toLowerCase())) {
+                            productSearch.add(item);
+                        }
+                    }
+
+                }
+            }
+            if (productSearch.size() > 0) {
+                Log.d(TAG, "productSearch: " + productSearch.size());
+                ViewUtils.show(binding.tvCountResult);
+                ViewUtils.gone(binding.layoutEmptySearch);
+                binding.tvCountResult.setText("Tìm thấy " + productSearch.size() + " kết quả");
+                binding.rvProduct.setLayoutManager(new GridLayoutManager(context, 2));
+                initProductView(productSearch);
+            } else {
+                ViewUtils.gone(binding.tvCountResult);
+                ViewUtils.show(binding.layoutEmptySearch);
+            }
+        }
+
+    }
+
+    private void initProductView(List<Product> productSearch){
+        Log.d(TAG, "show adapter: ");
+        ProductAdapter adapter = new ProductAdapter(context, productSearch);
+        binding.rvProduct.setAdapter(adapter);
+        adapter.getProductLD().observe(this, new Observer<Product>() {
+            @Override
+            public void onChanged(Product product) {
+                callBack.showFragment(ProductFragment.TAG, product, true);
+            }
+        });
     }
 
     @Override

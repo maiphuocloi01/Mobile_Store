@@ -26,9 +26,30 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.FilterView
         return listFilterLD;
     }
 
-    public FilterAdapter(Context context, List<String> listFilter) {
+    public FilterAdapter(Context context) {
         this.context = context;
+    }
+
+    public void renewItems(List<String> listFilter) {
         this.listFilter = listFilter;
+        notifyDataSetChanged();
+    }
+
+    public void deleteItem(int position) {
+        this.listFilter.remove(position);
+        notifyDataSetChanged();
+    }
+
+    public void addItem(String listFilter) {
+        this.listFilter.add(listFilter);
+        notifyDataSetChanged();
+    }
+
+    public void addItems(List<String> listFilter) {
+        for (String item: listFilter) {
+            this.listFilter.add(item);
+        }
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -58,7 +79,10 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.FilterView
 
     @Override
     public int getItemCount() {
-        return listFilter.size();
+        if (listFilter != null) {
+            return listFilter.size();
+        }
+        return 0;
     }
 
     public class FilterViewHolder extends RecyclerView.ViewHolder {

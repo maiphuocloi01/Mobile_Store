@@ -77,7 +77,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                 ArrayList<String> listName = new ArrayList<>();
                 listName.add("Apple");
                 Bundle bundle = new Bundle();
-                bundle.putStringArrayList("filter", listName);
+                bundle.putStringArrayList("filterBrand", listName);
                 parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
                 if (parentFrag != null) {
                     parentFrag.setActionShowFragment(SearchResultFragment.TAG, bundle, true);
@@ -91,7 +91,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                 ArrayList<String> listName = new ArrayList<>();
                 listName.add("Samsung");
                 Bundle bundle = new Bundle();
-                bundle.putStringArrayList("filter", listName);
+                bundle.putStringArrayList("filterBrand", listName);
                 parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
                 if (parentFrag != null) {
                     parentFrag.setActionShowFragment(SearchResultFragment.TAG, bundle, true);
@@ -105,7 +105,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                 ArrayList<String> listName = new ArrayList<>();
                 listName.add("Xiaomi");
                 Bundle bundle = new Bundle();
-                bundle.putStringArrayList("filter", listName);
+                bundle.putStringArrayList("filterBrand", listName);
                 parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
                 if (parentFrag != null) {
                     parentFrag.setActionShowFragment(SearchResultFragment.TAG, bundle, true);
@@ -119,7 +119,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                 ArrayList<String> listName = new ArrayList<>();
                 listName.add("Oppo");
                 Bundle bundle = new Bundle();
-                bundle.putStringArrayList("filter", listName);
+                bundle.putStringArrayList("filterBrand", listName);
                 parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
                 if (parentFrag != null) {
                     parentFrag.setActionShowFragment(SearchResultFragment.TAG, bundle, true);
@@ -133,7 +133,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                 ArrayList<String> listName = new ArrayList<>();
                 listName.add("Nokia");
                 Bundle bundle = new Bundle();
-                bundle.putStringArrayList("filter", listName);
+                bundle.putStringArrayList("filterBrand", listName);
                 parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
                 if (parentFrag != null) {
                     parentFrag.setActionShowFragment(SearchResultFragment.TAG, bundle, true);
@@ -147,7 +147,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                 ArrayList<String> listName = new ArrayList<>();
                 listName.add("Asus");
                 Bundle bundle = new Bundle();
-                bundle.putStringArrayList("filter", listName);
+                bundle.putStringArrayList("filterBrand", listName);
                 parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
                 if (parentFrag != null) {
                     parentFrag.setActionShowFragment(SearchResultFragment.TAG, bundle, true);
@@ -161,7 +161,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                 ArrayList<String> listName = new ArrayList<>();
                 listName.add("Vivo");
                 Bundle bundle = new Bundle();
-                bundle.putStringArrayList("filter", listName);
+                bundle.putStringArrayList("filterBrand", listName);
                 parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
                 if (parentFrag != null) {
                     parentFrag.setActionShowFragment(SearchResultFragment.TAG, bundle, true);
@@ -175,7 +175,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                 ArrayList<String> listName = new ArrayList<>();
                 listName.add("Realme");
                 Bundle bundle = new Bundle();
-                bundle.putStringArrayList("filter", listName);
+                bundle.putStringArrayList("filterBrand", listName);
                 parentFrag = ((PagerFragment) HomeFragment.this.getParentFragment());
                 if (parentFrag != null) {
                     parentFrag.setActionShowFragment(SearchResultFragment.TAG, bundle, true);
