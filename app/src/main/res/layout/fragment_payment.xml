@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background"
     android:orientation="vertical">
 
@@ -46,7 +47,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TableRow
+            <!--<TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
@@ -133,7 +134,16 @@
 
                 </LinearLayout>
 
-            </TableRow>
+            </TableRow>-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                tools:itemCount="2"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/layout_item_payment"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -179,7 +189,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="10dp"
-                        android:src="@drawable/ic_edit"
+                        android:src="@drawable/ic_next"
                         app:tint="@color/blue_500" />
 
                 </TableRow>
@@ -278,7 +288,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto_bold"
-                        android:text="40,000₫"
+                        android:text="Miễn phí"
                         android:textAlignment="textEnd"
                         android:textColor="@color/blue_500"
                         android:textSize="16sp" />

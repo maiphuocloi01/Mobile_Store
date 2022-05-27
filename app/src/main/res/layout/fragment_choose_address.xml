@@ -31,7 +31,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="15dp"
             android:fontFamily="@font/roboto_bold"
-            android:text="Sản phẩm yêu thích"
+            android:text="Chọn địa chỉ giao hàng"
             android:textAlignment="center"
             android:textColor="@color/black_700"
             android:textSize="22sp" />
@@ -39,63 +39,47 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:visibility="visible"
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent">
 
-        <TextView
+        <TableRow
+            android:id="@+id/frame_add_address"
             android:layout_marginHorizontal="20dp"
-            android:layout_width="match_parent"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bg_white_corner_10"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_regular"
-            android:text="0 sản phẩm"
-            android:id="@+id/tv_count"
-            android:textAlignment="textEnd"
-            android:textColor="@color/black_500"
-            android:textSize="16sp" />
+            android:layout_width="match_parent">
+
+            <ImageView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_add_v2"
+                android:layout_marginVertical="10dp"
+                android:layout_marginStart="20dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/roboto_regular"
+                android:text="Thêm địa chỉ mới"
+                android:layout_marginStart="15dp"
+                android:textColor="@color/black_500"
+                android:textSize="16sp" />
+
+
+        </TableRow>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
             android:layout_marginTop="10dp"
-            android:id="@+id/rv_favor"
-            tools:listitem="@layout/layout_item_favorite"
-            android:layout_marginHorizontal="10dp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_marginBottom="56dp"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                app:srcCompat="@drawable/ic_empty_favorite" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/roboto_regular"
-                android:text="Chưa có sản phẩm"
-                android:textColor="@color/black_700"
-                android:textSize="20sp" />
-
-        </LinearLayout>
+            android:layout_marginBottom="20dp"
+            android:id="@+id/rvAddress"
+            tools:listitem="@layout/layout_item_address"
+            tools:itemCount="2"/>
 
 
     </LinearLayout>

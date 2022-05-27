@@ -70,13 +70,14 @@
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/fragment_bank.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/fragment_bill.xml" value="0.184375" />
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/fragment_cart.xml" value="0.22" />
+        <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/fragment_choose_shipment.xml" value="0.184375" />
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/fragment_completed.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/fragment_delivered.xml" value="0.22" />
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/fragment_delivering.xml" value="0.22" />
-        <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/fragment_edit_address.xml" value="0.15945945945945947" />
+        <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/fragment_edit_address.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/fragment_edit_profile.xml" value="0.22" />
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/fragment_evaluate.xml" value="0.13333333333333333" />
-        <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/fragment_favorite.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/fragment_favorite.xml" value="0.22" />
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/fragment_fill_info.xml" value="0.22" />
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/fragment_filter.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/fragment_forgot_password.xml" value="0.14666666666666667" />
@@ -86,7 +87,7 @@
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/fragment_order.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/fragment_order_detail.xml" value="0.22" />
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/fragment_pager.xml" value="0.1" />
-        <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/fragment_payment.xml" value="0.22" />
+        <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/fragment_payment.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/fragment_post.xml" value="0.15945945945945947" />
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/fragment_product.xml" value="0.1" />
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/fragment_profile.xml" value="0.12585034013605442" />
@@ -103,11 +104,13 @@
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/layout_item_bank.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/layout_item_cart.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/layout_item_city.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/layout_item_favorite.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/layout_item_filter.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/layout_item_image_slider.xml" value="0.15945945945945947" />
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/layout_item_info.xml" value="0.22" />
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/layout_item_news.xml" value="0.22" />
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/layout_item_order.xml" value="0.22" />
+        <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/layout_item_payment.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/layout_item_product.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/layout_item_recommend.xml" value="0.22" />
         <entry key="..\:/Users/maiph/Desktop/MobileStore/app/src/main/res/layout/layout_item_review.xml" value="0.16666666666666666" />

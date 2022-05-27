@@ -12,7 +12,7 @@ public class FavoriteViewModel extends BaseViewModel{
         getApi().getFavoriteProductByAccountId(id).enqueue(initHandleResponse(Constants.KEY_GET_FAVORITE));
     }
 
-    public void deleteFavorite(int id){
-        getApi().deleteFavoriteById(id).enqueue(initHandleResponse(Constants.KEY_DELETE_FAVORITE));
+    public void deleteFavorite(int accountId, int productId){
+        getApi().deleteFavoriteByAccountId(accountId, productId).enqueue(initHandleResponse(Constants.KEY_DELETE_FAVORITE));
     }
 }

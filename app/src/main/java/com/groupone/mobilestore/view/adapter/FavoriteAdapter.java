@@ -14,6 +14,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.groupone.mobilestore.databinding.LayoutItemFavoriteBinding;
 import com.groupone.mobilestore.databinding.LayoutItemProductBinding;
 import com.groupone.mobilestore.model.Product;
 
@@ -23,22 +25,23 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
 
     private final Context context;
     private final List<Product> listProduct;
+    private FavoriteCallBack callBack;
 
-    private MutableLiveData<Product> productLD = new MutableLiveData<>();
-
-    public LiveData<Product> getProductLD() {
-        return productLD;
+    public interface FavoriteCallBack{
+        void gotoProduct(Product product);
+        void deleteFavoriteProduct(int id);
     }
 
-    public FavoriteAdapter(Context context, List<Product> listProduct) {
+    public FavoriteAdapter(Context context, List<Product> listProduct, FavoriteCallBack callBack) {
         this.context = context;
         this.listProduct = listProduct;
+        this.callBack = callBack;
     }
 
     @NonNull
     @Override
     public FavoriteAdapter.FavoriteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutItemProductBinding itemProductBinding = LayoutItemProductBinding.inflate(LayoutInflater.from(context), parent, false);
+        LayoutItemFavoriteBinding itemProductBinding = LayoutItemFavoriteBinding.inflate(LayoutInflater.from(context), parent, false);
         return new FavoriteViewHolder(itemProductBinding);
     }
 
@@ -50,10 +53,22 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         holder.itemProductBinding.tvPrice.setText(convertPrice(product.getPrice()));
         holder.itemProductBinding.tvRate.setText(String.valueOf(product.getRate()));
         holder.itemProductBinding.tvCountReview.setText(convertParentheses(product.getCountReview()));
+        Glide.with(context).load(product.getImage1()).into(holder.itemProductBinding.ivProduct);
+        holder.itemProductBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callBack.gotoProduct(product);
+            }
+        });
 
-        //Glide.with(context).load(product.getImage()).into(holder.itemProductBinding.ivProduct);
-        //holder.itemProductBinding.ivProduct.setImageResource(product.getImage1());
-        holder.itemProductBinding.tvName.setTag(product);
+        holder.itemProductBinding.ivFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callBack.deleteFavoriteProduct(product.getId());
+                listProduct.remove(product);
+                notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -61,23 +76,14 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         return listProduct.size();
     }
 
-    private void clickItemProduct(Product product) {
-        productLD.postValue(product);
-    }
 
     public class FavoriteViewHolder extends RecyclerView.ViewHolder {
-        private LayoutItemProductBinding itemProductBinding;
+        private LayoutItemFavoriteBinding itemProductBinding;
 
-        public FavoriteViewHolder(LayoutItemProductBinding itemProductBinding) {
+        public FavoriteViewHolder(LayoutItemFavoriteBinding itemProductBinding) {
             super(itemProductBinding.getRoot());
             this.itemProductBinding = itemProductBinding;
-            itemProductBinding.viewProduct.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    itemProductBinding.viewProduct.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
-                    clickItemProduct((Product) itemProductBinding.tvName.getTag());
-                }
-            });
+
         }
     }
 

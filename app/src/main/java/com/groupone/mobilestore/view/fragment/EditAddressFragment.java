@@ -1,11 +1,19 @@
 package com.groupone.mobilestore.view.fragment;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,6 +22,7 @@ import androidx.annotation.Nullable;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.groupone.mobilestore.MyApplication;
+import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentEditAddressBinding;
 import com.groupone.mobilestore.model.City;
 import com.groupone.mobilestore.model.District;
@@ -43,6 +52,7 @@ public class EditAddressFragment extends BaseFragment<FragmentEditAddressBinding
     private List<District> districts;
     private List<Ward> wards;
     private final User user = MyApplication.getInstance().getStorage().user;
+    private Shipment shipment;
 
     private static String getJsonFromAssets(Context context, String fileName) {
         String jsonString;
@@ -68,10 +78,9 @@ public class EditAddressFragment extends BaseFragment<FragmentEditAddressBinding
     @Override
     protected void initViews() {
 
-        Shipment shipment = (Shipment) mData;
+        shipment = (Shipment) mData;
 
         List<String> listAddress = new ArrayList<String>(Arrays.asList(shipment.getAddress().split(",")));
-
 
 
         String jsonFileString = getJsonFromAssets(context, "address.json");
@@ -253,11 +262,55 @@ public class EditAddressFragment extends BaseFragment<FragmentEditAddressBinding
             }
         });
 
+        binding.ivDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showAlertDialog();
+            }
+        });
+
     }
 
     @Override
     protected FragmentEditAddressBinding initViewBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
         return FragmentEditAddressBinding.inflate(inflater, container, false);
+    }
+
+    private void showAlertDialog() {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.custom_alert_dialog);
+        Window window = dialog.getWindow();
+        if (window == null) {
+            return;
+        }
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        WindowManager.LayoutParams windowAttributes = window.getAttributes();
+        windowAttributes.gravity = Gravity.CENTER;
+        window.setAttributes(windowAttributes);
+
+        dialog.setCancelable(false);
+
+        TextView tvTitle = dialog.findViewById(R.id.tv_title);
+        TextView tvDescription = dialog.findViewById(R.id.tv_description);
+        Button btnCancel = dialog.findViewById(R.id.bt_cancel3);
+        Button btnConfirm = dialog.findViewById(R.id.bt_confirm3);
+
+        tvTitle.setText("Thông báo");
+        tvDescription.setText("Bạn có muốn xoá địa chỉ này không?");
+
+        btnCancel.setOnClickListener(view -> dialog.dismiss());
+
+        btnConfirm.setOnClickListener(view -> {
+            viewModel.deleteShipmentById(shipment.getId());
+            DialogUtils.showLoadingDialog(context);
+            dialog.dismiss();
+        });
+
+
+        dialog.show();
     }
 
     private void showWardPickerDialog(List<Ward> wards) {
@@ -309,7 +362,17 @@ public class EditAddressFragment extends BaseFragment<FragmentEditAddressBinding
                 Toast.makeText(context, "Sửa địa chỉ thành công", Toast.LENGTH_SHORT).show();
                 viewModel.getShipmentByAccountId(user.getId());
             }
-        } else if(key.equals(Constants.KEY_GET_SHIPMENT_BY_ACCOUNT)){
+        } else if(key.equals(Constants.KEY_DELETE_SHIPMENT)){
+            boolean response = (boolean) data;
+            if(!response){
+                Toast.makeText(context, "Xoá địa chỉ thất bại", Toast.LENGTH_SHORT).show();
+                DialogUtils.hideLoadingDialog();
+            } else {
+                Toast.makeText(context, "Xoá địa chỉ thành công", Toast.LENGTH_SHORT).show();
+                viewModel.getShipmentByAccountId(user.getId());
+            }
+        }
+        else if(key.equals(Constants.KEY_GET_SHIPMENT_BY_ACCOUNT)){
             MyApplication.getInstance().getStorage().listShipment = (List<Shipment>) data;
             DialogUtils.hideLoadingDialog();
             callBack.backToPrev();

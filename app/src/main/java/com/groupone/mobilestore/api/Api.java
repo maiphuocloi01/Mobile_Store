@@ -1,7 +1,9 @@
 package com.groupone.mobilestore.api;
 
 import com.groupone.mobilestore.model.Bank;
+import com.groupone.mobilestore.model.Comment;
 import com.groupone.mobilestore.model.Favorite;
+import com.groupone.mobilestore.model.Order;
 import com.groupone.mobilestore.model.Post;
 import com.groupone.mobilestore.model.Product;
 import com.groupone.mobilestore.model.Shipment;
@@ -127,6 +129,30 @@ public interface Api {
     @DELETE("Api/BankController/DeleteBank/{Id}")
     @Headers("Content-type: application/json")
     Call<Boolean> deleteBankById(@Path("Id") int id);
+
+    //Bill
+    @POST("Api/BillController/AddBill")
+    @Headers("Content-type: application/json")
+    Call<Integer> addOrder(@Body Order order);
+
+    @GET("Api/BillController/GetBillAccountId/{Id}")
+    @Headers("Content-type: application/json")
+    Call<List<Order>> getBillAccountId(@Path("Id") int id);
+
+    @GET("Api/BillController/ChangeBillStatus/{id}/{status}")
+    @Headers("Content-type: application/json")
+    Call<Boolean> changeBillStatus(@Path("id") int id, @Path("status") int status);
+
+
+    //Comment
+    @POST("Api/CommentController/AddComment")
+    @Headers("Content-type: application/json")
+    Call<Integer> addComment(@Body Comment comment);
+
+    @GET("Api/CommentController/GetCommentByProductId/{Id}")
+    @Headers("Content-type: application/json")
+    Call<List<Comment>> getCommentByProductId(@Path("Id") int id);
+
 
     //Post
     @GET("Api/PostController/GetAllPost")

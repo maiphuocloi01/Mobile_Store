@@ -7,8 +7,15 @@ import java.io.Serializable;
 public class Comment implements Serializable {
     @SerializedName("Id")
     private int id;
+    @SerializedName("ProductId")
+    private int productId;
+    @SerializedName("AccountId")
+    private int accountId;
+    @SerializedName("FullName")
     private String fullName;
+    @SerializedName("CreateAt")
     private String createAt;
+    @SerializedName("TypeProduct")
     private String type;
     @SerializedName("Content")
     private String content;

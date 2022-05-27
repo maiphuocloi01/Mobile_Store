@@ -1,16 +1,34 @@
 package com.groupone.mobilestore.model;
 
-public class Order {
+import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
+public class Order implements Serializable {
+
+    @SerializedName("Id")
     private int id;
+    @SerializedName("ProductId")
+    private int productId;
+    @SerializedName("ShipmentId")
+    private int shipmentId;
+    @SerializedName("AccountId")
+    private int accountId;
     private String productName;
     private int image;
+    @SerializedName("CreateAt")
     private String createAt;
+    @SerializedName("Quantity")
     private int quantity;
+    @SerializedName("Status")
     private int status; // = 0 đang giao, = 1 đã giao (chưa đánh giá), = 2 đã đánh giá (mua lại), = 3 đã huỷ (do người dùng huỷ)
+    @SerializedName("TotalPrice")
     private int totalPrice;
+    @SerializedName("ShipCost")
     private int shipCost;
+    @SerializedName("Reason")
     private String reason;
+    @SerializedName("TypeProduct")
     private String type; //Phân loại sản phẩm VD: 128GB, Xám
     private Shipment shipment;
 
