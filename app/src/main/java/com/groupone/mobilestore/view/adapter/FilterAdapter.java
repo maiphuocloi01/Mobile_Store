@@ -46,10 +46,16 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.FilterView
     }
 
     public void addItems(List<String> listFilter) {
-        for (String item: listFilter) {
-            this.listFilter.add(item);
+        if(listFilter.size() > 0) {
+            if(this.listFilter == null){
+                this.listFilter = listFilter;
+            } else {
+                for (String item : listFilter) {
+                    this.listFilter.add(item);
+                }
+            }
+            notifyDataSetChanged();
         }
-        notifyDataSetChanged();
     }
 
     @NonNull

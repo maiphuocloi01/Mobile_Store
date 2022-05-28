@@ -219,4 +219,5 @@ public class Product implements Serializable {
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
+
 }
