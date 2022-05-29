@@ -25,6 +25,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
 
     public interface AddressCallback{
         void gotoEditAddress(Shipment shipment);
+        void chooseAddress(Shipment shipment);
     }
 
     public AddressAdapter(Context context, List<Shipment> listAddress, AddressCallback callback) {
@@ -61,6 +62,12 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
             @Override
             public void onClick(View view) {
                 callback.gotoEditAddress(address);
+            }
+        });
+        holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callback.chooseAddress(address);
             }
         });
     }

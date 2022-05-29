@@ -35,6 +35,7 @@ public class SearchResultFragment extends BaseFragment<FragmentSearchResultBindi
     public static final String TAG = SearchResultFragment.class.getName();
     private Object mData;
     private List<Product> listProduct = MyApplication.getInstance().getStorage().listProduct;
+    private List<String> listFilter = new ArrayList<>();
 
     @Override
     protected Class<HomeViewModel> getClassVM() {
@@ -49,83 +50,58 @@ public class SearchResultFragment extends BaseFragment<FragmentSearchResultBindi
         }
         Bundle newData = (Bundle) mData;
         if (newData != null) {
-            List<String> listFilterBrand = new ArrayList<>();
-            List<String> listFilterPrice = new ArrayList<>();
-            List<String> listFilterCategory = new ArrayList<>();
-            List<String> listFilterRam = new ArrayList<>();
-            List<String> listFilterRom = new ArrayList<>();
-            List<String> listFilterScreen = new ArrayList<>();
+
             List<Product> productFilter = MyApplication.getInstance().getStorage().listProduct;
             Log.d(TAG, "init Product: " + productFilter.size() + " sản phẩm");
 
             if (newData.getStringArrayList("filterBrand") != null) {
-                if(newData.getStringArrayList("filterBrand").size() > 0) {
-                    listFilterBrand = newData.getStringArrayList("filterBrand");
-                    Log.d(TAG, "listFilterBrand: " + listFilterBrand.size());
-                    productFilter = filterProductByBrand(listFilterBrand, productFilter);
+                if (newData.getStringArrayList("filterBrand").size() > 0) {
+                    viewModel.listFilterBrand = newData.getStringArrayList("filterBrand");
+                    Log.d(TAG, "listFilterBrand: " + viewModel.listFilterBrand.size());
+                    productFilter = filterProductByBrand(viewModel.listFilterBrand, productFilter);
                 }
             }
             if (newData.getStringArrayList("filterPrice") != null) {
-                if(newData.getStringArrayList("filterPrice").size() > 0) {
-                    listFilterPrice = newData.getStringArrayList("filterPrice");
-                    Log.d(TAG, "listFilterPrice: " + listFilterPrice.size());
-                    productFilter = filterProductByPrice(listFilterPrice, productFilter);
+                if (newData.getStringArrayList("filterPrice").size() > 0) {
+                    viewModel.listFilterPrice = newData.getStringArrayList("filterPrice");
+                    Log.d(TAG, "listFilterPrice: " + viewModel.listFilterPrice.size());
+                    productFilter = filterProductByPrice(viewModel.listFilterPrice, productFilter);
                 }
             }
             if (newData.getStringArrayList("filterCategory") != null) {
-                if(newData.getStringArrayList("filterCategory").size() > 0) {
-                    listFilterCategory = newData.getStringArrayList("filterCategory");
-                    Log.d(TAG, "listFilterCategory: " + listFilterCategory.size());
-                    productFilter = filterProductByCategory(listFilterCategory, productFilter);
+                if (newData.getStringArrayList("filterCategory").size() > 0) {
+                    viewModel.listFilterCategory = newData.getStringArrayList("filterCategory");
+                    Log.d(TAG, "listFilterCategory: " + viewModel.listFilterCategory.size());
+                    productFilter = filterProductByCategory(viewModel.listFilterCategory, productFilter);
                 }
             }
             if (newData.getStringArrayList("filterRam") != null) {
-                if(newData.getStringArrayList("filterRam").size() > 0) {
-                    listFilterRam = newData.getStringArrayList("filterRam");
-                    productFilter = filterProductByRam(listFilterRam, productFilter);
+                if (newData.getStringArrayList("filterRam").size() > 0) {
+                    viewModel.listFilterRam = newData.getStringArrayList("filterRam");
+                    productFilter = filterProductByRam(viewModel.listFilterRam, productFilter);
                 }
             }
             if (newData.getStringArrayList("filterRom") != null) {
-                if(newData.getStringArrayList("filterRom").size() > 0) {
-                    listFilterRom = newData.getStringArrayList("filterRom");
-                    productFilter = filterProductByRom(listFilterRom, productFilter);
+                if (newData.getStringArrayList("filterRom").size() > 0) {
+                    viewModel.listFilterRom = newData.getStringArrayList("filterRom");
+                    productFilter = filterProductByRom(viewModel.listFilterRom, productFilter);
                 }
             }
             if (newData.getStringArrayList("filterScreen") != null) {
-                if(newData.getStringArrayList("filterScreen").size() > 0) {
-                    listFilterScreen = newData.getStringArrayList("filterScreen");
-                    productFilter = filterProductByScreen(listFilterScreen, productFilter);
+                if (newData.getStringArrayList("filterScreen").size() > 0) {
+                    viewModel.listFilterScreen = newData.getStringArrayList("filterScreen");
+                    productFilter = filterProductByScreen(viewModel.listFilterScreen, productFilter);
                 }
             }
             if (newData.getString("search") != null) {
                 binding.etSearch.setText(newData.getString("search"));
                 searchProduct(binding.etSearch.getText().toString().trim());
             } else {
+                initFilterView();
                 Log.d(TAG, "displayProduct: " + productFilter.size() + " sản phẩm");
                 displayProduct(productFilter);
             }
-            binding.rvFilter.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-            FilterAdapter adapter = new FilterAdapter(context);
-            //adapter.renewItems(listFilter);
-            if (listFilterBrand.size() > 0) {
-                adapter.addItems(listFilterBrand);
-            }
-            if (listFilterPrice.size() > 0) {
-                adapter.addItems(listFilterPrice);
-            }
-            if (listFilterCategory.size() > 0) {
-                adapter.addItems(listFilterCategory);
-            }
-            if (listFilterRam.size() > 0) {
-                adapter.addItems(listFilterRam);
-            }
-            if (listFilterRom.size() > 0) {
-                adapter.addItems(listFilterRom);
-            }
-            if (listFilterScreen.size() > 0) {
-                adapter.addItems(listFilterScreen);
-            }
-            binding.rvFilter.setAdapter(adapter);
+
 
         }
 
@@ -147,15 +123,108 @@ public class SearchResultFragment extends BaseFragment<FragmentSearchResultBindi
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    hideSoftInput(binding.etSearch);
-                    Log.d(TAG, "onEditorAction: " + listProduct.size());
-                    searchProduct(v.getText().toString().trim());
+                    if(!v.getText().toString().trim().equals("")) {
+                        hideSoftInput(binding.etSearch);
+                        Log.d(TAG, "onEditorAction: " + listProduct.size());
+                        searchProduct(v.getText().toString().trim());
+                    }
                     return true;
                 }
                 return false;
             }
         });
 
+
+    }
+
+    private void initFilterView() {
+        listFilter.clear();
+        binding.rvFilter.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        FilterAdapter adapter = new FilterAdapter(context);
+        if (viewModel.listFilterBrand.size() > 0) {
+            listFilter.addAll(viewModel.listFilterBrand);
+        }
+        if (viewModel.listFilterPrice.size() > 0) {
+            listFilter.addAll(viewModel.listFilterPrice);
+        }
+        if (viewModel.listFilterCategory.size() > 0) {
+            listFilter.addAll(viewModel.listFilterCategory);
+        }
+        if (viewModel.listFilterRam.size() > 0) {
+            listFilter.addAll(viewModel.listFilterRam);
+        }
+        if (viewModel.listFilterRom.size() > 0) {
+            listFilter.addAll(viewModel.listFilterRom);
+        }
+        if (viewModel.listFilterScreen.size() > 0) {
+            listFilter.addAll(viewModel.listFilterScreen);
+        }
+        adapter.renewItems(listFilter);
+        binding.rvFilter.setAdapter(adapter);
+        adapter.getListFilterLD().observe(this, new Observer<List<String>>() {
+            @Override
+            public void onChanged(List<String> filters) {
+                resetListFilter(filters);
+            }
+        });
+    }
+
+    private void resetListFilter(List<String> filters) {
+        viewModel.listFilterBrand.clear();
+        viewModel.listFilterPrice.clear();
+        viewModel.listFilterCategory.clear();
+        viewModel.listFilterRam.clear();
+        viewModel.listFilterRom.clear();
+        viewModel.listFilterScreen.clear();
+        if (filters.size() > 0) {
+            for (String item : filters) {
+                if (item.equals("Apple") || item.equals("Samsung") || item.equals("Xiaomi") ||
+                        item.equals("Oppo") || item.equals("Nokia") || item.equals("Asus") ||
+                        item.equals("Vivo") || item.equals("Realme")
+                ) {
+                    viewModel.listFilterBrand.add(item);
+                } else if (item.equals("Dưới 2 triệu") || item.equals("Từ 2 - 4 triệu") || item.equals("Từ 4 - 7 triệu") ||
+                        item.equals("Từ 7 - 13 triệu") || item.equals("Từ 13 - 20 triệu") || item.equals("Trên 20 triệu")
+                ) {
+                    viewModel.listFilterPrice.add(item);
+                } else if (item.equals("Điện thoại") || item.equals("Máy tính bảng")) {
+                    viewModel.listFilterCategory.add(item);
+                } else if (item.equals("2GB") || item.equals("3GB") || item.equals("4GB") ||
+                        item.equals("6GB") || item.equals("8GB") || item.equals("12GB")
+                ) {
+                    viewModel.listFilterRam.add(item);
+                } else if (item.equals("32GB") || item.equals("64GB") || item.equals("128GB") ||
+                        item.equals("256GB") || item.equals("512GB") || item.equals("1TB")
+                ) {
+                    viewModel.listFilterRom.add(item);
+                } else {
+                    viewModel.listFilterScreen.add(item);
+                }
+            }
+            List<Product> productFilter = MyApplication.getInstance().getStorage().listProduct;
+            if(viewModel.listFilterBrand.size() > 0) {
+                productFilter = filterProductByBrand(viewModel.listFilterBrand, productFilter);
+            }
+            if(viewModel.listFilterPrice.size() > 0) {
+                productFilter = filterProductByPrice(viewModel.listFilterPrice, productFilter);
+            }
+            if(viewModel.listFilterCategory.size() > 0) {
+                productFilter = filterProductByCategory(viewModel.listFilterCategory, productFilter);
+            }
+            if(viewModel.listFilterRam.size() > 0) {
+                productFilter = filterProductByRam(viewModel.listFilterRam, productFilter);
+            }
+            if(viewModel.listFilterRom.size() > 0) {
+                productFilter = filterProductByRom(viewModel.listFilterRom, productFilter);
+            }
+            if(viewModel.listFilterScreen.size() > 0) {
+                productFilter = filterProductByScreen(viewModel.listFilterScreen, productFilter);
+            }
+            displayProduct(productFilter);
+        } else {
+            ViewUtils.gone(binding.tvCountResult);
+            ViewUtils.show(binding.layoutEmptySearch);
+        }
 
     }
 

@@ -79,10 +79,12 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, CommonVi
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    hideSoftInput(binding.etSearch);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("search", binding.etSearch.getText().toString().trim());
-                    callBack.showFragment(SearchResultFragment.TAG, bundle, false);
+                    if(!v.getText().toString().trim().equals("")) {
+                        hideSoftInput(binding.etSearch);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("search", binding.etSearch.getText().toString().trim());
+                        callBack.showFragment(SearchResultFragment.TAG, bundle, false);
+                    }
                     return true;
                 }
                 return false;

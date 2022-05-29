@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,15 +47,24 @@ public class FilterFragment extends BaseFragment<FragmentFilterBinding, CommonVi
         binding.btConfirm3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                //bundle.putStringArrayList("filter", listFilter);
-                bundle.putStringArrayList("filterBrand", listFilterBrand);
-                bundle.putStringArrayList("filterPrice", listFilterPrice);
-                bundle.putStringArrayList("filterCategory", listFilterCategory);
-                bundle.putStringArrayList("filterRam", listFilterRam);
-                bundle.putStringArrayList("filterRom", listFilterRom);
-                bundle.putStringArrayList("filterScreen", listFilterScreen);
-                callBack.showFragment(SearchResultFragment.TAG, bundle, false);
+                if(listFilterBrand.size() > 0 || listFilterPrice.size() > 0
+                        || listFilterCategory.size() > 0
+                        || listFilterRam.size() > 0
+                        || listFilterRom.size() > 0
+                        || listFilterScreen.size() > 0
+                ) {
+                    Bundle bundle = new Bundle();
+                    //bundle.putStringArrayList("filter", listFilter);
+                    bundle.putStringArrayList("filterBrand", listFilterBrand);
+                    bundle.putStringArrayList("filterPrice", listFilterPrice);
+                    bundle.putStringArrayList("filterCategory", listFilterCategory);
+                    bundle.putStringArrayList("filterRam", listFilterRam);
+                    bundle.putStringArrayList("filterRom", listFilterRom);
+                    bundle.putStringArrayList("filterScreen", listFilterScreen);
+                    callBack.showFragment(SearchResultFragment.TAG, bundle, false);
+                } else {
+                    Toast.makeText(context, "Chưa có mục nào được chọn", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -275,6 +285,13 @@ public class FilterFragment extends BaseFragment<FragmentFilterBinding, CommonVi
             }
         });
 
+        binding.btCancel3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resetAllView();
+            }
+        });
+
     }
 
     /*private void addFilterList(View view){
@@ -289,6 +306,52 @@ public class FilterFragment extends BaseFragment<FragmentFilterBinding, CommonVi
         }
         Log.d(TAG, listFilter.toString());
     }*/
+
+    private void resetAllView(){
+        resetSelectView(binding.btApple);
+        resetSelectView(binding.btAsus);
+        resetSelectView(binding.btSamsung);
+        resetSelectView(binding.btXiaomi);
+        resetSelectView(binding.btOppo);
+        resetSelectView(binding.btNokia);
+        resetSelectView(binding.btVivo);
+        resetSelectView(binding.btRealme);
+        resetSelectView(binding.tvPrice1);
+        resetSelectView(binding.tvPrice2);
+        resetSelectView(binding.tvPrice3);
+        resetSelectView(binding.tvPrice4);
+        resetSelectView(binding.tvPrice5);
+        resetSelectView(binding.tvPrice6);
+        resetSelectView(binding.tvType1);
+        resetSelectView(binding.tvType2);
+        resetSelectView(binding.tvRam2);
+        resetSelectView(binding.tvRam3);
+        resetSelectView(binding.tvRam4);
+        resetSelectView(binding.tvRam6);
+        resetSelectView(binding.tvRam8);
+        resetSelectView(binding.tvRam12);
+        resetSelectView(binding.tvRom32);
+        resetSelectView(binding.tvRom64);
+        resetSelectView(binding.tvRom128);
+        resetSelectView(binding.tvRom256);
+        resetSelectView(binding.tvRom512);
+        resetSelectView(binding.tvRom1024);
+        resetSelectView(binding.tvScreen1);
+        resetSelectView(binding.tvScreen2);
+        listFilterBrand.clear();
+        listFilterPrice.clear();
+        listFilterCategory.clear();
+        listFilterRam.clear();
+        listFilterRom.clear();
+        listFilterScreen.clear();
+    }
+
+    private void resetSelectView(View view){
+        if(view.isSelected()){
+            view.setBackgroundResource(R.drawable.bg_white_corner_10);
+            view.setSelected(false);
+        }
+    }
 
     private void addFilterBrandList(View view){
         if(!view.isSelected()){

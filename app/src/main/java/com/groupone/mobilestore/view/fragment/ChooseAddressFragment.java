@@ -1,32 +1,29 @@
 package com.groupone.mobilestore.view.fragment;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.groupone.mobilestore.MyApplication;
-import com.groupone.mobilestore.databinding.FragmentAddressBinding;
+import com.groupone.mobilestore.databinding.FragmentChooseAddressBinding;
 import com.groupone.mobilestore.model.Shipment;
 import com.groupone.mobilestore.model.User;
 import com.groupone.mobilestore.util.Constants;
 import com.groupone.mobilestore.view.adapter.AddressAdapter;
-import com.groupone.mobilestore.view.adapter.ProductAdapter;
-import com.groupone.mobilestore.viewmodel.CommonViewModel;
 import com.groupone.mobilestore.viewmodel.ShipmentViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddressFragment extends BaseFragment<FragmentAddressBinding, ShipmentViewModel> implements AddressAdapter.AddressCallback {
+public class ChooseAddressFragment extends BaseFragment<FragmentChooseAddressBinding, ShipmentViewModel> implements AddressAdapter.AddressCallback {
 
-    public static final String TAG = AddressFragment.class.getName();
+    public static final String TAG = ChooseAddressFragment.class.getName();
     private AddressAdapter adapter;
 
     private List<Shipment> listAddress = new ArrayList<>();
@@ -39,7 +36,6 @@ public class AddressFragment extends BaseFragment<FragmentAddressBinding, Shipme
 
     @Override
     protected void initViews() {
-
         if(MyApplication.getInstance().getStorage().listShipment == null) {
             Log.d(TAG, "viewModel: ");
             viewModel.getShipmentByAccountId(user.getId());
@@ -48,26 +44,11 @@ public class AddressFragment extends BaseFragment<FragmentAddressBinding, Shipme
             listAddress = MyApplication.getInstance().getStorage().listShipment;
             initShipmentView();
         }
-
-
-
-        binding.frameAddAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                callBack.showFragment(AddAddressFragment.TAG, null, true);
-            }
-        });
-        binding.ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                callBack.backToPrev();
-            }
-        });
     }
 
     @Override
-    protected FragmentAddressBinding initViewBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
-        return FragmentAddressBinding.inflate(inflater, container, false);
+    protected FragmentChooseAddressBinding initViewBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
+        return FragmentChooseAddressBinding.inflate(inflater, container, false);
     }
 
     @Override
@@ -101,7 +82,9 @@ public class AddressFragment extends BaseFragment<FragmentAddressBinding, Shipme
 
     @Override
     public void chooseAddress(Shipment shipment) {
-
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("shipment", shipment);
+        callBack.showFragment(PaymentFragment.TAG, bundle, false);
     }
 
     @Override

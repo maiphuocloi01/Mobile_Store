@@ -3,6 +3,7 @@ package com.groupone.mobilestore.view.fragment;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +18,13 @@ import androidx.annotation.Nullable;
 
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentPaymentBinding;
+import com.groupone.mobilestore.model.Shipment;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
 public class PaymentFragment extends BaseFragment<FragmentPaymentBinding, CommonViewModel> {
 
     public static final String TAG = PaymentFragment.class.getName();
+    private Object mData;
 
     @Override
     protected Class<CommonViewModel> getClassVM() {
@@ -30,6 +33,29 @@ public class PaymentFragment extends BaseFragment<FragmentPaymentBinding, Common
 
     @Override
     protected void initViews() {
+
+        Bundle newData = (Bundle) mData;
+        if (newData != null) {
+            if (newData.getSerializable("shipment") != null) {
+                Shipment shipment = (Shipment) newData.getSerializable("shipment");
+                if (!shipment.isTypeAddress()) {
+                    binding.tvTypeAddress.setText("Nhà riêng");
+                } else {
+                    binding.tvTypeAddress.setText("Văn phòng");
+                }
+                binding.tvFullName.setText(shipment.getFullName());
+                binding.tvPhone.setText(shipment.getPhoneNumber());
+                binding.tvStreet.setText(String.format(shipment.getStreet() + ", " + shipment.getAddress()));
+            }
+        }
+
+        binding.ivChooseAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callBack.showFragment(ChooseAddressFragment.TAG, null, true);
+            }
+        });
+
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,5 +120,9 @@ public class PaymentFragment extends BaseFragment<FragmentPaymentBinding, Common
     @Override
     public void apiError(String key, int code, Object data) {
 
+    }
+    @Override
+    public void setData(Object data) {
+        this.mData = data;
     }
 }

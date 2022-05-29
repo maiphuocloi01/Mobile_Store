@@ -184,7 +184,7 @@
 
 
                     <ImageView
-                        android:id="@+id/iv_edit"
+                        android:id="@+id/iv_choose_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -235,7 +235,7 @@
                     android:layout_weight="1"
                     android:ellipsize="end"
                     android:fontFamily="@font/roboto_regular"
-                    android:maxLines="1"
+                    android:maxLines="2"
                     android:text="KTX Khu A, Khu Phố 6, Phường Linh Trung,Thành Phố Thủ Đức,TP Hồ Chí Minh"
                     android:textColor="@color/black_700"
                     android:textSize="16sp" />
@@ -319,8 +319,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="10dp"
-                        android:src="@drawable/ic_arrow_forward"
-                        app:tint="@color/orange_500" />
+                        android:src="@drawable/ic_next"
+                        app:tint="@color/blue_500" />
 
                 </TableRow>
 
@@ -381,7 +381,7 @@
                         android:ellipsize="end"
                         android:fontFamily="@font/roboto_regular"
                         android:maxLines="1"
-                        android:text="Nhấn chọn để thay đổi"
+                        android:text="Chọn phương thức thanh toán"
                         android:textColor="@color/black_700"
                         android:textSize="16sp" />
 
@@ -392,8 +392,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="10dp"
-                        android:src="@drawable/ic_arrow_forward"
-                        app:tint="@color/orange_500" />
+                        android:src="@drawable/ic_next"
+                        app:tint="@color/blue_500" />
 
                 </TableRow>
 

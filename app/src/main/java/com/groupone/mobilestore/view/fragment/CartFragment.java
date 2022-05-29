@@ -24,6 +24,7 @@ import com.groupone.mobilestore.util.Constants;
 import com.groupone.mobilestore.view.adapter.CartAdapter;
 import com.groupone.mobilestore.viewmodel.CartViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewModel> implements CartAdapter.CartCallBack {
@@ -32,6 +33,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
 
     private final User user = MyApplication.getInstance().getStorage().user;
     private List<ShoppingCart> cartList;
+    private List<ShoppingCart> chooseCart = new ArrayList<>();
 
     @Override
     protected Class<CartViewModel> getClassVM() {
@@ -41,6 +43,7 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     @Override
     protected void initViews() {
 
+        chooseCart.clear();
         binding.rvCart.setLayoutManager(new LinearLayoutManager(context));
         if (MyApplication.getInstance().getStorage().listCart == null) {
             Log.d(TAG, "initViews: " + user.getId());
@@ -56,6 +59,23 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
                 show(binding.layoutEmptyCart);
             }
         }
+
+        binding.btPayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                for (ShoppingCart item : carts) {
+//                    if (item.isSelected()) {
+//                        actionShowFragment(PaymentFragment.TAG, null, true);
+//                    }
+//                }
+                if (chooseCart.size() > 0){
+                    actionShowFragment(PaymentFragment.TAG, null, true);
+                } else {
+                    Log.d(TAG, "onClick: ");
+                    Toast.makeText(context, "Bạn chưa chọn sản phẩm nào", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
 
     }
@@ -81,26 +101,18 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     }
 
     private void showPayment(List<ShoppingCart> carts) {
+        chooseCart.clear();
         long productCost = 0L;
         long shipCost = 0L;
         for (ShoppingCart cart : carts) {
             if (cart.isSelected()) {
+                chooseCart.add(cart);
                 productCost += cart.getPrice() * cart.getQuantity();
             }
         }
         if (productCost > 0) {
             shipCost = 20000L;
         }
-        binding.btPayment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                for (ShoppingCart item : carts) {
-                    if (item.isSelected()) {
-                        actionShowFragment(PaymentFragment.TAG, null, true);
-                    }
-                }
-            }
-        });
         binding.tvTotalCount.setText(convertParentheses(carts.size()));
         binding.tvProductCost.setText(convertPrice(productCost));
         binding.tvShipCost.setText(convertPrice(shipCost));
