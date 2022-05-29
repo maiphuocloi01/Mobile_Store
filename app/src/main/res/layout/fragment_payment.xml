@@ -156,6 +156,7 @@
                 android:textSize="18sp" />
 
             <LinearLayout
+                android:id="@+id/layout_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
@@ -253,6 +254,7 @@
                 android:textSize="18sp" />
 
             <LinearLayout
+                android:id="@+id/layout_shipment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
@@ -337,6 +339,7 @@
                 android:textSize="18sp" />
 
             <LinearLayout
+                android:id="@+id/layout_payment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
@@ -434,7 +437,7 @@
                         android:text="0₫"
                         android:textAlignment="textEnd"
                         android:textColor="@color/blue_500"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
 
                 </TableRow>
@@ -459,10 +462,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto_bold"
-                        android:text="0₫"
+                        android:text="Miễn phí"
                         android:textAlignment="textEnd"
                         android:textColor="@color/blue_500"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
 
                 </TableRow>

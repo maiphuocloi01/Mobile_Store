@@ -15,5 +15,5 @@ public class Storage {
     public List<Shipment> listShipment;
     public User user;
     public List<Favorite> listFavorite;
-    //public List<Bank> listBank;
+    public Shipment shipment;
 }

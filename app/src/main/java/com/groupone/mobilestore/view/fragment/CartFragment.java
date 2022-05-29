@@ -5,6 +5,7 @@ import static com.groupone.mobilestore.util.NumberUtils.convertPrice;
 import static com.groupone.mobilestore.util.ViewUtils.gone;
 import static com.groupone.mobilestore.util.ViewUtils.show;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.groupone.mobilestore.util.Constants;
 import com.groupone.mobilestore.view.adapter.CartAdapter;
 import com.groupone.mobilestore.viewmodel.CartViewModel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,7 +71,11 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
 //                    }
 //                }
                 if (chooseCart.size() > 0){
-                    actionShowFragment(PaymentFragment.TAG, null, true);
+                    Bundle bundle = new Bundle();
+                    ListCart carts = new ListCart();
+                    carts.cartList = chooseCart;
+                    bundle.putSerializable("carts", carts);
+                    actionShowFragment(PaymentFragment.TAG, bundle, true);
                 } else {
                     Log.d(TAG, "onClick: ");
                     Toast.makeText(context, "Bạn chưa chọn sản phẩm nào", Toast.LENGTH_SHORT).show();
@@ -184,5 +190,9 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     @Override
     public void deleteItemCart(int id) {
         viewModel.deleteItemCartById(id);
+    }
+
+    public static class ListCart implements Serializable{
+        public List<ShoppingCart> cartList;
     }
 }

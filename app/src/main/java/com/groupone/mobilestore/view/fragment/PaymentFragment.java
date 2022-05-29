@@ -1,9 +1,12 @@
 package com.groupone.mobilestore.view.fragment;
 
+import static com.groupone.mobilestore.util.NumberUtils.convertPrice;
+
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,19 +19,30 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.groupone.mobilestore.MyApplication;
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentPaymentBinding;
 import com.groupone.mobilestore.model.Shipment;
+import com.groupone.mobilestore.model.ShoppingCart;
+import com.groupone.mobilestore.model.User;
+import com.groupone.mobilestore.util.Constants;
+import com.groupone.mobilestore.view.adapter.PaymentAdapter;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
+import com.groupone.mobilestore.viewmodel.PaymentViewModel;
+import com.groupone.mobilestore.viewmodel.ShipmentViewModel;
 
-public class PaymentFragment extends BaseFragment<FragmentPaymentBinding, CommonViewModel> {
+import java.util.ArrayList;
+import java.util.List;
+
+public class PaymentFragment extends BaseFragment<FragmentPaymentBinding, PaymentViewModel> implements PaymentAdapter.PaymentCallBack {
 
     public static final String TAG = PaymentFragment.class.getName();
     private Object mData;
+    private final User user = MyApplication.getInstance().getStorage().user;
 
     @Override
-    protected Class<CommonViewModel> getClassVM() {
-        return CommonViewModel.class;
+    protected Class<PaymentViewModel> getClassVM() {
+        return PaymentViewModel.class;
     }
 
     @Override
@@ -36,23 +50,61 @@ public class PaymentFragment extends BaseFragment<FragmentPaymentBinding, Common
 
         Bundle newData = (Bundle) mData;
         if (newData != null) {
-            if (newData.getSerializable("shipment") != null) {
-                Shipment shipment = (Shipment) newData.getSerializable("shipment");
-                if (!shipment.isTypeAddress()) {
-                    binding.tvTypeAddress.setText("Nhà riêng");
-                } else {
-                    binding.tvTypeAddress.setText("Văn phòng");
-                }
-                binding.tvFullName.setText(shipment.getFullName());
-                binding.tvPhone.setText(shipment.getPhoneNumber());
-                binding.tvStreet.setText(String.format(shipment.getStreet() + ", " + shipment.getAddress()));
+            if(newData.getSerializable("carts") != null){
+                Log.d(TAG, "getSerializable");
+                CartFragment.ListCart carts = (CartFragment.ListCart) newData.getSerializable("carts");
+                viewModel.cartList = carts.cartList;
             }
         }
 
-        binding.ivChooseAddress.setOnClickListener(new View.OnClickListener() {
+        if (MyApplication.getInstance().getStorage().shipment != null) {
+            Shipment shipment = MyApplication.getInstance().getStorage().shipment;
+            Log.d(TAG, "viewModel.shipment: ");
+            if (!shipment.isTypeAddress()) {
+                binding.tvTypeAddress.setText("Nhà riêng");
+            } else {
+                binding.tvTypeAddress.setText("Văn phòng");
+            }
+            binding.tvFullName.setText(shipment.getFullName());
+            binding.tvPhone.setText(shipment.getPhoneNumber());
+            binding.tvStreet.setText(String.format(shipment.getStreet() + ", " + shipment.getAddress()));
+        } else {
+            viewModel.getShipmentByAccountId(user.getId());
+        }
+
+        if(viewModel.cartList.size() > 0) {
+            Log.d(TAG, "carts: " + viewModel.cartList.size());
+            long productCost = 0L;
+            long shipCost = 0L;
+            long totalCost = 0L;
+            for (ShoppingCart item: viewModel.cartList) {
+                productCost += item.getQuantity()*item.getPrice();
+            }
+            totalCost = shipCost + productCost;
+            binding.tvProductCost.setText(convertPrice(productCost));
+            binding.tvTotalCost.setText(convertPrice(totalCost));
+            PaymentAdapter paymentAdapter = new PaymentAdapter(context, viewModel.cartList, this);
+            binding.rvProduct.setAdapter(paymentAdapter);
+        }
+
+        binding.layoutAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 callBack.showFragment(ChooseAddressFragment.TAG, null, true);
+            }
+        });
+
+        binding.layoutShipment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        binding.layoutPayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 
@@ -114,7 +166,19 @@ public class PaymentFragment extends BaseFragment<FragmentPaymentBinding, Common
 
     @Override
     public void apiSuccess(String key, Object data) {
-
+        if(key.equals(Constants.KEY_GET_SHIPMENT_BY_ACCOUNT)){
+            List<Shipment> listAddress = (List<Shipment>) data;
+            Log.d(TAG, "apiSuccess: " + listAddress.size());
+            Shipment shipment = listAddress.get(0);
+            if (!shipment.isTypeAddress()) {
+                binding.tvTypeAddress.setText("Nhà riêng");
+            } else {
+                binding.tvTypeAddress.setText("Văn phòng");
+            }
+            binding.tvFullName.setText(shipment.getFullName());
+            binding.tvPhone.setText(shipment.getPhoneNumber());
+            binding.tvStreet.setText(String.format(shipment.getStreet() + ", " + shipment.getAddress()));
+        }
     }
 
     @Override
@@ -124,5 +188,10 @@ public class PaymentFragment extends BaseFragment<FragmentPaymentBinding, Common
     @Override
     public void setData(Object data) {
         this.mData = data;
+    }
+
+    @Override
+    public void gotoProductDetail(int productId) {
+
     }
 }

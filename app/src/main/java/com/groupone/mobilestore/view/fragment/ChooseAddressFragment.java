@@ -82,9 +82,12 @@ public class ChooseAddressFragment extends BaseFragment<FragmentChooseAddressBin
 
     @Override
     public void chooseAddress(Shipment shipment) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("shipment", shipment);
-        callBack.showFragment(PaymentFragment.TAG, bundle, false);
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("shipment", shipment);
+//        callBack.showFragment(PaymentFragment.TAG, bundle, false);
+        MyApplication.getInstance().getStorage().shipment = shipment;
+        Log.d(TAG, "chooseAddress: " + shipment.getAddress());
+        callBack.backToPrev();
     }
 
     @Override
