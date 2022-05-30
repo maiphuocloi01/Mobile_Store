@@ -20,6 +20,7 @@ import java.util.List;
 public class ReviewFragment extends BaseFragment<FragmentReviewBinding, CommonViewModel>{
 
     public static final String TAG = ReviewFragment.class.getName();
+    private Object mData;
 
     @Override
     protected Class<CommonViewModel> getClassVM() {
@@ -29,23 +30,97 @@ public class ReviewFragment extends BaseFragment<FragmentReviewBinding, CommonVi
     @Override
     protected void initViews() {
 
-        List<Comment> listComment = new ArrayList<>();
-        listComment.add(new Comment(1, "Mai Phước Lợi", "01-01-2022 12:59", "Phân loại: 128GB, Xám", "Sản phẩm chất lượng tốt, giao hàng nhanh chóng, mình sẽ giới thiệu cho bạn bè, người thân.", 5));
-        listComment.add(new Comment(2, "Mai Phước Lợi", "01-01-2022 12:59", "Phân loại: 128GB, Xám", "Sản phẩm chất lượng tốt, giao hàng nhanh chóng, mình sẽ giới thiệu cho bạn bè, người thân.", 4));
-        listComment.add(new Comment(3, "Mai Phước Lợi", "01-01-2022 12:59", "Phân loại: 128GB, Xám", "Sản phẩm chất lượng tốt, giao hàng nhanh chóng, mình sẽ giới thiệu cho bạn bè, người thân.", 3));
-        listComment.add(new Comment(4, "Mai Phước Lợi", "01-01-2022 12:59", "Phân loại: 128GB, Xám", "Sản phẩm chất lượng tốt, giao hàng nhanh chóng, mình sẽ giới thiệu cho bạn bè, người thân.", 2));
 
-        binding.rvReview.setLayoutManager(new LinearLayoutManager(context));
-        CommentAdapter commentAdapter = new CommentAdapter(context, listComment);
-        binding.rvReview.setAdapter(commentAdapter);
 
+        List<Comment> listComment = (List<Comment>) mData;
+        initCommentView(listComment);
         binding.rbAll.setChecked(true);
+
+        binding.rbAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                initCommentView(listComment);
+            }
+        });
+
+        binding.rbFiveStar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<Comment> filterComment = new ArrayList<>();
+                for(Comment comment: listComment){
+                    if(comment.getRating() == 5){
+                        filterComment.add(comment);
+                    }
+                }
+                initCommentView(filterComment);
+            }
+        });
+
+        binding.rbFourStar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<Comment> filterComment = new ArrayList<>();
+                for(Comment comment: listComment){
+                    if(comment.getRating() == 4){
+                        filterComment.add(comment);
+                    }
+                }
+                initCommentView(filterComment);
+            }
+        });
+
+        binding.rbThreeStar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<Comment> filterComment = new ArrayList<>();
+                for(Comment comment: listComment){
+                    if(comment.getRating() == 3){
+                        filterComment.add(comment);
+                    }
+                }
+                initCommentView(filterComment);
+            }
+        });
+
+        binding.rbTwoStar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<Comment> filterComment = new ArrayList<>();
+                for(Comment comment: listComment){
+                    if(comment.getRating() == 2){
+                        filterComment.add(comment);
+                    }
+                }
+                initCommentView(filterComment);
+            }
+        });
+
+        binding.rbOneStar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<Comment> filterComment = new ArrayList<>();
+                for(Comment comment: listComment){
+                    if(comment.getRating() == 1){
+                        filterComment.add(comment);
+                    }
+                }
+                initCommentView(filterComment);
+            }
+        });
+
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 callBack.backToPrev();
             }
         });
+    }
+
+    private void initCommentView(List<Comment> commentList){
+        binding.rvReview.setLayoutManager(new LinearLayoutManager(context));
+        CommentAdapter commentAdapter = new CommentAdapter(context, commentList);
+        binding.rvReview.setAdapter(commentAdapter);
+
     }
 
     @Override
@@ -61,5 +136,10 @@ public class ReviewFragment extends BaseFragment<FragmentReviewBinding, CommonVi
     @Override
     public void apiError(String key, int code, Object data) {
 
+    }
+
+    @Override
+    public void setData(Object data) {
+        this.mData = data;
     }
 }

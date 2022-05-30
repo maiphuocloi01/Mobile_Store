@@ -15,7 +15,7 @@ public class Order implements Serializable {
     @SerializedName("AccountId")
     private int accountId;
     private String productName;
-    private int image;
+    private String image;
     @SerializedName("CreateAt")
     private String createAt;
     @SerializedName("Quantity")
@@ -32,7 +32,7 @@ public class Order implements Serializable {
     private String type; //Phân loại sản phẩm VD: 128GB, Xám
     private Shipment shipment;
 
-    public Order(int id, String productName, int image, String createAt, int quantity, int status, long totalPrice, int shipCost, String reason, String type, Shipment shipment) {
+    public Order(int id, String productName, String image, String createAt, int quantity, int status, long totalPrice, int shipCost, String reason, String type, Shipment shipment) {
         this.id = id;
         this.productName = productName;
         this.image = image;
@@ -105,11 +105,11 @@ public class Order implements Serializable {
         this.productName = productName;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

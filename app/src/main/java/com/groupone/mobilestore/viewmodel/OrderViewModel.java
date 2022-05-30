@@ -27,4 +27,8 @@ public class OrderViewModel extends BaseViewModel{
     public void getShoppingCartByAccountId(int id){
         getApi().getShoppingCartByAccountId(id).enqueue(initHandleResponse(Constants.KEY_GET_SHOPPING_CART_BY_ACCOUNT));
     }
+
+    public void getShipmentById(int id) {
+        getApi().getShipmentById(id).enqueue(initHandleResponse(Constants.KEY_GET_SHIPMENT_BY_ID));
+    }
 }

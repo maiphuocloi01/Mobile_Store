@@ -20,6 +20,13 @@ public interface Constants {
 
     //Constant Product
     String KEY_GET_TOP_SALE_PRODUCT = "KEY_GET_TOP_SALE_PRODUCT";
+    String KEY_GET_PRODUCT_VERSION = "KEY_GET_PRODUCT_VERSION";
+    String KEY_GET_PRODUCT_DETAIL = "KEY_GET_PRODUCT_DETAIL";
+
+
+    //Comment
+    String KEY_GET_COMMENT = "KEY_GET_COMMENT";
+    String KEY_ADD_COMMENT = "KEY_ADD_COMMENT";
 
 
     //Constant Cart

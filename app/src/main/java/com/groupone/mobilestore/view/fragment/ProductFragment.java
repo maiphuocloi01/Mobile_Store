@@ -90,8 +90,89 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
                 }
             }
         }
+        viewModel.getProductVersion(product.getId());
+        viewModel.getProductDetail(product.getId());
+        viewModel.getComment(product.getId());
 
-        List<ProductVersion> versionList = product.getProductVersions();
+
+
+        sliderView = binding.imageSlider;
+
+        sliderAdapter = new SliderAdapter(context);
+        sliderView.setSliderAdapter(sliderAdapter);
+        sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
+        sliderView.setScrollTimeInSec(3);
+        sliderView.setAutoCycle(true);
+        sliderView.startAutoCycle();
+
+        renewItems(binding.imageSlider);
+
+        sliderView.setOnIndicatorClickListener(new DrawController.ClickListener() {
+            @Override
+            public void onIndicatorClicked(int position) {
+                Log.i("GGG", "onIndicatorClicked: " + sliderView.getCurrentPagePosition());
+            }
+        });
+
+
+
+
+        binding.ivFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (!isFavorite) {
+                    binding.ivFavorite.setImageResource(R.drawable.ic_favorite);
+                    Favorite favorite = new Favorite(product.getId(), user.getId());
+                    viewModel.addFavorite(favorite);
+                    isFavorite = true;
+                } else {
+                    binding.ivFavorite.setImageResource(R.drawable.ic_favorite_border);
+                    viewModel.deleteFavorite(user.getId(), product.getId());
+                    isFavorite = false;
+                }
+            }
+        });
+
+        binding.btnAddCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Log.d(TAG, "onClick: " + product.getId());
+                ShoppingCart cart = new ShoppingCart(user.getId(), product.getId(), currentPrice,   currentVersion + ", " + currentColor);
+                viewModel.addShoppingCart(cart);
+                DialogUtils.showLoadingDialog(context);
+            }
+        });
+    }
+
+    public void renewItems(View view) {
+        List<String> sliderItemList = new ArrayList<>();
+        //dummy data
+        sliderItemList.add(product.getImage1());
+        sliderItemList.add(product.getImage2());
+        sliderItemList.add(product.getImage3());
+        sliderItemList.add(product.getImage4());
+
+        sliderAdapter.renewItems(sliderItemList);
+    }
+
+    private void initCommentView(List<Comment> commentList){
+        //List<Comment> listComment = new ArrayList<>();
+//        listComment.add(new Comment(1, "Mai Phước Lợi", "01-01-2022 12:59", "Phân loại: 128GB, Xám", "Sản phẩm chất lượng tốt, giao hàng nhanh chóng, mình sẽ giới thiệu cho bạn bè, người thân.", 5));
+//        listComment.add(new Comment(2, "Mai Phước Lợi", "01-01-2022 12:59", "Phân loại: 128GB, Xám", "Sản phẩm chất lượng tốt, giao hàng nhanh chóng, mình sẽ giới thiệu cho bạn bè, người thân.", 4));
+//        listComment.add(new Comment(3, "Mai Phước Lợi", "01-01-2022 12:59", "Phân loại: 128GB, Xám", "Sản phẩm chất lượng tốt, giao hàng nhanh chóng, mình sẽ giới thiệu cho bạn bè, người thân.", 3));
+        //listComment.add(new Comment(4, "Mai Phước Lợi", "01-01-2022 12:59", "Phân loại: 128GB, Xám", "Sản phẩm chất lượng tốt, giao hàng nhanh chóng, mình sẽ giới thiệu cho bạn bè, người thân.", 2));
+
+        binding.rvRating.setLayoutManager(new LinearLayoutManager(context));
+        CommentAdapter commentAdapter = new CommentAdapter(context, commentList);
+        binding.rvRating.setAdapter(commentAdapter);
+    }
+
+    private void initProductVersionView(List<ProductVersion> versionList){
+        //List<ProductVersion> versionList = product.getProductVersions();
         currentVersion = versionList.get(0).getVersionName();
         currentPrice = product.getPrice();
 
@@ -140,9 +221,12 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
                 currentColor = listColor.get(index);
             }
         });
+    }
+
+    private void initProductDetailView(ProductDetail detailList){
 
         List<Information> listInfo = new ArrayList<>();
-        ProductDetail detailList = product.getProductDetails().get(0);
+
         listInfo.add(new Information(1, "Màn hình", detailList.getScreen()));
         listInfo.add(new Information(2, "Hệ điều hành", detailList.getOs()));
         listInfo.add(new Information(3, "Camera sau", detailList.getBackCamera()));
@@ -157,84 +241,6 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
         binding.rvInfo.setLayoutManager(new LinearLayoutManager(context));
         InformationAdapter adapterInfo = new InformationAdapter(context, listInfo);
         binding.rvInfo.setAdapter(adapterInfo);
-
-
-        List<Comment> listComment = new ArrayList<>();
-        listComment.add(new Comment(1, "Mai Phước Lợi", "01-01-2022 12:59", "Phân loại: 128GB, Xám", "Sản phẩm chất lượng tốt, giao hàng nhanh chóng, mình sẽ giới thiệu cho bạn bè, người thân.", 5));
-        listComment.add(new Comment(2, "Mai Phước Lợi", "01-01-2022 12:59", "Phân loại: 128GB, Xám", "Sản phẩm chất lượng tốt, giao hàng nhanh chóng, mình sẽ giới thiệu cho bạn bè, người thân.", 4));
-        listComment.add(new Comment(3, "Mai Phước Lợi", "01-01-2022 12:59", "Phân loại: 128GB, Xám", "Sản phẩm chất lượng tốt, giao hàng nhanh chóng, mình sẽ giới thiệu cho bạn bè, người thân.", 3));
-        //listComment.add(new Comment(4, "Mai Phước Lợi", "01-01-2022 12:59", "Phân loại: 128GB, Xám", "Sản phẩm chất lượng tốt, giao hàng nhanh chóng, mình sẽ giới thiệu cho bạn bè, người thân.", 2));
-
-        binding.rvRating.setLayoutManager(new LinearLayoutManager(context));
-        CommentAdapter commentAdapter = new CommentAdapter(context, listComment);
-        binding.rvRating.setAdapter(commentAdapter);
-
-        sliderView = binding.imageSlider;
-
-        sliderAdapter = new SliderAdapter(context);
-        sliderView.setSliderAdapter(sliderAdapter);
-        sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
-        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
-        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
-        sliderView.setScrollTimeInSec(3);
-        sliderView.setAutoCycle(true);
-        sliderView.startAutoCycle();
-
-        renewItems(binding.imageSlider);
-
-        sliderView.setOnIndicatorClickListener(new DrawController.ClickListener() {
-            @Override
-            public void onIndicatorClicked(int position) {
-                Log.i("GGG", "onIndicatorClicked: " + sliderView.getCurrentPagePosition());
-            }
-        });
-        binding.tvExpanded.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                callBack.showFragment(ReviewFragment.TAG, null, true);
-            }
-        });
-
-
-
-        binding.ivFavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (!isFavorite) {
-                    binding.ivFavorite.setImageResource(R.drawable.ic_favorite);
-                    Favorite favorite = new Favorite(product.getId(), user.getId());
-                    viewModel.addFavorite(favorite);
-                    isFavorite = true;
-                } else {
-                    binding.ivFavorite.setImageResource(R.drawable.ic_favorite_border);
-                    viewModel.deleteFavorite(user.getId(), product.getId());
-                    isFavorite = false;
-                }
-            }
-        });
-
-        binding.btnAddCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Log.d(TAG, "onClick: " + product.getId());
-                ShoppingCart cart = new ShoppingCart(user.getId(), product.getId(), currentPrice,   currentVersion + ", " + currentColor);
-                viewModel.addShoppingCart(cart);
-                DialogUtils.showLoadingDialog(context);
-            }
-        });
-    }
-
-    public void renewItems(View view) {
-        List<String> sliderItemList = new ArrayList<>();
-        //dummy data
-        sliderItemList.add(product.getImage1());
-        sliderItemList.add(product.getImage2());
-        sliderItemList.add(product.getImage3());
-        sliderItemList.add(product.getImage4());
-
-        sliderAdapter.renewItems(sliderItemList);
     }
 
     @Override
@@ -278,6 +284,29 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
         } else if (key.equals(Constants.KEY_GET_FAVORITE)) {
             List<Favorite> favorites = (List<Favorite>) data;
             MyApplication.getInstance().getStorage().listFavorite = favorites;
+        } else if(key.equals(Constants.KEY_GET_PRODUCT_VERSION)){
+            List<ProductVersion> versionList = (List<ProductVersion>) data;
+            initProductVersionView(versionList);
+        } else if(key.equals(Constants.KEY_GET_PRODUCT_DETAIL)){
+            List<ProductDetail> versionList = (List<ProductDetail>) data;
+            initProductDetailView(versionList.get(0));
+        } else if(key.equals(Constants.KEY_GET_COMMENT)){
+            List<Comment> commentList = (List<Comment>) data;
+            List<Comment> topComments = new ArrayList<>();
+            if(commentList.size() > 3) {
+                topComments.add(commentList.get(0));
+                topComments.add(commentList.get(1));
+                topComments.add(commentList.get(2));
+            } else {
+                topComments.add(commentList.get(0));
+            }
+            initCommentView(topComments);
+            binding.tvExpanded.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    callBack.showFragment(ReviewFragment.TAG, commentList, true);
+                }
+            });
         }
     }
 

@@ -28,4 +28,16 @@ public class ProductViewModel extends BaseViewModel{
     public void getFavoriteProduct(int id){
         getApi().getFavoriteProductByAccountId(id).enqueue(initHandleResponse(Constants.KEY_GET_FAVORITE));
     }
+
+    public void getProductVersion(int id){
+        getApi().getProductVersionByProductId(id).enqueue(initHandleResponse(Constants.KEY_GET_PRODUCT_VERSION));
+    }
+
+    public void getProductDetail(int id){
+        getApi().getProductDetailByProductId(id).enqueue(initHandleResponse(Constants.KEY_GET_PRODUCT_DETAIL));
+    }
+
+    public void getComment(int id){
+        getApi().getCommentByProductId(id).enqueue(initHandleResponse(Constants.KEY_GET_COMMENT));
+    }
 }

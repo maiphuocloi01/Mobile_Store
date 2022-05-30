@@ -6,6 +6,8 @@ import com.groupone.mobilestore.model.Favorite;
 import com.groupone.mobilestore.model.Order;
 import com.groupone.mobilestore.model.Post;
 import com.groupone.mobilestore.model.Product;
+import com.groupone.mobilestore.model.ProductDetail;
+import com.groupone.mobilestore.model.ProductVersion;
 import com.groupone.mobilestore.model.Shipment;
 import com.groupone.mobilestore.model.ShoppingCart;
 import com.groupone.mobilestore.model.Token;
@@ -77,6 +79,14 @@ public interface Api {
     @GET("Api/ProductController/GetTopSaleProduct")
     @Headers("Content-type: application/json")
     Call<List<Product>> getTopSaleProduct();
+
+    @GET("Api/ProductController/GetProductDetailByProductId/{ID}")
+    @Headers("Content-type: application/json")
+    Call<List<ProductDetail>> getProductDetailByProductId(@Path("ID") int id);
+
+    @GET("Api/ProductController/GetProductVersionByProductId/{ID}")
+    @Headers("Content-type: application/json")
+    Call<List<ProductVersion>> getProductVersionByProductId(@Path("ID") int id);
 
 
     //Shopping Cart API
