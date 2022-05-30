@@ -33,7 +33,7 @@
             android:text="Thêm thẻ"
             android:textAlignment="center"
             android:textColor="@color/black_700"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
     </RelativeLayout>
 
@@ -69,6 +69,7 @@
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/roboto_regular"
                 android:hint="Số thẻ"
+                android:maxLength="19"
                 android:inputType="phone"
                 android:padding="15dp"
                 android:textColorHint="@color/black_500"
@@ -98,7 +99,8 @@
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/roboto_regular"
                     android:hint="Ngày hết hạn (MM/YY)"
-                    android:inputType="text"
+                    android:inputType="number"
+                    android:maxLength="5"
                     android:padding="15dp"
                     android:textColorHint="@color/black_500"
                     android:textSize="18sp" />
@@ -146,7 +148,7 @@
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/roboto_regular"
                 android:hint="Họ và tên chủ thẻ"
-                android:inputType="text"
+                android:inputType="textCapCharacters"
                 android:padding="15dp"
                 android:textColorHint="@color/black_500"
                 android:textSize="18sp" />

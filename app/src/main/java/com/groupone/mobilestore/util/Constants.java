@@ -49,4 +49,10 @@ public interface Constants {
     String KEY_DELETE_BANK = "KEY_DELETE_BANK";
     String KEY_GET_BANK = "KEY_GET_BANK";
 
+    //Bill
+    String KEY_ADD_BILL = "KEY_ADD_BILL";
+    String KEY_GET_BILL = "KEY_GET_BILL";
+    String KEY_UPDATE_BILL = "KEY_UPDATE_BILL";
+    String KEY_CHANGE_STATUS_BILL = "KEY_CHANGE_STATUS_BILL";
+
 }

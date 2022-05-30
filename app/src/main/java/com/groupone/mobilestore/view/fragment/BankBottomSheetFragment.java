@@ -23,9 +23,9 @@ public class BankBottomSheetFragment extends BottomSheetDialogFragment {
 
 
     private List<String> listBank;
-    private BankBrandAdapter.BankCallback callback;
+    private BankBrandAdapter.BankBrandCallback callback;
 
-    public BankBottomSheetFragment(List<String> listBank, BankBrandAdapter.BankCallback callback) {
+    public BankBottomSheetFragment(List<String> listBank, BankBrandAdapter.BankBrandCallback callback) {
         this.listBank = listBank;
         this.callback = callback;
     }
@@ -45,7 +45,7 @@ public class BankBottomSheetFragment extends BottomSheetDialogFragment {
         tvTitle.setText("Chọn ngân hàng");
         rvCity.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        BankBrandAdapter adapter = new BankBrandAdapter(getContext(), listBank, new BankBrandAdapter.BankCallback() {
+        BankBrandAdapter adapter = new BankBrandAdapter(getContext(), listBank, new BankBrandAdapter.BankBrandCallback() {
             @Override
             public void chooseBank(int position, String name) {
                 callback.chooseBank(position, name);

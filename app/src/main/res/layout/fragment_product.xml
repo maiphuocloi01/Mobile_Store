@@ -34,7 +34,7 @@
             android:text="Thông tin sản phẩm"
             android:textAlignment="center"
             android:textColor="@color/black_700"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
     </RelativeLayout>
 
@@ -88,7 +88,7 @@
                     android:maxLines="2"
                     android:text="iPhone 13 Pro Max Pro Plus Super Ultra Ultimate"
                     android:textColor="@color/black_700"
-                    android:textSize="22sp" />
+                    android:textSize="20sp" />
 
                 <TableRow
                     android:layout_width="match_parent"

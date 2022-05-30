@@ -2,6 +2,7 @@ package com.groupone.mobilestore.view.fragment;
 
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,8 @@ public class SignupFragment extends BaseFragment<FragmentSignupBinding, AccountV
 
                 if(TextUtils.isEmpty(binding.etEmail.getText())){
                     binding.etEmail.setError("Vui lòng nhập email");
+                } else if(!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.getText()).matches()){
+                    binding.etEmail.setError("Vui lòng nhập đúng định dạng email");
                 }
                 else if(TextUtils.isEmpty(binding.etUsername.getText())){
                     binding.etUsername.setError("Vui lòng nhập tên tài khoản");

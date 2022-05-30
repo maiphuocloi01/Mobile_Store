@@ -121,7 +121,7 @@ public class FavoriteFragment extends BaseFragment<FragmentFavoriteBinding, Favo
     @Override
     public void deleteFavoriteProduct(int id) {
         viewModel.deleteFavorite(user.getId(), id);
-        binding.tvCount.setText(String.format(listProduct.size() + " sản phẩm"));
+        binding.tvCount.setText(String.format(listProduct.size() - 1 + " sản phẩm"));
     }
 
 }

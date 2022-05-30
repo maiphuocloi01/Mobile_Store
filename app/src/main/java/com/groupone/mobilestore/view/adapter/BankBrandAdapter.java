@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.groupone.mobilestore.databinding.LayoutItemCityBinding;
-import com.groupone.mobilestore.model.City;
 
 import java.util.List;
 
@@ -18,13 +17,13 @@ public class BankBrandAdapter extends RecyclerView.Adapter<BankBrandAdapter.MyVi
     private Context context;
     private List<String> listName;
 
-    private BankCallback callback;
+    private BankBrandCallback callback;
 
-    public interface BankCallback {
+    public interface BankBrandCallback {
         void chooseBank(int position, String name);
     }
 
-    public BankBrandAdapter(Context context, List<String> listName, BankCallback callback) {
+    public BankBrandAdapter(Context context, List<String> listName, BankBrandCallback callback) {
         this.context = context;
         this.listName = listName;
         this.callback = callback;

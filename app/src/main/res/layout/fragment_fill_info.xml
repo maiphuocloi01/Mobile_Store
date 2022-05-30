@@ -20,7 +20,7 @@
             android:text="Thêm thông tin cá nhân"
             android:textAlignment="center"
             android:textColor="@color/black_700"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
     </LinearLayout>

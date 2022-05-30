@@ -24,7 +24,7 @@
             android:text="Giỏ hàng"
             android:textAlignment="center"
             android:textColor="@color/black_700"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
         <View
             android:id="@+id/view"

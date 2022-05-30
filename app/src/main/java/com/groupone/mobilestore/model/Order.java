@@ -23,7 +23,7 @@ public class Order implements Serializable {
     @SerializedName("Status")
     private int status; // = 0 đang giao, = 1 đã giao (chưa đánh giá), = 2 đã đánh giá (mua lại), = 3 đã huỷ (do người dùng huỷ)
     @SerializedName("TotalPrice")
-    private int totalPrice;
+    private long totalPrice;
     @SerializedName("ShipCost")
     private int shipCost;
     @SerializedName("Reason")
@@ -32,7 +32,7 @@ public class Order implements Serializable {
     private String type; //Phân loại sản phẩm VD: 128GB, Xám
     private Shipment shipment;
 
-    public Order(int id, String productName, int image, String createAt, int quantity, int status, int totalPrice, int shipCost, String reason, String type, Shipment shipment) {
+    public Order(int id, String productName, int image, String createAt, int quantity, int status, long totalPrice, int shipCost, String reason, String type, Shipment shipment) {
         this.id = id;
         this.productName = productName;
         this.image = image;
@@ -46,12 +46,23 @@ public class Order implements Serializable {
         this.shipment = shipment;
     }
 
-    public int getImage() {
-        return image;
+    public Order(int productId, int shipmentId, int accountId, String createAt, int quantity, int status, long totalPrice, int shipCost, String reason, String type) {
+        this.productId = productId;
+        this.shipmentId = shipmentId;
+        this.accountId = accountId;
+        this.createAt = createAt;
+        this.quantity = quantity;
+        this.status = status;
+        this.totalPrice = totalPrice;
+        this.shipCost = shipCost;
+        this.reason = reason;
+        this.type = type;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public Order(int id, int status, String reason) {
+        this.id = id;
+        this.status = status;
+        this.reason = reason;
     }
 
     public int getId() {
@@ -62,12 +73,44 @@ public class Order implements Serializable {
         this.id = id;
     }
 
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+
+    public int getShipmentId() {
+        return shipmentId;
+    }
+
+    public void setShipmentId(int shipmentId) {
+        this.shipmentId = shipmentId;
+    }
+
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
+
     public String getProductName() {
         return productName;
     }
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public int getImage() {
+        return image;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
     }
 
     public String getCreateAt() {
@@ -94,11 +137,11 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    public int getTotalPrice() {
+    public long getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(int totalPrice) {
+    public void setTotalPrice(long totalPrice) {
         this.totalPrice = totalPrice;
     }
 

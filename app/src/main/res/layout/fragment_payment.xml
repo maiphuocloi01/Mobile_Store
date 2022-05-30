@@ -34,7 +34,7 @@
             android:text="Thanh toán"
             android:textAlignment="center"
             android:textColor="@color/black_700"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
     </RelativeLayout>
 
@@ -153,7 +153,7 @@
                 android:maxLines="1"
                 android:text="Địa chỉ nhận hàng"
                 android:textColor="@color/black_700"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:id="@+id/layout_address"
@@ -251,7 +251,7 @@
                 android:maxLines="1"
                 android:text="Phương thức vận chuyển"
                 android:textColor="@color/black_700"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:id="@+id/layout_shipment"
@@ -336,7 +336,7 @@
                 android:maxLines="1"
                 android:text="Phương thức thanh toán"
                 android:textColor="@color/black_700"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:id="@+id/layout_payment"

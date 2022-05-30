@@ -135,6 +135,10 @@ public interface Api {
     @Headers("Content-type: application/json")
     Call<Integer> addOrder(@Body Order order);
 
+    @POST("Api/BillController/UpdateBill")
+    @Headers("Content-type: application/json")
+    Call<Boolean> updateOrder(@Body Order order);
+
     @GET("Api/BillController/GetBillAccountId/{Id}")
     @Headers("Content-type: application/json")
     Call<List<Order>> getBillAccountId(@Path("Id") int id);

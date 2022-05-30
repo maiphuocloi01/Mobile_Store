@@ -1,6 +1,7 @@
 package com.groupone.mobilestore.view.fragment;
 
 import static com.groupone.mobilestore.util.NumberUtils.convertPrice;
+import static com.groupone.mobilestore.util.NumberUtils.hideCardNumber;
 
 import android.app.Dialog;
 import android.graphics.Color;
@@ -22,6 +23,8 @@ import androidx.annotation.Nullable;
 import com.groupone.mobilestore.MyApplication;
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentPaymentBinding;
+import com.groupone.mobilestore.model.Bank;
+import com.groupone.mobilestore.model.Order;
 import com.groupone.mobilestore.model.Shipment;
 import com.groupone.mobilestore.model.ShoppingCart;
 import com.groupone.mobilestore.model.User;
@@ -31,7 +34,9 @@ import com.groupone.mobilestore.viewmodel.CommonViewModel;
 import com.groupone.mobilestore.viewmodel.PaymentViewModel;
 import com.groupone.mobilestore.viewmodel.ShipmentViewModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class PaymentFragment extends BaseFragment<FragmentPaymentBinding, PaymentViewModel> implements PaymentAdapter.PaymentCallBack {
@@ -48,14 +53,6 @@ public class PaymentFragment extends BaseFragment<FragmentPaymentBinding, Paymen
     @Override
     protected void initViews() {
 
-        Bundle newData = (Bundle) mData;
-        if (newData != null) {
-            if(newData.getSerializable("carts") != null){
-                Log.d(TAG, "getSerializable");
-                CartFragment.ListCart carts = (CartFragment.ListCart) newData.getSerializable("carts");
-                viewModel.cartList = carts.cartList;
-            }
-        }
 
         if (MyApplication.getInstance().getStorage().shipment != null) {
             Shipment shipment = MyApplication.getInstance().getStorage().shipment;
@@ -70,6 +67,26 @@ public class PaymentFragment extends BaseFragment<FragmentPaymentBinding, Paymen
             binding.tvStreet.setText(String.format(shipment.getStreet() + ", " + shipment.getAddress()));
         } else {
             viewModel.getShipmentByAccountId(user.getId());
+        }
+
+        Bundle newData = (Bundle) mData;
+        if (newData != null) {
+            if(newData.getSerializable("carts") != null){
+                Log.d(TAG, "getSerializable");
+                CartFragment.ListCart carts = (CartFragment.ListCart) newData.getSerializable("carts");
+                viewModel.cartList = carts.cartList;
+            }
+        }
+
+
+
+        if (MyApplication.getInstance().getStorage().bank != null) {
+            Bank bank = MyApplication.getInstance().getStorage().bank;
+            initChoosePayment(bank);
+        } else {
+            Bank bank = new Bank(0, "", "Chọn phương thức thanh toán", "", 0, "Thanh toán khi nhận hàng");
+            MyApplication.getInstance().getStorage().bank = bank;
+            initChoosePayment(bank);
         }
 
         if(viewModel.cartList.size() > 0) {
@@ -97,14 +114,14 @@ public class PaymentFragment extends BaseFragment<FragmentPaymentBinding, Paymen
         binding.layoutShipment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                callBack.showFragment(ChooseShipmentFragment.TAG, null, true);
             }
         });
 
         binding.layoutPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                callBack.showFragment(ChoosePaymentFragment.TAG, null, true);
             }
         });
 
@@ -121,6 +138,16 @@ public class PaymentFragment extends BaseFragment<FragmentPaymentBinding, Paymen
                 showAlertDialog();
             }
         });
+
+    }
+
+    private void initChoosePayment(Bank bank){
+        binding.tvPayName.setText(bank.getBrand());
+        if (bank.getId() == 0) {
+            binding.tvPayInfo.setText(bank.getCardNumber());
+        } else {
+            binding.tvPayInfo.setText(hideCardNumber(bank.getCardNumber()));
+        }
     }
 
     private void showAlertDialog() {
@@ -151,10 +178,33 @@ public class PaymentFragment extends BaseFragment<FragmentPaymentBinding, Paymen
         btnCancel.setOnClickListener(view -> dialog.dismiss());
 
         btnConfirm.setOnClickListener(view -> {
+            Shipment shipment = MyApplication.getInstance().getStorage().shipment;
+            Bank bank = MyApplication.getInstance().getStorage().bank;
+            String timeStamp = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
+            int bankId = 0;
+            if (bank.getId() != 0){
+                bankId = bank.getId();
+            }
+            for(ShoppingCart item: viewModel.cartList){
+                Order order = new Order(
+                        item.getProductId(),
+                        shipment.getId(),
+                        user.getId(),
+                        timeStamp,
+                        item.getQuantity(),
+                        0,
+                        item.getQuantity() * item.getPrice(),
+                        bankId,
+                        "",
+                        item.getTypeProduct()
+                        );
+                viewModel.addBill(order);
+                viewModel.deleteItemCartById(item.getId());
+            }
             callBack.showFragment(CompletedFragment.TAG, null, false);
+            MyApplication.getInstance().getStorage().listCart = null;
             dialog.dismiss();
         });
-
 
         dialog.show();
     }
@@ -170,6 +220,7 @@ public class PaymentFragment extends BaseFragment<FragmentPaymentBinding, Paymen
             List<Shipment> listAddress = (List<Shipment>) data;
             Log.d(TAG, "apiSuccess: " + listAddress.size());
             Shipment shipment = listAddress.get(0);
+            MyApplication.getInstance().getStorage().shipment = shipment;
             if (!shipment.isTypeAddress()) {
                 binding.tvTypeAddress.setText("Nhà riêng");
             } else {

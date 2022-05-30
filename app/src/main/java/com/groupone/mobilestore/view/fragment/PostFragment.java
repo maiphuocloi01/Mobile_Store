@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import com.groupone.mobilestore.databinding.FragmentPostBinding;
 import com.groupone.mobilestore.model.Post;
 import com.groupone.mobilestore.util.Constants;
+import com.groupone.mobilestore.util.DialogUtils;
 import com.groupone.mobilestore.view.adapter.CartAdapter;
 import com.groupone.mobilestore.view.adapter.PostAdapter;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
@@ -59,6 +60,13 @@ public class PostFragment extends BaseFragment<FragmentPostBinding, PostViewMode
             PostAdapter postAdapter = new PostAdapter(context, postList, this);
             binding.rvPost.setAdapter(postAdapter);
 
+        } else if(key.equals(Constants.KEY_ADD_SHIPMENT)){
+            int response = (int) data;
+            if(response == -1){
+                Log.d(TAG, "apiSuccess: thất bại" + response);
+            } else {
+                Log.d(TAG, "apiSuccess: thành công" + response);
+            }
         }
     }
 

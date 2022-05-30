@@ -13,15 +13,11 @@ import androidx.annotation.Nullable;
 import com.groupone.mobilestore.MyApplication;
 import com.groupone.mobilestore.databinding.FragmentAddBankBinding;
 import com.groupone.mobilestore.model.Bank;
-import com.groupone.mobilestore.model.Shipment;
 import com.groupone.mobilestore.model.User;
-import com.groupone.mobilestore.model.Ward;
 import com.groupone.mobilestore.util.Constants;
 import com.groupone.mobilestore.util.DialogUtils;
 import com.groupone.mobilestore.view.adapter.BankBrandAdapter;
-import com.groupone.mobilestore.view.adapter.WardAdapter;
 import com.groupone.mobilestore.viewmodel.BankViewModel;
-import com.groupone.mobilestore.viewmodel.CommonViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,7 +105,7 @@ public class AddBankFragment extends BaseFragment<FragmentAddBankBinding, BankVi
     }
 
     private void showBankPickerDialog(List<String> listBank) {
-        BankBottomSheetFragment bankBottomSheetFragment = new BankBottomSheetFragment(listBank, new BankBrandAdapter.BankCallback() {
+        BankBottomSheetFragment bankBottomSheetFragment = new BankBottomSheetFragment(listBank, new BankBrandAdapter.BankBrandCallback() {
             @Override
             public void chooseBank(int position, String name) {
                 binding.etBankType.setText(name);

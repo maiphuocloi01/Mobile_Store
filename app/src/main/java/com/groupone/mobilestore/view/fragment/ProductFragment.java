@@ -249,7 +249,7 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
             if(response == -1){
                 Toast.makeText(context, "Thêm vào giỏ hàng thất bại", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(context, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
                 DialogUtils.hideLoadingDialog();
                 viewModel.getShoppingCartByAccountId(user.getId());
             }

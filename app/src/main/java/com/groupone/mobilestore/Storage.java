@@ -2,6 +2,7 @@ package com.groupone.mobilestore;
 
 import com.groupone.mobilestore.model.Bank;
 import com.groupone.mobilestore.model.Favorite;
+import com.groupone.mobilestore.model.Order;
 import com.groupone.mobilestore.model.Product;
 import com.groupone.mobilestore.model.Shipment;
 import com.groupone.mobilestore.model.ShoppingCart;
@@ -16,4 +17,6 @@ public class Storage {
     public User user;
     public List<Favorite> listFavorite;
     public Shipment shipment;
+    public Bank bank;
+    public List<Order> listOrder;
 }

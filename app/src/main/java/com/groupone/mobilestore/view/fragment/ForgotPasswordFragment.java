@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +47,8 @@ public class ForgotPasswordFragment extends BaseFragment<FragmentForgotPasswordB
         binding.btSendOtp.setOnClickListener(view -> {
             if (TextUtils.isEmpty(binding.etEmail.getText())) {
                 binding.etEmail.setError("Vui lòng nhập email");
+            } else if(!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.getText()).matches()){
+                binding.etEmail.setError("Vui lòng nhập đúng định dạng email");
             } else {
                 viewModel.checkEmailExist(binding.etEmail.getText().toString());
                 DialogUtils.showLoadingDialog(context);
