@@ -90,6 +90,7 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Accoun
             @Override
             public void onClick(View view) {
                 binding.rowTerm.startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
+                actionShowFragment(TermFragment.TAG, null, true);
             }
         });
 

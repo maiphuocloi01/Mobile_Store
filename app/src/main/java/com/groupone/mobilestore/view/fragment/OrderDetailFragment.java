@@ -108,7 +108,7 @@ public class OrderDetailFragment extends BaseFragment<FragmentOrderDetailBinding
         //Status code 0
         binding.tvStatus.setText("Đơn hàng đang giao");
         binding.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.orange_500));
-        binding.tvShipName.setText("Đơn hàng đang được vận chuyển");
+        binding.tvShipName.setText("Đang vận chuyển");
         binding.tvShipInfo.setText("Dự kiến: " + order.getCreateAt());
         binding.tvShipName.setTextColor(ContextCompat.getColor(context, R.color.orange_500));
         binding.btDoAction.setText("Huỷ đơn");

@@ -109,6 +109,31 @@ public class MainActivity extends AppCompatActivity implements OnMainCallBack {
     }
 
     @Override
+    public void showFragmentWithAdd(String tag, Object data, boolean isBack) {
+        try {
+
+            if (isActive(this)) {
+                hideSoftInput(MainActivity.this);
+            }
+            Class<?> clazz = Class.forName(tag);
+            Constructor<?> cons = clazz.getConstructor();
+            BaseFragment<?, ?> frg = (BaseFragment<?, ?>) cons.newInstance();
+            frg.setData(data);
+            frg.setCallBack(this);
+            FragmentTransaction trans = getSupportFragmentManager()
+                    .beginTransaction();
+            if (isBack) {
+                trans.addToBackStack(null);
+            }
+            trans.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
+            trans.add(R.id.layout_main, frg, tag).commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void backToPrev() {
         if (isActive(this)) {
             hideSoftInput(MainActivity.this);

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.groupone.mobilestore.databinding.FragmentReviewBinding;
 import com.groupone.mobilestore.model.Comment;
+import com.groupone.mobilestore.util.ViewUtils;
 import com.groupone.mobilestore.view.adapter.CommentAdapter;
 import com.groupone.mobilestore.view.adapter.VersionAdapter;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
@@ -33,13 +34,28 @@ public class ReviewFragment extends BaseFragment<FragmentReviewBinding, CommonVi
 
 
         List<Comment> listComment = (List<Comment>) mData;
-        initCommentView(listComment);
         binding.rbAll.setChecked(true);
+        if(listComment.size() > 0) {
+            ViewUtils.show(binding.rvReview);
+            ViewUtils.gone(binding.layoutEmpty);
+            initCommentView(listComment);
+        } else {
+            ViewUtils.gone(binding.rvReview);
+            ViewUtils.show(binding.layoutEmpty);
+        }
 
         binding.rbAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                initCommentView(listComment);
+                if(listComment.size() > 0) {
+                    ViewUtils.show(binding.rvReview);
+                    ViewUtils.gone(binding.layoutEmpty);
+                    initCommentView(listComment);
+                } else {
+                    ViewUtils.gone(binding.rvReview);
+                    ViewUtils.show(binding.layoutEmpty);
+                }
+
             }
         });
 
@@ -52,7 +68,14 @@ public class ReviewFragment extends BaseFragment<FragmentReviewBinding, CommonVi
                         filterComment.add(comment);
                     }
                 }
-                initCommentView(filterComment);
+                if(filterComment.size() > 0) {
+                    ViewUtils.show(binding.rvReview);
+                    ViewUtils.gone(binding.layoutEmpty);
+                    initCommentView(filterComment);
+                } else {
+                    ViewUtils.gone(binding.rvReview);
+                    ViewUtils.show(binding.layoutEmpty);
+                }
             }
         });
 
@@ -65,7 +88,14 @@ public class ReviewFragment extends BaseFragment<FragmentReviewBinding, CommonVi
                         filterComment.add(comment);
                     }
                 }
-                initCommentView(filterComment);
+                if(filterComment.size() > 0) {
+                    ViewUtils.show(binding.rvReview);
+                    ViewUtils.gone(binding.layoutEmpty);
+                    initCommentView(filterComment);
+                } else {
+                    ViewUtils.gone(binding.rvReview);
+                    ViewUtils.show(binding.layoutEmpty);
+                }
             }
         });
 
@@ -78,7 +108,14 @@ public class ReviewFragment extends BaseFragment<FragmentReviewBinding, CommonVi
                         filterComment.add(comment);
                     }
                 }
-                initCommentView(filterComment);
+                if(filterComment.size() > 0) {
+                    ViewUtils.show(binding.rvReview);
+                    ViewUtils.gone(binding.layoutEmpty);
+                    initCommentView(filterComment);
+                } else {
+                    ViewUtils.gone(binding.rvReview);
+                    ViewUtils.show(binding.layoutEmpty);
+                }
             }
         });
 
@@ -91,7 +128,14 @@ public class ReviewFragment extends BaseFragment<FragmentReviewBinding, CommonVi
                         filterComment.add(comment);
                     }
                 }
-                initCommentView(filterComment);
+                if(filterComment.size() > 0) {
+                    ViewUtils.show(binding.rvReview);
+                    ViewUtils.gone(binding.layoutEmpty);
+                    initCommentView(filterComment);
+                } else {
+                    ViewUtils.gone(binding.rvReview);
+                    ViewUtils.show(binding.layoutEmpty);
+                }
             }
         });
 
@@ -104,7 +148,14 @@ public class ReviewFragment extends BaseFragment<FragmentReviewBinding, CommonVi
                         filterComment.add(comment);
                     }
                 }
-                initCommentView(filterComment);
+                if(filterComment.size() > 0) {
+                    ViewUtils.show(binding.rvReview);
+                    ViewUtils.gone(binding.layoutEmpty);
+                    initCommentView(filterComment);
+                } else {
+                    ViewUtils.gone(binding.rvReview);
+                    ViewUtils.show(binding.layoutEmpty);
+                }
             }
         });
 

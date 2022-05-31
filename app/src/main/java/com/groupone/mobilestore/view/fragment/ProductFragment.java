@@ -77,18 +77,29 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
         binding.tvRating.setText(String.valueOf(product.getRate()));
         binding.ratingBar.setRating(product.getRate());
         binding.tvCountReview.setText(product.getComments().size() + " đánh giá");
-        Log.d(TAG, "favoriteList: " + favoriteList.size());
+        //Log.d(TAG, "favoriteList: " + favoriteList.size());
+
+//        if(MyApplication.getInstance().getStorage().listFavorite == null) {
+//            viewModel.getFavoriteProduct(user.getId());
+//        } else {
+//            favoriteList = MyApplication.getInstance().getStorage().listFavorite;
+//        }
 
         if(favoriteList != null){
-
-            for (Favorite item: favoriteList){
-                Log.d(TAG, "item: " + item.getProductId());
-                if (item.getProductId() == product.getId()){
-                    Log.d(TAG, "ivFavorite: ");
-                    binding.ivFavorite.setImageResource(R.drawable.ic_favorite);
-                    isFavorite = true;
+            if(favoriteList.size() > 0) {
+                for (Favorite item : favoriteList) {
+                    Log.d(TAG, "item: " + item.getProductId());
+                    if (item.getProductId() == product.getId()) {
+                        Log.d(TAG, "ivFavorite: ");
+                        binding.ivFavorite.setImageResource(R.drawable.ic_favorite);
+                        isFavorite = true;
+                        break;
+                    }
                 }
             }
+        } else {
+            binding.ivFavorite.setImageResource(R.drawable.ic_favorite);
+            isFavorite = true;
         }
         viewModel.getProductVersion(product.getId());
         viewModel.getProductDetail(product.getId());
@@ -115,6 +126,8 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
                 Log.i("GGG", "onIndicatorClicked: " + sliderView.getCurrentPagePosition());
             }
         });
+
+
 
 
 
@@ -283,6 +296,7 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
             viewModel.getFavoriteProduct(user.getId());
         } else if (key.equals(Constants.KEY_GET_FAVORITE)) {
             List<Favorite> favorites = (List<Favorite>) data;
+            //favoriteList = favorites;
             MyApplication.getInstance().getStorage().listFavorite = favorites;
         } else if(key.equals(Constants.KEY_GET_PRODUCT_VERSION)){
             List<ProductVersion> versionList = (List<ProductVersion>) data;
@@ -293,7 +307,9 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
         } else if(key.equals(Constants.KEY_GET_COMMENT)){
             List<Comment> commentList = (List<Comment>) data;
             List<Comment> topComments = new ArrayList<>();
-            if(commentList.size() > 3) {
+            if(commentList.size() == 0){
+
+            } else if(commentList.size() > 3) {
                 topComments.add(commentList.get(0));
                 topComments.add(commentList.get(1));
                 topComments.add(commentList.get(2));
@@ -304,7 +320,7 @@ public class ProductFragment extends BaseFragment<FragmentProductBinding, Produc
             binding.tvExpanded.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    callBack.showFragment(ReviewFragment.TAG, commentList, true);
+                    callBack.showFragmentWithAdd(ReviewFragment.TAG, commentList, true);
                 }
             });
         }

@@ -39,6 +39,7 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/layout_favorite"
         android:visibility="visible"
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
@@ -67,6 +68,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layout_empty"
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -91,9 +93,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto_regular"
-                android:text="Chưa có sản phẩm"
+                android:text="Chưa có sản phẩm yêu thích"
                 android:textColor="@color/black_700"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
         </LinearLayout>
 

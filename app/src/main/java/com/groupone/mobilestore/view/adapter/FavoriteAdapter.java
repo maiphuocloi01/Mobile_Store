@@ -65,8 +65,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
             @Override
             public void onClick(View view) {
                 callBack.deleteFavoriteProduct(product.getId());
-                listProduct.remove(product);
-                notifyDataSetChanged();
+                //listProduct.remove(product);
+                //notifyDataSetChanged();
             }
         });
     }

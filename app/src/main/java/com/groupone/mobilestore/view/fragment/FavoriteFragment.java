@@ -4,7 +4,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +15,7 @@ import com.groupone.mobilestore.model.Favorite;
 import com.groupone.mobilestore.model.Product;
 import com.groupone.mobilestore.model.User;
 import com.groupone.mobilestore.util.Constants;
+import com.groupone.mobilestore.util.ViewUtils;
 import com.groupone.mobilestore.view.adapter.FavoriteAdapter;
 import com.groupone.mobilestore.viewmodel.FavoriteViewModel;
 
@@ -28,7 +28,7 @@ public class FavoriteFragment extends BaseFragment<FragmentFavoriteBinding, Favo
     private User user = MyApplication.getInstance().getStorage().user;
     private List<Favorite> favoriteList;
     private List<Product> products = MyApplication.getInstance().getStorage().listProduct;
-    private List<Product> listProduct;
+    private List<Product> listProductFavorite;
     private FavoriteAdapter adapter;
 
     @Override
@@ -39,12 +39,15 @@ public class FavoriteFragment extends BaseFragment<FragmentFavoriteBinding, Favo
     @Override
     protected void initViews() {
 
-        listProduct = new ArrayList<>();
+        listProductFavorite = new ArrayList<>();
         favoriteList = new ArrayList<>();
 
-        viewModel.getFavoriteProduct(user.getId());
-        displayFavoriteProduct();
-
+        if(MyApplication.getInstance().getStorage().listFavorite == null) {
+            viewModel.getFavoriteProduct(user.getId());
+        } else {
+            favoriteList = MyApplication.getInstance().getStorage().listFavorite;
+            displayFavoriteProduct(favoriteList);
+        }
 
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,34 +58,43 @@ public class FavoriteFragment extends BaseFragment<FragmentFavoriteBinding, Favo
 
     }
 
-    private void displayFavoriteProduct() {
-        for (Favorite item : favoriteList) {
+    private void displayFavoriteProduct(List<Favorite> favorites) {
+        for (Favorite item : favorites) {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                 Product findProduct = (Product) products.stream()
                         .filter(product -> item.getProductId() == product.getId())
                         .findAny()
                         .orElse(null);
                 if (findProduct != null) {
-                    listProduct.add(findProduct);
+                    listProductFavorite.add(findProduct);
                 }
             } else {
                 for (Product findProduct : products) {
                     if (findProduct.getId() == item.getProductId()) {
-                        listProduct.add(findProduct);
+                        listProductFavorite.add(findProduct);
                         break;
                     }
                 }
             }
         }
-        if (listProduct != null) {
+        initFavoriteView(listProductFavorite);
 
+    }
+
+    private void initFavoriteView(List<Product> products){
+        if (products.size() > 0) {
+
+            ViewUtils.gone(binding.layoutEmpty);
+            ViewUtils.show(binding.layoutFavorite);
             binding.rvFavor.setLayoutManager(new LinearLayoutManager(context));
-            adapter = new FavoriteAdapter(context, listProduct, this);
+            adapter = new FavoriteAdapter(context, products, this);
             binding.rvFavor.setAdapter(adapter);
-            binding.tvCount.setText(String.format(listProduct.size() + " sản phẩm"));
+            binding.tvCount.setText(String.format(listProductFavorite.size() + " sản phẩm"));
 
+        } else {
+            ViewUtils.show(binding.layoutEmpty);
+            ViewUtils.gone(binding.layoutFavorite);
         }
-
     }
 
     @Override
@@ -95,15 +107,16 @@ public class FavoriteFragment extends BaseFragment<FragmentFavoriteBinding, Favo
         if (key.equals(Constants.KEY_GET_FAVORITE)) {
             List<Favorite> favorites = (List<Favorite>) data;
             favoriteList = favorites;
-            //MyApplication.getInstance().getStorage().listFavorite = favorites;
-            displayFavoriteProduct();
+            MyApplication.getInstance().getStorage().listFavorite = favorites;
+            displayFavoriteProduct(favoriteList);
         } else if (key.equals(Constants.KEY_DELETE_FAVORITE)) {
             boolean response = (boolean) data;
             Log.d(TAG, "unlike: " + response);
             if (!response) {
-                Toast.makeText(context, "Bỏ thích thất bại", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "Bỏ thích thất bại", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(context, "Bỏ thích thành công", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "Bỏ thích thành công", Toast.LENGTH_SHORT).show();
+                MyApplication.getInstance().getStorage().listFavorite = null;
             }
         }
     }
@@ -121,7 +134,14 @@ public class FavoriteFragment extends BaseFragment<FragmentFavoriteBinding, Favo
     @Override
     public void deleteFavoriteProduct(int id) {
         viewModel.deleteFavorite(user.getId(), id);
-        binding.tvCount.setText(String.format(listProduct.size() - 1 + " sản phẩm"));
+        for (Product findProduct : listProductFavorite) {
+            if (findProduct.getId() == id) {
+                listProductFavorite.remove(findProduct);
+                break;
+            }
+        }
+        initFavoriteView(listProductFavorite);
+        //binding.tvCount.setText(String.format(listProduct.size() - 1 + " sản phẩm"));
     }
 
 }

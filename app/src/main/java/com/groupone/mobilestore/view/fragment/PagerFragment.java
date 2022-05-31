@@ -146,6 +146,14 @@ public class PagerFragment extends BaseFragment<FragmentPagerBinding, PagerViewM
         transaction.commit();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(MyApplication.getInstance().getStorage().listFavorite == null && MyApplication.getInstance().getStorage().user != null) {
+            Log.d(TAG, "onResume: ");
+            viewModel.getFavoriteProduct(MyApplication.getInstance().getStorage().user.getId());
+        }
+    }
 
     public void setActionShowFragment(String tag, Object data, boolean isBack) {
         callBack.showFragment(tag, data, isBack);
