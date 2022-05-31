@@ -167,7 +167,7 @@ public class ForgotPasswordFragment extends BaseFragment<FragmentForgotPasswordB
         if (key.equals(Constants.KEY_SEND_OTP)) {
             otp = (String) data;
             Log.d(TAG, otp);
-            Toast.makeText(context, otp, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, otp, Toast.LENGTH_SHORT).show();
         }
     }
 

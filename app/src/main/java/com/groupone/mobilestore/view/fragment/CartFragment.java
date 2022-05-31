@@ -95,8 +95,8 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
             public void onChanged(List<ShoppingCart> carts) {
                 if (carts.isEmpty()) {
                     binding.tvTotalCount.setText(convertParentheses(0));
-                    binding.tvProductCost.setText(convertPrice(0));
-                    binding.tvShipCost.setText(convertPrice(0));
+                    //binding.tvProductCost.setText(convertPrice(0));
+                    //binding.tvShipCost.setText(convertPrice(0));
                     binding.tvTotalCost.setText(convertPrice(0));
                     gone(binding.layoutCart);
                     show(binding.layoutEmptyCart);
@@ -109,20 +109,20 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     private void showPayment(List<ShoppingCart> carts) {
         chooseCart.clear();
         long productCost = 0L;
-        long shipCost = 0L;
+        //long shipCost = 0L;
         for (ShoppingCart cart : carts) {
             if (cart.isSelected()) {
                 chooseCart.add(cart);
                 productCost += cart.getPrice() * cart.getQuantity();
             }
         }
-        if (productCost > 0) {
-            shipCost = 20000L;
-        }
+//        if (productCost > 0) {
+//            shipCost = 20000L;
+//        }
         binding.tvTotalCount.setText(convertParentheses(carts.size()));
-        binding.tvProductCost.setText(convertPrice(productCost));
-        binding.tvShipCost.setText(convertPrice(shipCost));
-        binding.tvTotalCost.setText(convertPrice(productCost + shipCost));
+        //binding.tvProductCost.setText(convertPrice(productCost));
+        //binding.tvShipCost.setText(convertPrice(shipCost));
+        binding.tvTotalCost.setText(convertPrice(productCost));
     }
 
     private void removeSelected(List<ShoppingCart> carts) {

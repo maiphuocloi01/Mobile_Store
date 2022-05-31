@@ -110,7 +110,7 @@
                         android:maxLines="1"
                         android:text="Trả tiền mặt cho nhân viên giao hàng"
                         android:textColor="@color/black_700"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
 
                     <ImageView
                         android:id="@+id/iv_choose_shipment"

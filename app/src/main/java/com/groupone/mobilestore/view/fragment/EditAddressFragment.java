@@ -381,7 +381,11 @@ public class EditAddressFragment extends BaseFragment<FragmentEditAddressBinding
 
     @Override
     public void apiError(String key, int code, Object data) {
-
+        DialogUtils.hideLoadingDialog();
+        if (code == 999) {
+            Log.d(TAG, "apiError: " + data.toString());
+            Toast.makeText(context, "Không thể kết nối đến máy chủ", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

@@ -75,6 +75,14 @@ public class ChangePasswordFragment extends BaseFragment<FragmentChangePasswordB
                 Toast.makeText(context, "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
                 CommonUtils.getInstance().clearPref(Constants.ACCESS_TOKEN);
                 CommonUtils.getInstance().clearPref(Constants.USERNAME);
+                MyApplication.getInstance().getStorage().user = null;
+                MyApplication.getInstance().getStorage().listProduct = null;
+                MyApplication.getInstance().getStorage().listCart = null;
+                MyApplication.getInstance().getStorage().listShipment = null;
+                MyApplication.getInstance().getStorage().listFavorite = null;
+                MyApplication.getInstance().getStorage().shipment = null;
+                MyApplication.getInstance().getStorage().bank = null;
+                MyApplication.getInstance().getStorage().listOrder = null;
                 callBack.showFragment(LoginFragment.TAG, null, false);
             } else {
                 Toast.makeText(context, "Đổi mật khẩu thất bại", Toast.LENGTH_SHORT).show();

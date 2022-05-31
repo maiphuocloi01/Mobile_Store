@@ -17,6 +17,7 @@ import com.groupone.mobilestore.model.Comment;
 import com.groupone.mobilestore.model.Order;
 import com.groupone.mobilestore.model.User;
 import com.groupone.mobilestore.util.Constants;
+import com.groupone.mobilestore.util.DialogUtils;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 import com.groupone.mobilestore.viewmodel.OrderViewModel;
 
@@ -90,13 +91,18 @@ public class EvaluateFragment extends BaseFragment<FragmentEvaluateBinding, Orde
                 Toast.makeText(context, "Đánh giá thành công", Toast.LENGTH_SHORT).show();
             }
         } else if(key.equals(Constants.KEY_CHANGE_STATUS_BILL)){
+            MyApplication.getInstance().getStorage().listOrder = null;
             callBack.showFragment(PagerFragment.TAG, null, false);
         }
     }
 
     @Override
     public void apiError(String key, int code, Object data) {
-
+        DialogUtils.hideLoadingDialog();
+        if (code == 999) {
+            Log.d(TAG, "apiError: " + data.toString());
+            Toast.makeText(context, "Không thể kết nối đến máy chủ", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

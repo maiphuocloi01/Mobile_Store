@@ -147,6 +147,14 @@ public class ProfileFragment extends BaseFragment<FragmentProfileBinding, Accoun
             actionShowFragment(LoginFragment.TAG, null, false);
             CommonUtils.getInstance().clearPref(Constants.ACCESS_TOKEN);
             CommonUtils.getInstance().clearPref(Constants.USERNAME);
+            MyApplication.getInstance().getStorage().user = null;
+            MyApplication.getInstance().getStorage().listProduct = null;
+            MyApplication.getInstance().getStorage().listCart = null;
+            MyApplication.getInstance().getStorage().listShipment = null;
+            MyApplication.getInstance().getStorage().listFavorite = null;
+            MyApplication.getInstance().getStorage().shipment = null;
+            MyApplication.getInstance().getStorage().bank = null;
+            MyApplication.getInstance().getStorage().listOrder = null;
             dialog.dismiss();
         });
 

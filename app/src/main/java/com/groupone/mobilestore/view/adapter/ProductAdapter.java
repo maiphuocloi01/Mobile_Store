@@ -50,7 +50,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.itemProductBinding.tvType.setText(product.getType());
         holder.itemProductBinding.tvPrice.setText(convertPrice(product.getPrice()));
         holder.itemProductBinding.tvRate.setText(String.valueOf(product.getRate()));
-        holder.itemProductBinding.tvCountReview.setText(convertParentheses(product.getCountReview()));
+        holder.itemProductBinding.tvCountReview.setText(convertParentheses(product.getSellCount()));
 
         Glide.with(context).load(product.getImage1()).into(holder.itemProductBinding.ivProduct);
         //holder.itemProductBinding.ivProduct.setImageResource(product.getImage1());

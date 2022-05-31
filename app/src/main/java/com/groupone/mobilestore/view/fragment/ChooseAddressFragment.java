@@ -51,6 +51,12 @@ public class ChooseAddressFragment extends BaseFragment<FragmentChooseAddressBin
                 callBack.showFragment(AddAddressFragment.TAG, null, true);
             }
         });
+        binding.ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callBack.backToPrev();
+            }
+        });
     }
 
     @Override

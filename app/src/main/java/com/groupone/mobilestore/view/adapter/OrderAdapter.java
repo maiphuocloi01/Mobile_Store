@@ -45,13 +45,15 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         List<Product> productList = MyApplication.getInstance().getStorage().listProduct;
 
-        for (Product product : productList) {
-            if (product.getId() == item.getProductId()) {
-                item.setImage(product.getImage1());
-                item.setProductName(product.getName());
-                holder.binding.tvName.setText(product.getName());
-                Glide.with(context).load(product.getImage1()).into(holder.binding.ivProduct);
-                break;
+        if(productList != null) {
+            for (Product product : productList) {
+                if (product.getId() == item.getProductId()) {
+                    item.setImage(product.getImage1());
+                    item.setProductName(product.getName());
+                    holder.binding.tvName.setText(product.getName());
+                    Glide.with(context).load(product.getImage1()).into(holder.binding.ivProduct);
+                    break;
+                }
             }
         }
 

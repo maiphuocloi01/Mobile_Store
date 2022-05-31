@@ -23,7 +23,7 @@ import com.groupone.mobilestore.viewmodel.CommonViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchFragment extends BaseFragment<FragmentSearchBinding, CommonViewModel> {
+public class SearchFragment extends BaseFragment<FragmentSearchBinding, CommonViewModel> implements RecommendAdapter.RecommendCallBack {
 
     public static final String TAG = SearchFragment.class.getName();
 
@@ -37,11 +37,11 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, CommonVi
 
         List<String> listRecommend = new ArrayList<>();
         listRecommend.add("iPhone 13 Pro Max");
-        listRecommend.add("Xiaomi 12");
-        listRecommend.add("iPhone SE 2022");
+        listRecommend.add("Xiaomi 11T");
+        listRecommend.add("Samsung Galaxy S22 Ultra");
 
         binding.rvRecommend.setLayoutManager(new LinearLayoutManager(context));
-        RecommendAdapter adapterRecommend = new RecommendAdapter(context, listRecommend);
+        RecommendAdapter adapterRecommend = new RecommendAdapter(context, listRecommend, this);
         binding.rvRecommend.setAdapter(adapterRecommend);
 
 
@@ -105,5 +105,12 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, CommonVi
     @Override
     public void apiError(String key, int code, Object data) {
 
+    }
+
+    @Override
+    public void gotoSearch(String searchText) {
+        Bundle bundle = new Bundle();
+        bundle.putString("search", searchText);
+        callBack.showFragment(SearchResultFragment.TAG, bundle, false);
     }
 }

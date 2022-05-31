@@ -17,10 +17,16 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.MyVi
 
     private Context context;
     private List<String> listRecommend;
+    private RecommendCallBack callBack;
 
-    public RecommendAdapter(Context context, List<String> listRecommend) {
+    public interface RecommendCallBack{
+        void gotoSearch(String searchText);
+    }
+
+    public RecommendAdapter(Context context, List<String> listRecommend, RecommendCallBack callBack) {
         this.context = context;
         this.listRecommend = listRecommend;
+        this.callBack = callBack;
     }
 
     @NonNull
@@ -38,6 +44,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.MyVi
             @Override
             public void onClick(View view) {
                 holder.binding.getRoot().startAnimation(AnimationUtils.loadAnimation(context, androidx.appcompat.R.anim.abc_fade_in));
+                callBack.gotoSearch(item);
             }
         });
     }

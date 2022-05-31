@@ -48,7 +48,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
             viewModel.getTopSaleProduct();
         } else {
             List<Product> productsStorage = MyApplication.getInstance().getStorage().listProduct;
-            ProductAdapter adapter = new ProductAdapter(context, productsStorage);
+            ProductAdapter adapter = new ProductAdapter(context, productsStorage.subList(0, 24));
             binding.rvProduct.setAdapter(adapter);
             adapter.getProductLD().observe(this, new Observer<Product>() {
                 @Override
@@ -209,7 +209,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
             MyApplication.getInstance().getStorage().listProduct = products;
 
-            ProductAdapter adapter = new ProductAdapter(context, products);
+            ProductAdapter adapter = new ProductAdapter(context, products.subList(0, 24));
             binding.rvProduct.setAdapter(adapter);
             //binding.rvProduct.setFocusable(false);
             //binding.rvProduct.setNestedScrollingEnabled(false);

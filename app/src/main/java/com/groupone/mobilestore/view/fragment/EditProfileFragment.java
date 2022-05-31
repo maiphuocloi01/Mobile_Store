@@ -345,9 +345,11 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
 
     @Override
     public void apiError(String key, int code, Object data) {
-        Log.d(TAG, code + " " + data.toString());
         DialogUtils.hideLoadingDialog();
-        Toast.makeText(context, "Không kết nối được máy chủ", Toast.LENGTH_SHORT).show();
+        if (code == 999) {
+            Log.d(TAG, "apiError: " + data.toString());
+            Toast.makeText(context, "Không thể kết nối đến máy chủ", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

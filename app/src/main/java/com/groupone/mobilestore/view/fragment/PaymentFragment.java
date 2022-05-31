@@ -16,6 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,6 +30,7 @@ import com.groupone.mobilestore.model.Shipment;
 import com.groupone.mobilestore.model.ShoppingCart;
 import com.groupone.mobilestore.model.User;
 import com.groupone.mobilestore.util.Constants;
+import com.groupone.mobilestore.util.ViewUtils;
 import com.groupone.mobilestore.view.adapter.PaymentAdapter;
 import com.groupone.mobilestore.viewmodel.CommonViewModel;
 import com.groupone.mobilestore.viewmodel.PaymentViewModel;
@@ -135,7 +137,11 @@ public class PaymentFragment extends BaseFragment<FragmentPaymentBinding, Paymen
         binding.btPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showAlertDialog();
+                if(MyApplication.getInstance().getStorage().shipment == null){
+                    Toast.makeText(context, "Bạn chưa có địa chỉ giao hàng", Toast.LENGTH_SHORT).show();
+                }else {
+                    showAlertDialog();
+                }
             }
         });
 
@@ -179,12 +185,15 @@ public class PaymentFragment extends BaseFragment<FragmentPaymentBinding, Paymen
 
         btnConfirm.setOnClickListener(view -> {
             Shipment shipment = MyApplication.getInstance().getStorage().shipment;
+
             Bank bank = MyApplication.getInstance().getStorage().bank;
+
             String timeStamp = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
             int bankId = 0;
             if (bank.getId() != 0){
                 bankId = bank.getId();
             }
+
             for(ShoppingCart item: viewModel.cartList){
                 Order order = new Order(
                         item.getProductId(),
@@ -203,6 +212,7 @@ public class PaymentFragment extends BaseFragment<FragmentPaymentBinding, Paymen
             }
             callBack.showFragment(CompletedFragment.TAG, null, false);
             MyApplication.getInstance().getStorage().listCart = null;
+            MyApplication.getInstance().getStorage().listOrder = null;
             dialog.dismiss();
         });
 
@@ -219,16 +229,20 @@ public class PaymentFragment extends BaseFragment<FragmentPaymentBinding, Paymen
         if(key.equals(Constants.KEY_GET_SHIPMENT_BY_ACCOUNT)){
             List<Shipment> listAddress = (List<Shipment>) data;
             Log.d(TAG, "apiSuccess: " + listAddress.size());
-            Shipment shipment = listAddress.get(0);
-            MyApplication.getInstance().getStorage().shipment = shipment;
-            if (!shipment.isTypeAddress()) {
-                binding.tvTypeAddress.setText("Nhà riêng");
-            } else {
-                binding.tvTypeAddress.setText("Văn phòng");
+            if(listAddress.size() > 0) {
+                ViewUtils.show(binding.tvFullName);
+                ViewUtils.show(binding.tvPhone);
+                Shipment shipment = listAddress.get(0);
+                MyApplication.getInstance().getStorage().shipment = shipment;
+                if (!shipment.isTypeAddress()) {
+                    binding.tvTypeAddress.setText("Nhà riêng");
+                } else {
+                    binding.tvTypeAddress.setText("Văn phòng");
+                }
+                binding.tvFullName.setText(shipment.getFullName());
+                binding.tvPhone.setText(shipment.getPhoneNumber());
+                binding.tvStreet.setText(String.format(shipment.getStreet() + ", " + shipment.getAddress()));
             }
-            binding.tvFullName.setText(shipment.getFullName());
-            binding.tvPhone.setText(shipment.getPhoneNumber());
-            binding.tvStreet.setText(String.format(shipment.getStreet() + ", " + shipment.getAddress()));
         }
     }
 

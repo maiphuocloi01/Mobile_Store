@@ -43,6 +43,7 @@ public class OrderDetailFragment extends BaseFragment<FragmentOrderDetailBinding
     private final User user = MyApplication.getInstance().getStorage().user;
     private Object mData;
     private List<Product> productList = MyApplication.getInstance().getStorage().listProduct;
+    private Product presentProduct;
 
     @Override
     protected Class<OrderViewModel> getClassVM() {
@@ -58,6 +59,7 @@ public class OrderDetailFragment extends BaseFragment<FragmentOrderDetailBinding
 
         for (Product product : productList) {
             if (product.getId() == order.getProductId()) {
+                presentProduct = product;
                 binding.tvProductName.setText(product.getName());
                 Glide.with(context).load(product.getImage1()).into(binding.ivProduct);
                 binding.tvPrice.setText(convertPrice(order.getTotalPrice()));
@@ -90,7 +92,7 @@ public class OrderDetailFragment extends BaseFragment<FragmentOrderDetailBinding
                 if (order.getStatus() == 0) {
                     cancelOrderDialog(order.getId(), CANCEL_BILL);
                 } else if (order.getStatus() == 1) {
-                    callBack.showFragment(EvaluateFragment.TAG, null, true);
+                    callBack.showFragment(EvaluateFragment.TAG, order, true);
                 } else if (order.getStatus() == 2) {
                     ShoppingCart cart = new ShoppingCart(user.getId(), order.getProductId(), order.getTotalPrice() / order.getQuantity(), order.getType());
                     viewModel.addShoppingCart(cart);
@@ -99,6 +101,13 @@ public class OrderDetailFragment extends BaseFragment<FragmentOrderDetailBinding
                     viewModel.addShoppingCart(cart);
                 }
 
+            }
+        });
+
+        binding.layoutProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callBack.showFragment(ProductFragment.TAG, presentProduct, true);
             }
         });
     }
