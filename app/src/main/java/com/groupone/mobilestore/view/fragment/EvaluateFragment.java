@@ -88,7 +88,6 @@ public class EvaluateFragment extends BaseFragment<FragmentEvaluateBinding, Orde
             } else {
                 Log.d(TAG, "apiSuccess: thành công");
                 Toast.makeText(context, "Đánh giá thành công", Toast.LENGTH_SHORT).show();
-                callBack.showFragment(PagerFragment.TAG, null, false);
             }
         } else if(key.equals(Constants.KEY_CHANGE_STATUS_BILL)){
             callBack.showFragment(PagerFragment.TAG, null, false);
