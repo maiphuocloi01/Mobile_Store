@@ -233,6 +233,13 @@ public class EditProfileFragment extends BaseFragment<FragmentEditProfileBinding
             }
         });
 
+        binding.btChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callBack.showFragment(ChangePasswordFragment.TAG, null, true);
+            }
+        });
+
     }
 
     private void showDatePickerDialog() {

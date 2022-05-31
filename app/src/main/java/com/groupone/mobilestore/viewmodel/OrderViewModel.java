@@ -1,5 +1,6 @@
 package com.groupone.mobilestore.viewmodel;
 
+import com.groupone.mobilestore.model.Comment;
 import com.groupone.mobilestore.model.Order;
 import com.groupone.mobilestore.model.ShoppingCart;
 import com.groupone.mobilestore.util.Constants;
@@ -30,5 +31,9 @@ public class OrderViewModel extends BaseViewModel{
 
     public void getShipmentById(int id) {
         getApi().getShipmentById(id).enqueue(initHandleResponse(Constants.KEY_GET_SHIPMENT_BY_ID));
+    }
+
+    public void addComment(Comment comment){
+        getApi().addComment(comment).enqueue(initHandleResponse(Constants.KEY_ADD_COMMENT));
     }
 }

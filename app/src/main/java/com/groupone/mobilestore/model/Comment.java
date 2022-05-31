@@ -31,6 +31,16 @@ public class Comment implements Serializable {
         this.rating = rating;
     }
 
+    public Comment(int productId, int accountId, String fullName, String createAt, String type, String content, int rating) {
+        this.productId = productId;
+        this.accountId = accountId;
+        this.fullName = fullName;
+        this.createAt = createAt;
+        this.type = type;
+        this.content = content;
+        this.rating = rating;
+    }
+
     public int getId() {
         return id;
     }
@@ -77,5 +87,18 @@ public class Comment implements Serializable {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                ", productId=" + productId +
+                ", accountId=" + accountId +
+                ", fullName='" + fullName + '\'' +
+                ", createAt='" + createAt + '\'' +
+                ", type='" + type + '\'' +
+                ", content='" + content + '\'' +
+                ", rating=" + rating +
+                '}';
     }
 }
