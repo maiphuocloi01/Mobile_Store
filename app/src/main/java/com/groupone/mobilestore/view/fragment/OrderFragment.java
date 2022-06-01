@@ -1,5 +1,6 @@
 package com.groupone.mobilestore.view.fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -9,6 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.groupone.mobilestore.MyApplication;
 import com.groupone.mobilestore.R;
 import com.groupone.mobilestore.databinding.FragmentOrderBinding;
 import com.groupone.mobilestore.view.adapter.MyViewPagerAdapter;
@@ -26,6 +28,7 @@ public class OrderFragment extends BaseFragment<FragmentOrderBinding, CommonView
 
     @Override
     protected void initViews() {
+        Log.d(TAG, "initViews: ");
         viewPagerAdapter = new MyViewPagerAdapter(this);
         binding.vpOrder.setAdapter(viewPagerAdapter);
 
@@ -72,5 +75,29 @@ public class OrderFragment extends BaseFragment<FragmentOrderBinding, CommonView
     @Override
     public void apiError(String key, int code, Object data) {
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: ");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d(TAG, "onDestroyView: ");
+        MyApplication.getInstance().getStorage().listOrder = null;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: ");
     }
 }

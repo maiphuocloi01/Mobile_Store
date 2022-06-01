@@ -147,7 +147,6 @@ public class CartFragment extends BaseFragment<FragmentCartBinding, CartViewMode
     public void apiSuccess(String key, Object data) {
 
         if (key.equals(Constants.KEY_GET_SHOPPING_CART_BY_ACCOUNT)) {
-            Log.d(TAG, "apiSuccess: " + data.toString());
             cartList = (List<ShoppingCart>) data;
 
             MyApplication.getInstance().getStorage().listCart = cartList;

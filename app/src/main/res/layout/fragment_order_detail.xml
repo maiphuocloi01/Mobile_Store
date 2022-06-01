@@ -231,7 +231,6 @@
                         android:ellipsize="end"
                         android:fontFamily="@font/roboto_bold"
                         android:maxLines="2"
-                        android:text="Nhà riêng"
                         android:textColor="@color/black_700"
                         android:textSize="16sp" />
 
@@ -253,7 +252,6 @@
                         android:ellipsize="end"
                         android:fontFamily="@font/roboto_bold"
                         android:maxLines="2"
-                        android:text="Mai Phước Lợi"
                         android:textColor="@color/black_700"
                         android:textSize="16sp" />
 
@@ -265,7 +263,6 @@
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto_bold"
-                        android:text="0911920503"
                         android:textAlignment="textEnd"
                         android:textColor="@color/black_700"
                         android:textSize="16sp" />
@@ -279,7 +276,6 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="KTX Khu A, Khu Phố 6, Phường Linh Trung, Thành Phố Thủ Đức,TP Hồ Chí Minh"
                     android:textColor="@color/black_700"
                     android:textSize="16sp" />
 

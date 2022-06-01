@@ -70,6 +70,7 @@ public class EvaluateFragment extends BaseFragment<FragmentEvaluateBinding, Orde
                     Log.d(TAG, "onClick: " + comment.toString());
                     viewModel.addComment(comment);
                     viewModel.changeBillStatus(order.getId(), 2);
+                    DialogUtils.showLoadingDialog(context);
                 }
             }
         });
@@ -92,6 +93,7 @@ public class EvaluateFragment extends BaseFragment<FragmentEvaluateBinding, Orde
             }
         } else if(key.equals(Constants.KEY_CHANGE_STATUS_BILL)){
             MyApplication.getInstance().getStorage().listOrder = null;
+            DialogUtils.hideLoadingDialog();
             callBack.showFragment(PagerFragment.TAG, null, false);
         }
     }

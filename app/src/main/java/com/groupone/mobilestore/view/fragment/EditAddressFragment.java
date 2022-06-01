@@ -375,6 +375,7 @@ public class EditAddressFragment extends BaseFragment<FragmentEditAddressBinding
         else if(key.equals(Constants.KEY_GET_SHIPMENT_BY_ACCOUNT)){
             MyApplication.getInstance().getStorage().listShipment = (List<Shipment>) data;
             DialogUtils.hideLoadingDialog();
+            MyApplication.getInstance().getStorage().shipment = null;
             callBack.backToPrev();
         }
     }

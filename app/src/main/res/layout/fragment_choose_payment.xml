@@ -157,7 +157,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="Thêm địa phương thức thanh toán"
+                    android:text="Thêm phương thức thanh toán"
                     android:layout_marginStart="15dp"
                     android:textColor="@color/black_500"
                     android:textSize="16sp" />
