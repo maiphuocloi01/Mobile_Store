@@ -37,7 +37,14 @@ Features include:
 * Tracking your order
 * ...
 
-# License
+## Design
+[Mobile Store App](https://www.figma.com/file/sZ7cW9tyCO45IagEbg2yHs/PhoneStore?node-id=0%3A1&t=eeWIA9Ou6FxmOVCi-0) - Design by me
+
+## Backend API
+- Mobile Store App using the [API](https://nhom01nt118.azurewebsites.net) for constructing RESTful API.
+- API [Source](https://github.com/maiphuocloi01/PhoneAPI) - is developed using ASP.NET.
+
+## License
 ```xml
 Designed and developed by maiphuocloi01
 
